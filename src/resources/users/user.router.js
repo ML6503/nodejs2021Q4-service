@@ -73,6 +73,15 @@ const deleteUserOpts = {
 
 const updateUserOpts = {
   schema: {
+    body: {
+      type: 'object',
+      required: ['name', 'login', 'password'],
+      properties: {
+        name: { type: 'string' },
+        login: { type: 'string' },
+        password: { type: 'string' },
+      },
+    },
     response: {
       200: UserSchema,
     },
