@@ -5,12 +5,23 @@ const users = require('./users.db');
 
 //   return users;
 // };
-let usersDB = users;
+let allUsers = [...users];
+const getAllUsers = () => allUsers;
 
 const addNewUser = async (user) => {
-  usersDB = await [...usersDB, user];
+  allUsers = await [...allUsers, user];
 };
-// const getAll = async () => usersDB;
-const getAll = usersDB;
 
-module.exports = { getAll, addNewUser };
+const findUser = (userId) => allUsers.find((u) => u.id === userId);
+
+const deleteUser = async (userId) => {
+  allUsers = await allUsers.filter((u) => u.id !== userId);
+};
+
+const updateUser = async (userId, updatedData) => {
+  allUsers = await allUsers.map((user) =>
+    user.id === userId ? { id: userId, ...updatedData } : user
+  );
+};
+
+module.exports = { getAllUsers, addNewUser, findUser, deleteUser, updateUser };
