@@ -1,4 +1,4 @@
-const users = require('./users.db');
+const users = require('../../dataBase/users.db');
 
 // {
 //   // TODO: mock implementation. should be replaced during task development
