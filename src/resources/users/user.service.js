@@ -1,7 +1,5 @@
 const usersRepo = require('./user.memory.repository');
 
-// const getAll = () => usersRepo.getAll();
-
 const { getAllUsers } = usersRepo;
 
 const addNewUser = (user) => usersRepo.addNewUser(user);

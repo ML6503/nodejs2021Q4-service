@@ -1,16 +1,16 @@
 module.exports = [
   {
     id: '1',
-    title: 'New App',
+    title: 'New App Game',
     columns: [
       {
         id: '1',
-        title: 'in progress',
+        title: 'Sprint 8 in progress',
         order: 0,
       },
       {
         id: '2',
-        title: 'planned',
+        title: 'Sprint 7 backlog',
         order: 1,
       },
     ],

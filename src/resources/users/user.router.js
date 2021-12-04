@@ -6,7 +6,7 @@ const {
   addUser,
   deleteUser,
   updateUser,
-} = require('../../controllers/users');
+} = require('./user.controller');
 
 // User schema to exclude secret fields like "password"
 const UserSchema = {
