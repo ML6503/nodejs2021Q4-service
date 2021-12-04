@@ -1,0 +1,48 @@
+const tasksService = require('./task.service');
+const Task = require('./task.model');
+
+const tasks = tasksService.getAllTasks;
+const { addNewTask, findTask, deleteTaskById, updateTaskById } = tasksService;
+
+const getTasks = async (req, reply) => {
+  await tasks();
+  reply.send(tasks());
+};
+
+const getTask = async (req, reply) => {
+  const { taskId } = req.params;
+  const task = await findTask(taskId);
+  reply.send(task);
+};
+
+const addTask = async (req, reply) => {
+  const newTaskData = req.body;
+  const newTask = Task.createTask(newTaskData);
+  await addNewTask({ ...newTask });
+  reply.code(201).send({ ...newTask });
+};
+
+const deleteTask = async (req, reply) => {
+  const { taskId } = req.params;
+
+  await deleteTaskById(taskId);
+  reply.send({ message: `The task ${taskId} has been deleted` });
+};
+
+const updateTask = async (req, reply) => {
+  const { taskId } = req.params;
+  const updatedTaskData = req.body;
+
+  await updateTaskById(taskId, updatedTaskData);
+
+  const task = await findTask(taskId);
+  reply.send(task);
+};
+
+module.exports = {
+  getTasks,
+  getTask,
+  addTask,
+  deleteTask,
+  updateTask,
+};
