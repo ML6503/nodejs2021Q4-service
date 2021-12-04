@@ -13,6 +13,9 @@ const getBoards = async (req, reply) => {
 const getBoard = async (req, reply) => {
   const { boardId } = req.params;
   const board = await findBoard(boardId);
+  if (!board) {
+    reply.code(404).send({ message: `Board with id ${boardId} not found` });
+  }
   reply.send(board);
 };
 
@@ -25,7 +28,11 @@ const addBoard = async (req, reply) => {
 
 const deleteBoard = async (req, reply) => {
   const { boardId } = req.params;
+  const board = await findBoard(boardId);
 
+  if (!board) {
+    reply.code(404).send({ message: `Board with id ${boardId} not found` });
+  }
   await deleteBoardById(boardId);
   reply.send({ message: `The board ${boardId} has been deleted` });
 };

@@ -6,21 +6,21 @@ class Task {
     title = 'New title',
     description = '',
     order = 0,
-    columnId = null,
-    borderId = null,
-    userId = null,
+    columnId,
+    boardId,
+    userId,
   } = {}) {
     this.id = id;
     this.order = order;
     this.columnId = columnId;
     this.title = title;
-    this.borderId = borderId;
+    this.boardId = boardId;
     this.description = description;
     this.userId = userId;
   }
 
   static createTask(task) {
-    const { title, order, userId, columnId, borderId, description } = task;
+    const { title, order, userId, columnId, boardId, description } = task;
 
     const newTask = {
       id: this.id,
@@ -28,7 +28,7 @@ class Task {
       columnId,
       order,
       userId,
-      borderId,
+      boardId,
       description,
     };
 

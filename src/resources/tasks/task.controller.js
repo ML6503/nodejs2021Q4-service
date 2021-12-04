@@ -12,6 +12,9 @@ const getTasks = async (req, reply) => {
 const getTask = async (req, reply) => {
   const { taskId } = req.params;
   const task = await findTask(taskId);
+  if (!task) {
+    reply.code(404).send({ message: `Task with id ${taskId} not found` });
+  }
   reply.send(task);
 };
 
@@ -24,7 +27,11 @@ const addTask = async (req, reply) => {
 
 const deleteTask = async (req, reply) => {
   const { taskId } = req.params;
+  const task = await findTask(taskId);
 
+  if (!task) {
+    reply.code(404).send({ message: `Task with id ${taskId} not found` });
+  }
   await deleteTaskById(taskId);
   reply.send({ message: `The task ${taskId} has been deleted` });
 };

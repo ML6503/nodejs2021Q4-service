@@ -12,6 +12,9 @@ const getUsers = async (req, reply) => {
 const getUser = async (req, reply) => {
   const { userId } = req.params;
   const user = await findUser(userId);
+  if (!user) {
+    reply.code(404).send({ message: `User with id ${userId} not found` });
+  }
   reply.send(user);
 };
 
@@ -24,6 +27,12 @@ const addUser = async (req, reply) => {
 
 const deleteUser = async (req, reply) => {
   const { userId } = req.params;
+
+  const user = await findUser(userId);
+
+  if (!user) {
+    reply.code(404).send({ message: `User with id ${userId} not found` });
+  }
 
   await deleteUserById(userId);
   reply.send({ message: `User ${userId} has been removed` });
