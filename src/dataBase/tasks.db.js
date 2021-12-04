@@ -5,6 +5,8 @@ module.exports = [
     order: 0,
     description: 'for QA check ticket BUG: card drag',
     userId: '1',
+    boardId: '1',
+    columnId: '1',
   },
   {
     id: '2',
@@ -12,5 +14,7 @@ module.exports = [
     order: 1,
     description: 'to refactor sound controller',
     userId: '2',
+    boardId: '1',
+    columnId: '2',
   },
 ];

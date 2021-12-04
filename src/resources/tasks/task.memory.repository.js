@@ -1,10 +1,10 @@
-const tasks = require('../../dataBase/boards.db');
+const tasks = require('../../dataBase/tasks.db');
 
 let allTasks = [...tasks];
 const getAllTasks = () => allTasks;
 
-const addNewTask = async (board) => {
-  allTasks = await [...allTasks, board];
+const addNewTask = async (task) => {
+  allTasks = await [...allTasks, task];
 };
 
 const findTask = (taskId) => allTasks.find((t) => t.id === taskId);

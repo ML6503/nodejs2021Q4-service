@@ -7,6 +7,7 @@ const {
 } = require('./task.controller');
 
 const TaskProps = {
+  id: { type: 'string' },
   title: { type: 'string' },
   order: { type: 'integer' },
   description: { type: 'string' },
