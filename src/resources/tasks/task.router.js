@@ -11,9 +11,9 @@ const TaskProps = {
   title: { type: 'string' },
   order: { type: 'integer' },
   description: { type: 'string' },
-  userId: { type: 'string' },
-  boardId: { type: 'string' },
-  columnId: { type: 'string' },
+  userId: { type: 'string', nullable: true },
+  boardId: { type: 'string', nullable: true },
+  columnId: { type: 'string', nullable: true },
 };
 
 const TaskSchema = {
@@ -46,7 +46,8 @@ const postTaskOpts = {
   schema: {
     body: {
       type: 'object',
-      required: ['order', 'boardId', 'columnId'],
+      // required: ['order', 'boardId', 'columnId'],
+      required: ['order', 'boardId'],
       properties: TaskProps,
     },
     response: {
@@ -74,7 +75,8 @@ const updateTaskOpts = {
   schema: {
     body: {
       type: 'object',
-      required: ['boardId', 'columnId', 'order'],
+      // required: ['boardId', 'columnId', 'order'],
+      required: ['boardId', 'order'],
       properties: TaskProps,
     },
     response: {

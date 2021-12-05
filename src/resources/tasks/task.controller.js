@@ -19,7 +19,9 @@ const getTask = async (req, reply) => {
 };
 
 const addTask = async (req, reply) => {
+  const { boardId } = req.params;
   const newTaskData = req.body;
+  newTaskData.boardId = boardId;
   const newTask = Task.createTask(newTaskData);
   await addNewTask({ ...newTask });
   reply.code(201).send({ ...newTask });
