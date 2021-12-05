@@ -2,8 +2,13 @@ const boardsService = require('./board.service');
 const Board = require('./board.model');
 
 const boards = boardsService.getAllBoards;
-const { addNewBoard, findBoard, deleteBoardById, updateBoardById } =
-  boardsService;
+const {
+  addNewBoard,
+  findBoard,
+  deleteBoardById,
+  updateBoardById,
+  deleteBoardTasks,
+} = boardsService;
 
 const getBoards = async (req, reply) => {
   await boards();
@@ -33,6 +38,8 @@ const deleteBoard = async (req, reply) => {
   if (!board) {
     reply.code(404).send({ message: `Board with id ${boardId} not found` });
   }
+  await deleteBoardTasks(boardId);
+
   await deleteBoardById(boardId);
   reply.send({ message: `The board ${boardId} has been deleted` });
 };

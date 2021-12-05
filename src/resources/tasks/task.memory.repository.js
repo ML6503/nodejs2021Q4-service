@@ -19,10 +19,27 @@ const updateTask = async (taskId, updatedData) => {
   );
 };
 
+const unassignUserTasks = async (userId) => {
+  allTasks = await allTasks.map((task) => {
+    let updatedTask;
+    if (task.userId === userId) {
+      updatedTask = { ...task };
+      updatedTask.userId = null;
+    }
+    return task.userId === userId ? updatedTask : task;
+  });
+};
+
+const deleteBoardTasks = async (boardId) => {
+  allTasks = await allTasks.filter((t) => t.boardId !== boardId);
+};
+
 module.exports = {
   getAllTasks,
   addNewTask,
   findTask,
   deleteTask,
   updateTask,
+  unassignUserTasks,
+  deleteBoardTasks,
 };

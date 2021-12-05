@@ -2,7 +2,13 @@ const usersService = require('./user.service');
 const User = require('./user.model');
 
 const users = usersService.getAllUsers;
-const { addNewUser, findUser, deleteUserById, updateUserById } = usersService;
+const {
+  addNewUser,
+  findUser,
+  deleteUserById,
+  updateUserById,
+  unassignUserTasks,
+} = usersService;
 
 const getUsers = async (req, reply) => {
   await users();
@@ -33,6 +39,7 @@ const deleteUser = async (req, reply) => {
   if (!user) {
     reply.code(404).send({ message: `User with id ${userId} not found` });
   }
+  await unassignUserTasks(userId);
 
   await deleteUserById(userId);
   reply.send({ message: `User ${userId} has been removed` });
