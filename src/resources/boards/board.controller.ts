@@ -1,5 +1,7 @@
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { IRequestBoard } from '../../common/interfaces';
 const boardsService = require('./board.service');
-const Board = require('./board.model');
+import Board from './board.model';
 
 const boards = boardsService.getAllBoards;
 const {
@@ -10,12 +12,12 @@ const {
   deleteBoardTasks,
 } = boardsService;
 
-const getBoards = async (req, reply) => {
+const getBoards = async (_req: FastifyRequest, reply: FastifyReply) => {
   await boards();
   reply.send(boards());
 };
 
-const getBoard = async (req, reply) => {
+const getBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   const { boardId } = req.params;
   const board = await findBoard(boardId);
   if (!board) {
@@ -24,14 +26,15 @@ const getBoard = async (req, reply) => {
   reply.send(board);
 };
 
-const addBoard = async (req, reply) => {
+const addBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   const newBoardData = req.body;
-  const newBoard = Board.createBoard(newBoardData);
+  const newBoard = new Board(newBoardData);
+
   await addNewBoard({ ...newBoard });
   reply.code(201).send({ ...newBoard });
 };
 
-const deleteBoard = async (req, reply) => {
+const deleteBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   const { boardId } = req.params;
   const board = await findBoard(boardId);
 
@@ -44,7 +47,7 @@ const deleteBoard = async (req, reply) => {
   reply.send({ message: `The board ${boardId} has been deleted` });
 };
 
-const updateBoard = async (req, reply) => {
+const updateBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   const { boardId } = req.params;
   const updatedBoardData = req.body;
 

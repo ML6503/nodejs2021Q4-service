@@ -1,4 +1,6 @@
-module.exports = [
+import { Board } from '../common/interfaces';
+
+export const boards: Array<Board> = [
   {
     id: '1',
     title: 'New App Game',

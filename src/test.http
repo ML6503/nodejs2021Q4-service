@@ -46,6 +46,7 @@ Content-Type: application/json
   "title": "NEW BOARD",
   "columns": [
     {
+      "id": "d6358dc1-02a1-4fe8-b1ef-e86b5ecf0aa5",
       "title": "column one",
       "order": 0
     }
@@ -63,10 +64,12 @@ Content-Type: application/json
   "title": "UPDATED BOARD",
   "columns": [
     {
+      "id": "d6358dc1-02a1-4fe8-b1ef-e86b5ecf0aa9",
       "title": "column one",
       "order": 0
     },
     {
+      "id":"ae41ff26-121e-4da8-afa3-f788abbd65ag",
       "title": "column TWO",
       "order": 1
     }
