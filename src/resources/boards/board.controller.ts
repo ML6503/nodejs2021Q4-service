@@ -3,7 +3,6 @@ import { IBoard, IGetBoardParam, INewBoard } from '../../common/interfaces';
 import { boardsService } from './board.service';
 import Board from './board.model';
 
-
 const boards = boardsService.getAllBoards;
 const {
   addNewBoard,
@@ -18,8 +17,10 @@ export const getBoards = async (_req: FastifyRequest, reply: FastifyReply) => {
   reply.send(boards());
 };
 
-export const getBoard
-= async (req: FastifyRequest<{ Params: IGetBoardParam }>, reply: FastifyReply) => {
+export const getBoard = async (
+  req: FastifyRequest<{ Params: IGetBoardParam }>,
+  reply: FastifyReply
+) => {
   const { boardId } = req.params;
   const board = await findBoard(boardId);
   if (!board) {
@@ -28,7 +29,10 @@ export const getBoard
   reply.send(board);
 };
 
-export const addBoard = async (req: FastifyRequest<{ Body: INewBoard}>, reply: FastifyReply) => {
+export const addBoard = async (
+  req: FastifyRequest<{ Body: INewBoard }>,
+  reply: FastifyReply
+) => {
   const newBoardData = req.body;
   const newBoard = new Board(newBoardData);
 
@@ -36,7 +40,10 @@ export const addBoard = async (req: FastifyRequest<{ Body: INewBoard}>, reply: F
   reply.code(201).send({ ...newBoard });
 };
 
-export const deleteBoard = async (req: FastifyRequest<{ Params: IGetBoardParam }>, reply: FastifyReply) => {
+export const deleteBoard = async (
+  req: FastifyRequest<{ Params: IGetBoardParam }>,
+  reply: FastifyReply
+) => {
   const { boardId } = req.params;
   const board = await findBoard(boardId);
 
@@ -49,7 +56,10 @@ export const deleteBoard = async (req: FastifyRequest<{ Params: IGetBoardParam }
   reply.send({ message: `The board ${boardId} has been deleted` });
 };
 
-export const updateBoard = async (req: FastifyRequest<{ Params: IGetBoardParam, Body: IBoard }>, reply: FastifyReply) => {
+export const updateBoard = async (
+  req: FastifyRequest<{ Params: IGetBoardParam; Body: IBoard }>,
+  reply: FastifyReply
+) => {
   const { boardId } = req.params;
   const updatedBoardData = req.body;
 

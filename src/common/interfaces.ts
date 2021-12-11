@@ -1,4 +1,3 @@
-
 export interface IColumn {
   id?: string;
   title: string;
@@ -43,5 +42,9 @@ export interface ITask {
   description: string;
   userId: string | null;
   boardId: string;
-  columnId: string;
+  columnId: string | null;
+}
+
+export interface IGetTaskParam {
+  taskId: string;
 }
