@@ -1,6 +1,4 @@
-import fastify, {  FastifyError, FastifyInstance, FastifyPluginCallback, FastifyPluginOptions, FastifyRegisterOptions, FastifyRequest, FastifySchema, FastifySchemaCompiler, FastifyServerOptions, RequestGenericInterface, RouteHandler, RouteOptions, RouteShorthandMethod, RouteShorthandOptions, RouteShorthandOptionsWithHandler } from 'fastify';
-
-
+import {  FastifyError, FastifyInstance, FastifyServerOptions, RequestGenericInterface, RouteHandler, RouteOptions, RouteShorthandMethod, RouteShorthandOptions, RouteShorthandOptionsWithHandler } from 'fastify';
 import { getBoards, getBoard, addBoard, deleteBoard, updateBoard } from './board.controller';
 
 const TaskSchema = {
@@ -63,7 +61,7 @@ const getBoardOpts= {
   handler: getBoard,
 };
 
-const postBoardOpts: RouteShorthandOptionsWithHandler = {
+const postBoardOpts = {
   schema: {
     body: {
       type: 'object',
@@ -138,7 +136,7 @@ export interface requestBoardIdGeneric extends RequestGenericInterface {
 }
 
 // board(-s) routes
-export const boardsRoutes = (fastify: FastifyInstance, _, done: (err?: FastifyError) => void) => {
+export const boardsRoutes = (fastify: FastifyInstance, _opts: FastifyServerOptions, done: (err?: FastifyError) => void) => {
   
   console.log("type of FAstify", fastify);
   // get all boards

@@ -8,7 +8,7 @@ const addNewBoard = (board: IBoard) => {
   allBoards = [...allBoards, board];
 };
 
-const findBoard = (boardId: string) =>
+const findBoard: (boardId: string) => IBoard | undefined = (boardId) =>
   allBoards.find((u: IBoard) => u.id === boardId);
 
 const deleteBoard = (boardId: string) => {
@@ -22,7 +22,7 @@ const updateBoard = (boardId: string, updatedBoardData: INewBoard) => {
   );
 };
 
-module.exports = {
+export const boardsRepo = {
   getAllBoards,
   addNewBoard,
   findBoard,

@@ -1,9 +1,8 @@
-import { FastifyReply, FastifyRequest, RawReplyDefaultExpression, RawRequestDefaultExpression, RawServerDefault, RouteHandlerMethod } from 'fastify';
-import { IncomingMessage, Server } from 'http';
-import { IQueryString, IRequestBoard } from '../../common/interfaces';
-const boardsService = require('./board.service');
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { IBoard, IGetBoardParam, INewBoard } from '../../common/interfaces';
+import { boardsService } from './board.service';
 import Board from './board.model';
-import { requestBoardIdGeneric } from './board.router';
+
 
 const boards = boardsService.getAllBoards;
 const {
@@ -20,7 +19,7 @@ export const getBoards = async (_req: FastifyRequest, reply: FastifyReply) => {
 };
 
 export const getBoard
-= async (req: IRequestBoard, reply: FastifyReply) => {
+= async (req: FastifyRequest<{ Params: IGetBoardParam }>, reply: FastifyReply) => {
   const { boardId } = req.params;
   const board = await findBoard(boardId);
   if (!board) {
@@ -29,7 +28,7 @@ export const getBoard
   reply.send(board);
 };
 
-export const addBoard = async (req: IRequestBoard, reply: FastifyReply) => {
+export const addBoard = async (req: FastifyRequest<{ Body: INewBoard}>, reply: FastifyReply) => {
   const newBoardData = req.body;
   const newBoard = new Board(newBoardData);
 
@@ -37,7 +36,7 @@ export const addBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   reply.code(201).send({ ...newBoard });
 };
 
-export const deleteBoard = async (req: IRequestBoard, reply: FastifyReply) => {
+export const deleteBoard = async (req: FastifyRequest<{ Params: IGetBoardParam }>, reply: FastifyReply) => {
   const { boardId } = req.params;
   const board = await findBoard(boardId);
 
@@ -50,7 +49,7 @@ export const deleteBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   reply.send({ message: `The board ${boardId} has been deleted` });
 };
 
-export const updateBoard = async (req: IRequestBoard, reply: FastifyReply) => {
+export const updateBoard = async (req: FastifyRequest<{ Params: IGetBoardParam, Body: IBoard }>, reply: FastifyReply) => {
   const { boardId } = req.params;
   const updatedBoardData = req.body;
 

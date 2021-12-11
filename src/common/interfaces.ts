@@ -1,4 +1,3 @@
-import { RequestGenericInterface } from 'fastify';
 
 export interface IColumn {
   id?: string;
@@ -17,12 +16,12 @@ export interface INewBoard {
   columns: Array<IColumn> | [];
 }
 
-export interface IQueryString {
+export interface IGetBoardParam {
   boardId: string;
 }
 
-export interface IRequestBoard extends RequestGenericInterface {
-  params: IQueryString;
-  body: INewBoard;
+export interface IRequestAddBoard {
+  // params: IGetBoardParam;
+  Body: INewBoard;
 }
 

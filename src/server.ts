@@ -1,10 +1,10 @@
 import * as path from 'path';
 // const fastify = require('fastify')({ logger: true });
-import fastify, { FastifyInstance } from 'fastify';
+import fastify, { FastifyInstance, FastifyPluginCallback, RouteShorthandOptionsWithHandler } from 'fastify';
 import fastifySwagger  from "fastify-swagger";
 import { config } from './common/config';
 import { Server, IncomingMessage, ServerResponse } from 'http';
-import { boardsRoutes } from './resources/boards/board.router';
+import { boardsRoutes, IBoardPluginOptions } from './resources/boards/board.router';
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify();
 
