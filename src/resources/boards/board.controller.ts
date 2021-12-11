@@ -1,7 +1,9 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
-import { IRequestBoard } from '../../common/interfaces';
+import { FastifyReply, FastifyRequest, RawReplyDefaultExpression, RawRequestDefaultExpression, RawServerDefault, RouteHandlerMethod } from 'fastify';
+import { IncomingMessage, Server } from 'http';
+import { IQueryString, IRequestBoard } from '../../common/interfaces';
 const boardsService = require('./board.service');
 import Board from './board.model';
+import { requestBoardIdGeneric } from './board.router';
 
 const boards = boardsService.getAllBoards;
 const {
@@ -12,12 +14,13 @@ const {
   deleteBoardTasks,
 } = boardsService;
 
-const getBoards = async (_req: FastifyRequest, reply: FastifyReply) => {
+export const getBoards = async (_req: FastifyRequest, reply: FastifyReply) => {
   await boards();
   reply.send(boards());
 };
 
-const getBoard = async (req: IRequestBoard, reply: FastifyReply) => {
+export const getBoard
+= async (req: IRequestBoard, reply: FastifyReply) => {
   const { boardId } = req.params;
   const board = await findBoard(boardId);
   if (!board) {
@@ -26,7 +29,7 @@ const getBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   reply.send(board);
 };
 
-const addBoard = async (req: IRequestBoard, reply: FastifyReply) => {
+export const addBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   const newBoardData = req.body;
   const newBoard = new Board(newBoardData);
 
@@ -34,7 +37,7 @@ const addBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   reply.code(201).send({ ...newBoard });
 };
 
-const deleteBoard = async (req: IRequestBoard, reply: FastifyReply) => {
+export const deleteBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   const { boardId } = req.params;
   const board = await findBoard(boardId);
 
@@ -47,7 +50,7 @@ const deleteBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   reply.send({ message: `The board ${boardId} has been deleted` });
 };
 
-const updateBoard = async (req: IRequestBoard, reply: FastifyReply) => {
+export const updateBoard = async (req: IRequestBoard, reply: FastifyReply) => {
   const { boardId } = req.params;
   const updatedBoardData = req.body;
 
@@ -55,12 +58,4 @@ const updateBoard = async (req: IRequestBoard, reply: FastifyReply) => {
 
   const board = await findBoard(boardId);
   reply.send(board);
-};
-
-module.exports = {
-  getBoards,
-  getBoard,
-  addBoard,
-  deleteBoard,
-  updateBoard,
 };

@@ -17,9 +17,12 @@ export interface INewBoard {
   columns: Array<IColumn> | [];
 }
 
+export interface IQueryString {
+  boardId: string;
+}
+
 export interface IRequestBoard extends RequestGenericInterface {
-  params: {
-    boardId: string;
-  };
+  params: IQueryString;
   body: INewBoard;
 }
+

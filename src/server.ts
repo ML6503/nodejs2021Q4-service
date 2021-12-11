@@ -1,34 +1,32 @@
-// const path = require('path');
 import * as path from 'path';
 // const fastify = require('fastify')({ logger: true });
-const fastify = require('fastify')();
-// import { PORT } from './common/config';
+import fastify, { FastifyInstance } from 'fastify';
+import fastifySwagger  from "fastify-swagger";
 import { config } from './common/config';
+import { Server, IncomingMessage, ServerResponse } from 'http';
+import { boardsRoutes } from './resources/boards/board.router';
 
-fastify.register(require('fastify-swagger'), {
+const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify();
+
+server.register(fastifySwagger, {
   exposeRoute: true,
   routePrefix: '/doc',
-  swagger: {
-    info: {
-      title: 'fastify REST Service',
-      description: 'Testing the Fastify swagger API',
-    },
-  },
   mode: 'static',
   specification: {
     path: path.join(__dirname, '../doc/api.yaml'),
+    baseDir: '../doc'
   },
 });
 
-fastify.register(require('./resources/users/user.router'));
+server.register(require('./resources/users/user.router'));
 
-fastify.register(require('./resources/boards/board.router'));
+server.register(boardsRoutes);
 
-fastify.register(require('./resources/tasks/task.router'));
+server.register(require('./resources/tasks/task.router'));
 
-const start = async (): Promise<void> => {
+const start: () => void  = () => {
   try {
-    await fastify.listen(config.PORT, (err: Error, address: string) => {
+    server.listen(config.PORT, (err: Error | null, address: string) => {
       if (err) {
         console.error(err);
         process.exit(1);
@@ -36,9 +34,12 @@ const start = async (): Promise<void> => {
       console.log(`Server listening at ${address}`);
     });
   } catch (error) {
-    fastify.log.error(error);
+    server.log.error(error);
     process.exit(1);
   }
 };
+
+process.on('uncaughtException', error => console.error(error));
+process.on('unhandledRejection', error => console.error(error));
 
 start();
