@@ -1,6 +1,6 @@
-import { Board } from '../common/interfaces';
+import { IBoard } from '../common/interfaces';
 
-export const boards: Array<Board> = [
+export const boards: Array<IBoard> = [
   {
     id: '1',
     title: 'New App Game',

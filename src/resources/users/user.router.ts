@@ -1,12 +1,5 @@
-// const router = require('express').Router();
-// const User = require('./user.model');
-const {
-  getUsers,
-  getUser,
-  addUser,
-  deleteUser,
-  updateUser,
-} = require('./user.controller');
+import { FastifyError, FastifyInstance, FastifyServerOptions } from 'fastify';
+import { getUsers, getUser, addUser, deleteUser, updateUser } from './user.controller';
 
 // User schema to exclude secret fields like "password"
 const UserSchema = {
@@ -90,7 +83,7 @@ const updateUserOpts = {
 };
 
 // user(-s) routes
-const usersRoutes = (fastify, options, done) => {
+export const usersRoutes = (fastify: FastifyInstance,_options: FastifyServerOptions, done: (err?: FastifyError) => void) => {
   // get all users
   fastify.get('/users', getUsersOpts);
 
@@ -109,4 +102,3 @@ const usersRoutes = (fastify, options, done) => {
   done();
 };
 
-module.exports = usersRoutes;
