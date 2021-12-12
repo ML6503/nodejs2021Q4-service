@@ -1,10 +1,12 @@
-import * as path from 'path';
+import * as  path from 'path';
 // const fastify = require('fastify')({ logger: true });
 import fastify, { FastifyInstance } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
 import { config } from './common/config';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import { boardsRoutes } from './resources/boards/board.router';
+import { tasksRoutes} from './resources/tasks/task.router';
+import { usersRoutes } from './resources/users/user.router';
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> =
   fastify();
@@ -15,15 +17,15 @@ server.register(fastifySwagger, {
   mode: 'static',
   specification: {
     path: path.join(__dirname, '../doc/api.yaml'),
-    baseDir: '../doc',
+    baseDir: './doc',
   },
 });
 
-server.register(require('./resources/users/user.router'));
+server.register(usersRoutes);
 
 server.register(boardsRoutes);
 
-server.register(require('./resources/tasks/task.router'));
+server.register(tasksRoutes);
 
 const start: () => void = () => {
   try {

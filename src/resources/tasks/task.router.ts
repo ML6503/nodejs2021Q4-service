@@ -87,7 +87,7 @@ const updateTaskOpts = {
 };
 
 // task(-s) routes
-const tasksRoutes = (
+export const tasksRoutes = (
   fastify: FastifyInstance,
   _options: FastifyServerOptions,
   done: (err?: FastifyError) => void
@@ -109,5 +109,3 @@ const tasksRoutes = (
 
   done();
 };
-
-module.exports = tasksRoutes;

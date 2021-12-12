@@ -3,12 +3,8 @@ import {
   FastifyInstance,
   FastifyServerOptions,
   RequestGenericInterface,
-  RouteHandler,
-  RouteOptions,
-  RouteShorthandMethod,
-  RouteShorthandOptions,
-  RouteShorthandOptionsWithHandler,
 } from 'fastify';
+
 import {
   getBoards,
   getBoard,

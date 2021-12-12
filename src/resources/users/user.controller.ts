@@ -1,7 +1,7 @@
 import {usersService } from './user.service';
 import User from './user.model';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { IGetUserParam, IUser } from 'common/interfaces';
+import { IGetUserParam, IUser } from '../../common/interfaces';
 
 const users = usersService.getAllUsers;
 const {

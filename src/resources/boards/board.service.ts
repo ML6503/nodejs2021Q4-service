@@ -1,6 +1,6 @@
 import { boardsRepo } from './board.memory.repository';
 import { tasksRepo } from '../tasks/task.memory.repository';
-import { IBoard, INewBoard } from 'common/interfaces';
+import { IBoard, INewBoard } from '../../common/interfaces';
 
 const { getAllBoards } = boardsRepo;
 

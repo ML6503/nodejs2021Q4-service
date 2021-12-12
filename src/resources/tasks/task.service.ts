@@ -1,4 +1,4 @@
-import { ITask } from 'common/interfaces';
+import { ITask } from '../../common/interfaces';
 import { tasksRepo } from './task.memory.repository';
 
 const { getAllTasks } = tasksRepo;

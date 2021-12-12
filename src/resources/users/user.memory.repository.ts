@@ -1,4 +1,5 @@
-import { IUser } from 'common/interfaces';
+import { IUser } from '../../common/interfaces';
+;
 import { users } from '../../dataBase/users.db';
 
 let allUsers: Array<IUser> = [...users];

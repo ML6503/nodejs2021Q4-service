@@ -1,6 +1,7 @@
 import { usersRepo } from './user.memory.repository';
 import { tasksRepo } from '../tasks/task.memory.repository';
-import { IUser } from 'common/interfaces';
+import { IUser } from '../../common/interfaces';
+;
 
 const { getAllUsers } = usersRepo;
 

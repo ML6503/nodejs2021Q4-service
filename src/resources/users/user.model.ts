@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { IUser } from 'common/interfaces';
+import { IUser } from '../../common/interfaces';
 
 export default class User {
   name: string;

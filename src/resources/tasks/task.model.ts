@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ITask } from 'common/interfaces';
+import { ITask } from '../../common/interfaces';
 
 export default class Task {
   title: string;
