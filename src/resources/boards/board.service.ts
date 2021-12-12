@@ -4,20 +4,16 @@ import { IBoard, INewBoard } from '../../common/interfaces';
 
 const { getAllBoards } = boardsRepo;
 
-const addNewBoard: (board: IBoard) => void = (board) =>
-  boardsRepo.addNewBoard(board);
+const addNewBoard = (board: IBoard) => boardsRepo.addNewBoard(board);
 
-const findBoard: (id: string) => IBoard | undefined = (id) =>
-  boardsRepo.findBoard(id);
+const findBoard = (id: string) => boardsRepo.findBoard(id);
 
-const deleteBoardById: (id: string) => void = (id) =>
-  boardsRepo.deleteBoard(id);
+const deleteBoardById = (id: string) => boardsRepo.deleteBoard(id);
 
-const updateBoardById: (id: string, data: INewBoard) => void = (id, data) =>
+const updateBoardById = (id: string, data: INewBoard) =>
   boardsRepo.updateBoard(id, data);
 
-const deleteBoardTasks: (id: string) => void = (id) =>
-  tasksRepo.deleteBoardTasks(id);
+const deleteBoardTasks = (id: string) => tasksRepo.deleteBoardTasks(id);
 
 export const boardsService = {
   getAllBoards,

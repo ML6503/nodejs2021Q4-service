@@ -1,4 +1,4 @@
-import { FastifyError, FastifyInstance, FastifyServerOptions } from 'fastify';
+import { FastifyInstance, FastifyServerOptions } from 'fastify';
 import {
   getTasks,
   getTask,
@@ -90,7 +90,7 @@ const updateTaskOpts = {
 export const tasksRoutes = (
   fastify: FastifyInstance,
   _options: FastifyServerOptions,
-  done: (err?: FastifyError) => void
+  done: () => void
 ) => {
   // get all tasks
   fastify.get('/boards/:boardId/tasks', getTasksOpts);

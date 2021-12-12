@@ -13,8 +13,8 @@ const {
 } = boardsService;
 
 export const getBoards = async (_req: FastifyRequest, reply: FastifyReply) => {
-  await boards();
-  reply.send(boards());
+  boards();
+  await reply.send(boards());
 };
 
 export const getBoard = async (
@@ -22,11 +22,13 @@ export const getBoard = async (
   reply: FastifyReply
 ) => {
   const { boardId } = req.params;
-  const board = await findBoard(boardId);
+  const board = findBoard(boardId);
   if (!board) {
-    reply.code(404).send({ message: `Board with id ${boardId} not found` });
+    await reply
+      .code(404)
+      .send({ message: `Board with id ${boardId} not found` });
   }
-  reply.send(board);
+  await reply.send(board);
 };
 
 export const addBoard = async (
@@ -36,8 +38,8 @@ export const addBoard = async (
   const newBoardData = req.body;
   const newBoard = new Board(newBoardData);
 
-  await addNewBoard({ ...newBoard });
-  reply.code(201).send({ ...newBoard });
+  addNewBoard({ ...newBoard });
+  await reply.code(201).send({ ...newBoard });
 };
 
 export const deleteBoard = async (
@@ -45,15 +47,17 @@ export const deleteBoard = async (
   reply: FastifyReply
 ) => {
   const { boardId } = req.params;
-  const board = await findBoard(boardId);
+  const board = findBoard(boardId);
 
   if (!board) {
-    reply.code(404).send({ message: `Board with id ${boardId} not found` });
+    await reply
+      .code(404)
+      .send({ message: `Board with id ${boardId} not found` });
   }
-  await deleteBoardTasks(boardId);
+  deleteBoardTasks(boardId);
 
-  await deleteBoardById(boardId);
-  reply.send({ message: `The board ${boardId} has been deleted` });
+  deleteBoardById(boardId);
+  await reply.send({ message: `The board ${boardId} has been deleted` });
 };
 
 export const updateBoard = async (
@@ -63,8 +67,8 @@ export const updateBoard = async (
   const { boardId } = req.params;
   const updatedBoardData = req.body;
 
-  await updateBoardById(boardId, updatedBoardData);
+  updateBoardById(boardId, updatedBoardData);
 
-  const board = await findBoard(boardId);
-  reply.send(board);
+  const board = findBoard(boardId);
+  await reply.send(board);
 };

@@ -3,11 +3,17 @@ import { ITask } from '../../common/interfaces';
 
 export default class Task {
   title: string;
+
   description: string;
+
   order: number;
+
   columnId: string | null;
+
   boardId: string;
+
   userId: string | null;
+
   id: string;
 
   constructor(task: ITask) {

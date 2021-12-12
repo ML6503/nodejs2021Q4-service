@@ -3,7 +3,9 @@ import { IColumn, INewBoard } from '../../common/interfaces';
 
 export default class Board {
   title: string;
+
   id: string;
+
   columns: Array<IColumn> | [];
 
   constructor(board: INewBoard) {

@@ -1,5 +1,11 @@
-import { FastifyError, FastifyInstance, FastifyServerOptions } from 'fastify';
-import { getUsers, getUser, addUser, deleteUser, updateUser } from './user.controller';
+import { FastifyInstance, FastifyServerOptions } from 'fastify';
+import {
+  getUsers,
+  getUser,
+  addUser,
+  deleteUser,
+  updateUser,
+} from './user.controller';
 
 // User schema to exclude secret fields like "password"
 const UserSchema = {
@@ -83,7 +89,11 @@ const updateUserOpts = {
 };
 
 // user(-s) routes
-export const usersRoutes = (fastify: FastifyInstance,_options: FastifyServerOptions, done: (err?: FastifyError) => void) => {
+export const usersRoutes = (
+  fastify: FastifyInstance,
+  _options: FastifyServerOptions,
+  done: () => void
+) => {
   // get all users
   fastify.get('/users', getUsersOpts);
 
@@ -101,4 +111,3 @@ export const usersRoutes = (fastify: FastifyInstance,_options: FastifyServerOpti
 
   done();
 };
-

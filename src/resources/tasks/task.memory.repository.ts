@@ -14,7 +14,7 @@ const deleteTask = (taskId: string) => {
   allTasks = allTasks.filter((t) => t.id !== taskId);
 };
 
-const updateTask = async (taskId: string, updatedData: ITask) => {
+const updateTask = (taskId: string, updatedData: ITask) => {
   allTasks = allTasks.map((task) =>
     task.id === taskId ? { id: taskId, ...updatedData } : task
   );
@@ -22,13 +22,15 @@ const updateTask = async (taskId: string, updatedData: ITask) => {
 
 const unassignUserTasks = (userId: string) => {
   allTasks = allTasks.map((task) => {
-    // let updatedTask;
+    let updatedTask;
     if (task.userId === userId) {
-      // updatedTask = { ...task };
-      // updatedTask.userId = null;
-      task.userId = null;
+      updatedTask = { ...task };
+      updatedTask.userId = null;
+      // task.userId = null;
+      return updatedTask;
     }
     // return task!.userId === userId ? updatedTask : task;
+
     return task;
   });
 };

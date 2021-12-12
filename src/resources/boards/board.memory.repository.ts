@@ -8,7 +8,7 @@ const addNewBoard = (board: IBoard) => {
   allBoards = [...allBoards, board];
 };
 
-const findBoard: (boardId: string) => IBoard | undefined = (boardId) =>
+const findBoard = (boardId: string) =>
   allBoards.find((u: IBoard) => u.id === boardId);
 
 const deleteBoard = (boardId: string) => {

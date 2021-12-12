@@ -1,5 +1,4 @@
 import {
-  FastifyError,
   FastifyInstance,
   FastifyServerOptions,
   RequestGenericInterface,
@@ -150,7 +149,7 @@ export interface requestBoardIdGeneric extends RequestGenericInterface {
 export const boardsRoutes = (
   fastify: FastifyInstance,
   _opts: FastifyServerOptions,
-  done: (err?: FastifyError) => void
+  done: () => void
 ) => {
   // get all boards
   fastify.get('/boards', getBoardsOpts);

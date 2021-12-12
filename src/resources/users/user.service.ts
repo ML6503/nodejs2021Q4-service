@@ -4,18 +4,16 @@ import { IUser } from '../../common/interfaces';
 
 const { getAllUsers } = usersRepo;
 
-const addNewUser: (user: IUser) => void = (user) => usersRepo.addNewUser(user);
+const addNewUser = (user: IUser) => usersRepo.addNewUser(user);
 
-const findUser: (id: string) => IUser | undefined = (id) =>
-  usersRepo.findUser(id);
+const findUser = (id: string) => usersRepo.findUser(id);
 
-const deleteUserById: (id: string) => void = (id) => usersRepo.deleteUser(id);
+const deleteUserById = (id: string) => usersRepo.deleteUser(id);
 
-const updateUserById: (id: string, data: IUser) => void = (id, data) =>
+const updateUserById = (id: string, data: IUser) =>
   usersRepo.updateUser(id, data);
 
-const unassignUserTasks: (id: string) => void = (id) =>
-  tasksRepo.unassignUserTasks(id);
+const unassignUserTasks = (id: string) => tasksRepo.unassignUserTasks(id);
 
 export const usersService = {
   getAllUsers,

@@ -3,8 +3,11 @@ import { IUser } from '../../common/interfaces';
 
 export default class User {
   name: string;
+
   id: string;
+
   login: string;
+
   password: string;
 
   constructor(user: IUser) {
