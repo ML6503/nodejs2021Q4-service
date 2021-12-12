@@ -1,12 +1,13 @@
 import * as path from 'path';
 // const fastify = require('fastify')({ logger: true });
-import fastify, { FastifyInstance, FastifyPluginCallback, RouteShorthandOptionsWithHandler } from 'fastify';
-import fastifySwagger  from "fastify-swagger";
+import fastify, { FastifyInstance } from 'fastify';
+import fastifySwagger from 'fastify-swagger';
 import { config } from './common/config';
 import { Server, IncomingMessage, ServerResponse } from 'http';
-import { boardsRoutes, IBoardPluginOptions } from './resources/boards/board.router';
+import { boardsRoutes } from './resources/boards/board.router';
 
-const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify();
+const server: FastifyInstance<Server, IncomingMessage, ServerResponse> =
+  fastify();
 
 server.register(fastifySwagger, {
   exposeRoute: true,
@@ -14,7 +15,7 @@ server.register(fastifySwagger, {
   mode: 'static',
   specification: {
     path: path.join(__dirname, '../doc/api.yaml'),
-    baseDir: '../doc'
+    baseDir: '../doc',
   },
 });
 
@@ -24,22 +25,25 @@ server.register(boardsRoutes);
 
 server.register(require('./resources/tasks/task.router'));
 
-const start: () => void  = () => {
+const start: () => void = () => {
   try {
-    server.listen(config.PORT, (err: Error | null, address: string) => {
+    server.listen(config.PORT, (err: Error | unknown, address: string) => {
       if (err) {
-        console.error(err);
+        err instanceof Error && console.error(err);
         process.exit(1);
       }
       console.log(`Server listening at ${address}`);
     });
-  } catch (error) {
-    server.log.error(error);
+  } catch (error: Error | unknown) {
+    error instanceof Error && server.log.error(error);
     process.exit(1);
   }
 };
 
-process.on('uncaughtException', error => console.error(error));
-process.on('unhandledRejection', error => console.error(error));
+process.on('uncaughtException', (error: Error) => console.error(error));
+process.on(
+  'unhandledRejection',
+  (error: Error | unknown) => error instanceof Error && console.error(error)
+);
 
 start();

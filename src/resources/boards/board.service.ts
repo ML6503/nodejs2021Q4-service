@@ -16,7 +16,7 @@ const deleteBoardById: (id: string) => void = (id) =>
 const updateBoardById: (id: string, data: INewBoard) => void = (id, data) =>
   boardsRepo.updateBoard(id, data);
 
-const deleteBoardTasks: (id: string) => Promise<void> = (id) =>
+const deleteBoardTasks: (id: string) => void = (id) =>
   tasksRepo.deleteBoardTasks(id);
 
 export const boardsService = {
