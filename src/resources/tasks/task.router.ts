@@ -1,10 +1,11 @@
-const {
+import { FastifyError, FastifyInstance, FastifyServerOptions } from 'fastify';
+import {
   getTasks,
   getTask,
   addTask,
   deleteTask,
   updateTask,
-} = require('./task.controller');
+} from './task.controller';
 
 const TaskProps = {
   id: { type: 'string' },
@@ -46,7 +47,6 @@ const postTaskOpts = {
   schema: {
     body: {
       type: 'object',
-      // required: ['order', 'boardId', 'columnId'],
       required: ['order', 'boardId'],
       properties: TaskProps,
     },
@@ -87,7 +87,11 @@ const updateTaskOpts = {
 };
 
 // task(-s) routes
-const tasksRoutes = (fastify, options, done) => {
+const tasksRoutes = (
+  fastify: FastifyInstance,
+  _options: FastifyServerOptions,
+  done: (err?: FastifyError) => void
+) => {
   // get all tasks
   fastify.get('/boards/:boardId/tasks', getTasksOpts);
 

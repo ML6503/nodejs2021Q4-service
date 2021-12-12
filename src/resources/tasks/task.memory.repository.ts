@@ -4,7 +4,7 @@ import { tasks } from '../../dataBase/tasks.db';
 let allTasks: Array<ITask> | [] = [...tasks];
 const getAllTasks: () => ITask[] | [] = () => allTasks;
 
-const addNewTask =  (task: ITask) => {
+const addNewTask = (task: ITask) => {
   allTasks = [...allTasks, task];
 };
 
@@ -15,12 +15,13 @@ const deleteTask = (taskId: string) => {
 };
 
 const updateTask = async (taskId: string, updatedData: ITask) => {
-  allTasks = allTasks.map((task) => task.id === taskId ? { id: taskId, ...updatedData } : task
+  allTasks = allTasks.map((task) =>
+    task.id === taskId ? { id: taskId, ...updatedData } : task
   );
 };
 
-const unassignUserTasks =  (userId: string) => {
-   allTasks = allTasks.map((task) => {
+const unassignUserTasks = (userId: string) => {
+  allTasks = allTasks.map((task) => {
     // let updatedTask;
     if (task.userId === userId) {
       // updatedTask = { ...task };

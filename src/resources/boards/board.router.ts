@@ -1,5 +1,21 @@
-import {  FastifyError, FastifyInstance, FastifyServerOptions, RequestGenericInterface, RouteHandler, RouteOptions, RouteShorthandMethod, RouteShorthandOptions, RouteShorthandOptionsWithHandler } from 'fastify';
-import { getBoards, getBoard, addBoard, deleteBoard, updateBoard } from './board.controller';
+import {
+  FastifyError,
+  FastifyInstance,
+  FastifyServerOptions,
+  RequestGenericInterface,
+  RouteHandler,
+  RouteOptions,
+  RouteShorthandMethod,
+  RouteShorthandOptions,
+  RouteShorthandOptionsWithHandler,
+} from 'fastify';
+import {
+  getBoards,
+  getBoard,
+  addBoard,
+  deleteBoard,
+  updateBoard,
+} from './board.controller';
 
 const TaskSchema = {
   type: 'object',
@@ -52,7 +68,7 @@ const getBoardsOpts = {
   handler: getBoards,
 };
 
-const getBoardOpts= {
+const getBoardOpts = {
   schema: {
     response: {
       200: BoardSchema,
@@ -125,20 +141,21 @@ const updateBoardOpts = {
 };
 
 export interface IBoardPluginOptions {
-  IBoardPluginOption: object
+  IBoardPluginOption: object;
 }
-
 
 export interface requestBoardIdGeneric extends RequestGenericInterface {
   Querystring: {
-    boardId: string
-  }
+    boardId: string;
+  };
 }
 
 // board(-s) routes
-export const boardsRoutes = (fastify: FastifyInstance, _opts: FastifyServerOptions, done: (err?: FastifyError) => void) => {
-  
-  console.log("type of FAstify", fastify);
+export const boardsRoutes = (
+  fastify: FastifyInstance,
+  _opts: FastifyServerOptions,
+  done: (err?: FastifyError) => void
+) => {
   // get all boards
   fastify.get('/boards', getBoardsOpts);
 
@@ -156,4 +173,3 @@ export const boardsRoutes = (fastify: FastifyInstance, _opts: FastifyServerOptio
 
   done();
 };
-

@@ -1,5 +1,5 @@
-import { ITask } from 'common/interfaces';
 import { v4 as uuidv4 } from 'uuid';
+import { ITask } from 'common/interfaces';
 
 export default class Task {
   title: string;
@@ -10,7 +10,7 @@ export default class Task {
   userId: string | null;
   id: string;
 
-  constructor( task: ITask) {
+  constructor(task: ITask) {
     const {
       title = 'New title',
       description = '',

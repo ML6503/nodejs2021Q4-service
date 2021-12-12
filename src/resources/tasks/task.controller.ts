@@ -1,4 +1,4 @@
-import tasksService from './task.service';
+import { tasksService } from './task.service';
 import Task from './task.model';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { IGetBoardParam, IGetTaskParam, ITask } from 'common/interfaces';
@@ -16,7 +16,7 @@ export const getTask = async (
   reply: FastifyReply
 ) => {
   const { taskId } = req.params;
-  const task: ITask = await findTask(taskId);
+  const task: ITask | undefined = findTask(taskId);
   if (!task) {
     reply.code(404).send({ message: `Task with id ${taskId} not found` });
   }
@@ -35,17 +35,17 @@ export const addTask = async (
   reply.code(201).send({ ...newTask });
 };
 
-export const deleteTask = async (
+export const deleteTask = (
   req: FastifyRequest<{ Params: IGetTaskParam }>,
   reply: FastifyReply
 ) => {
   const { taskId } = req.params;
-  const task: ITask = await findTask(taskId);
+  const task: ITask | undefined =  findTask(taskId);
 
   if (!task) {
     reply.code(404).send({ message: `Task with id ${taskId} not found` });
   }
-  await deleteTaskById(taskId);
+  deleteTaskById(taskId);
   reply.send({ message: `The task ${taskId} has been deleted` });
 };
 
@@ -58,6 +58,6 @@ export const updateTask = async (
 
   await updateTaskById(taskId, updatedTaskData);
 
-  const task: ITask = await findTask(taskId);
+  const task: ITask | undefined=  findTask(taskId);
   reply.send(task);
 };
