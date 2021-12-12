@@ -5,13 +5,12 @@
     "type": "git",
     "url": ""
   },
-  "type": "module",
   "description": "REST service starter for RS School - trello clone",
   "main": "server.js",
   "scripts": {
-    "start": "node --es-module-specifier-resolution=node ./dist/server.js",
+    "start": "node dist/server.js",
     "build": "tsc",
-    "start:fast": "npm run build && node --experimental-specifier-resolution=node dist/server.js",
+    "start:fast": "npm run build && npm run start",
     "lint": "eslint --ext .js,.ts --fix src/",
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",

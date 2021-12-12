@@ -12,7 +12,7 @@
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
     sourceType: 'module',
-    ecmaVersion: 2021,
+    ecmaVersion: 2020,
     createDefaultProgram: true,
     ecmaFeatures: {
       impliedStrict: true,
@@ -21,14 +21,16 @@
   settings: {
     noInlineConfig: true,
     'import/resolver': {
-      node: {
-        extensions: ['.js', '.ts'],
+      "node": {
+        "extensions": [".js", ".ts", ".d.ts"],
+        "moduleDirectory": ["node_modules", "src/"],
+        "typescript": {}
       },
     },
     node: {
       allowModules: ['electron'],
       resolvePaths: [__dirname],
-      tryExtensions: ['.js', '.ts'],
+      tryExtensions: ['.js', '.ts', ".d.ts"],
     },
   },
   plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc'],

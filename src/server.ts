@@ -1,23 +1,23 @@
-import * as  path from 'path';
+import path from 'path';
 // const fastify = require('fastify')({ logger: true });
 import fastify, { FastifyInstance } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
 import { config } from './common/config';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import { boardsRoutes } from './resources/boards/board.router';
-import { tasksRoutes} from './resources/tasks/task.router';
+import { tasksRoutes } from './resources/tasks/task.router';
 import { usersRoutes } from './resources/users/user.router';
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> =
   fastify();
-
+console.log('path', path.join(__dirname, '../doc/api.yaml'));
 server.register(fastifySwagger, {
   exposeRoute: true,
   routePrefix: '/doc',
   mode: 'static',
   specification: {
     path: path.join(__dirname, '../doc/api.yaml'),
-    baseDir: './doc',
+    baseDir: __dirname,
   },
 });
 
