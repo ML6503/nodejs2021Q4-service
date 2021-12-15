@@ -33,8 +33,8 @@ module.exports = {
       tryExtensions: ['.js', '.ts', '.d.ts'],
     },
   },
-  // plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc'],
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc'],
+  // plugins: ['@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -51,7 +51,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     // '@typescript-eslint/rule-name': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
-    // 'tsdoc/syntax': 'error',
+    'tsdoc/syntax': 'error',
     '@typescript-eslint/object-curly-spacing': 'off',
   },
 };
