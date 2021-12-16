@@ -13,9 +13,9 @@ const {
 } = boardsService;
 
 /**
- * Promislike function calls boards and send them in Fastify server reply
- * @param  {FastifyRequest} _req unused factory fastify request
- * @param  {FastifyReply} reply
+ * Promiselike function calls boards and send them in Fastify server reply
+ * @param   _req - unused here factory FastifyRequest
+ * @param  reply - FastifyReply
  */
 export const getBoards = async (_req: FastifyRequest, reply: FastifyReply) => {
   boards();
@@ -23,12 +23,12 @@ export const getBoards = async (_req: FastifyRequest, reply: FastifyReply) => {
 };
 
 /**
- * Promislike function that get board's id from param and
+ * Promiselike function that get board's id from param and
  * calls findBoard func with it
  * if board is found it sends board by reply
  * otherwise sends error message and code 404
- * @param  {FastifyRequest<{Params:IGetBoardParam}>} req 
- * @param  {FastifyReply} reply
+ * @param req - FastifyRequest with Params type IGetBoardParam
+ * @param  reply - FastifyReply
  */
 export const getBoard = async (
   req: FastifyRequest<{ Params: IGetBoardParam }>,
@@ -45,12 +45,12 @@ export const getBoard = async (
 };
 
 /**
- * Promislike function that get board object from param and
- * create new Board with  @class Board
+ * Promiselike function that get board object from param and
+ * create new Board with class Board
  * add this board by addNewBoard function
  * and send new user in reply and the code 201
- * @param  {FastifyRequest<{Body:INewBoard}>} req
- * @param  {FastifyReply} reply
+ * @param  req - FastifyRequest with Body type INewBoard
+ * @param  reply - FastifyReply
  */
 export const addBoard = async (
   req: FastifyRequest<{ Body: INewBoard }>,
@@ -64,13 +64,13 @@ export const addBoard = async (
 };
 
 /**
- * Promislike function that gets board id from request param
+ * Promiselike function that gets board id from request param
  * find board by its id
  * if no board then replies with code 404 and send error message
  * if board is found it calls function to delete it
  * then send message that board with id has been removed
- * @param  {FastifyRequest<{Params:IGetBoardParam}>} req
- * @param  {FastifyReply} reply
+ * @param req - FastifyRequest with Params type IGetBoardParam
+ * @param reply - FastifyReply
  */
 export const deleteBoard = async (
   req: FastifyRequest<{ Params: IGetBoardParam }>,
@@ -91,13 +91,13 @@ export const deleteBoard = async (
 };
 
 /**
- * Promislike function that accepts board id and updated board details
+ * Promiselike function that accepts board id and updated board details
  * in request params 
  * calls function to update board with these details
  * then find updated board by id
  * and send reply with board updated details
- * @param  {FastifyRequest<{Params:IGetBoardParam;Body:IBoard}>} req
- * @param  {FastifyReply} reply
+ * @param  req - FastifyRequest with Params type IGetBoardParam and Body type IBoard
+ * @param  reply - FastifyReply
  */
 export const updateBoard = async (
   req: FastifyRequest<{ Params: IGetBoardParam; Body: IBoard }>,

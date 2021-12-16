@@ -11,7 +11,7 @@ const getAllUsers = (): IUser[] | [] => allUsers;
 
 /**
  * function to add new user to all users 
- * @param  {IUser} user
+ * @param user - new user details object type IUser
  * reassign all users with new user data
  */
 const addNewUser = (user: IUser) => {
@@ -20,14 +20,14 @@ const addNewUser = (user: IUser) => {
 
 /**
  * function to find user by it's id
- * @param  {string} userId
+ * @param userId - user id type string
  * @returns an user by id found from all users
  */
 const findUser = (userId: string) => allUsers.find((u) => u.id === userId);
 
 /**
  * delete user from all users data by id
- * @param  {string} userId
+ * @param userId - user id type string
  * @returns all users except the one found by id in param
  */
 const deleteUser = (userId: string) => {
@@ -36,8 +36,8 @@ const deleteUser = (userId: string) => {
 
 /**
  * update user details with data incoming in param by id
- * @param  {string} userId
- * @param  {IUser} updatedData - new updated data for specific user
+ * @param  userId - user id type string
+ * @param  updatedData - new updated data for user type IUser
  * @returns all users, where user with id from param got now updated data
  */
 const updateUser = (userId: string, updatedData: IUser) => {

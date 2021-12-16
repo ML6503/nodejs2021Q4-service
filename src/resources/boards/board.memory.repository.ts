@@ -5,13 +5,13 @@ let allBoards: Array<IBoard> | [] = [...boards];
 
 /**
  * function to obtain all boards
- * @returns all boards @type IBoard or empty array
+ * @returns all boards type IBoard or empty array
  */
 const getAllBoards: () => IBoard[] = () => allBoards;
 
 /**
  * func to add new board to all board
- * @param  {IBoard} board
+ * @param board - board type IBoard
  * reassign all boards with new board data
  */
 const addNewBoard = (board: IBoard) => {
@@ -20,7 +20,7 @@ const addNewBoard = (board: IBoard) => {
 
 /**
  * finds user by its id
- * @param  {string} boardId
+ * @param  boardId - board id type string
  * @returns user found from all users array by it id 
  */
 const findBoard = (boardId: string) =>
@@ -29,7 +29,7 @@ const findBoard = (boardId: string) =>
   
 /**
  * delete board by id
- * @param  {string} boardId
+ * @param  boardId - board if type string
  * @returns all boards reassigned with boards except the one found by id in param
  */
 const deleteBoard = (boardId: string) => {
@@ -38,8 +38,8 @@ const deleteBoard = (boardId: string) => {
 
 /**
  * update board details with data incoming in param by received id
- * @param  {string} boardId
- * @param  {INewBoard} updatedBoardData
+ * @param  boardId  - board if type string
+ * @param  updatedBoardData -  board if type INewBoard
  * reassigns allBoards with the boards where updated board has new details
  */
 const updateBoard = (boardId: string, updatedBoardData: INewBoard) => {

@@ -1,19 +1,19 @@
 import { v4 as uuidv4 } from 'uuid';
 import { ITask } from '../../common/interfaces';
 
-/**
- * @class Task constructor create a Task with:
- * title, description, order, column id, board id, user id
- * receved from params and add id === uuid
- * @param  {ITask} task
- */
 export default class Task {
   title: string;
+
   description: string;
+
   order: number;
+
   columnId: string | null;
+
   boardId: string;
+
   userId: string | null;
+
   id: string;
 
   constructor(task: ITask) {

@@ -8,8 +8,8 @@ const { addNewTask, findTask, deleteTaskById, updateTaskById } = tasksService;
 
 /**
  * Promislike function calls get all tasks func and send these tasks in Fastify server reply
- * @param  {FastifyRequest} _req unused factory fastify request
- * @param  {FastifyReply} reply
+ * @param _req - unused optional factory FastifyRequest
+ * @param reply - FastifyReply
  */
 export const getTasks = async (
   _req: FastifyRequest,
@@ -24,8 +24,8 @@ export const getTasks = async (
  * calls findTask func with it
  * if task is found it send thi stask with the reply
  * otherwise send error message and code 404
- * @param  {FastifyRequest<{Params:IGetTaskParam}>} req
- * @param  {FastifyReply} reply
+ * @param req - FastifyRequest with Params type IGetTaskParam
+ * @param reply - FastifyReply
  */
 export const getTask = async (
   req: FastifyRequest<{ Params: IGetTaskParam }>,
@@ -45,8 +45,8 @@ export const getTask = async (
  * create new user with applying Task class
  * add this task by addNewUser function
  * and send new task in reply and the code 201
- * @param  {FastifyRequest<{Params:IGetBoardParam;Body:ITask}>} req
- * @param  {FastifyReply} reply
+ * @param req - FastifyRequest with Params type IGetBoardParam and Body type ITask
+ * @param reply - FastifyReply
  */
 export const addTask = async (
   req: FastifyRequest<{ Params: IGetBoardParam; Body: ITask }>,
@@ -67,8 +67,8 @@ export const addTask = async (
  * if task is found it calls function to delete task
  * then send message that task with id has been removed
  
- * @param  {FastifyRequest<{Params:IGetTaskParam}>} req
- * @param  {FastifyReply} reply
+ * @param req - FastifyRequest with Params type IGetTaskParam
+ * @param reply - FastifyReply
  */
 export const deleteTask = async (
   req: FastifyRequest<{ Params: IGetTaskParam }>,
@@ -90,8 +90,8 @@ export const deleteTask = async (
  * calls function to update task with these details
  * then find updated task by id
  * and send reply with task updated details
- * @param  {FastifyRequest<{Params:IGetTaskParam;Body:ITask}>} req
- * @param  {FastifyReply} reply
+ * @param req - FastifyRequest with Params type IGetTaskParam and Body type ITask
+ * @param reply - FastifyReply
  */
 export const updateTask = async (
   req: FastifyRequest<{ Params: IGetTaskParam; Body: ITask }>,

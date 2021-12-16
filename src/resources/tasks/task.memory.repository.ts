@@ -11,7 +11,7 @@ const getAllTasks: () => ITask[] | [] = () => allTasks;
 
 /**
  * add new task to all tasks
- * @param  {ITask} task
+ * @param task - new task object type ITask
  * reassign all tasks with new task data
  */
 const addNewTask = (task: ITask) => {
@@ -20,14 +20,14 @@ const addNewTask = (task: ITask) => {
 
 /**
  * find task by id
- * @param  {string} taskId
+ * @param  taskId - task id type string
  * @returns task with provided id from all tasks 
  */
 const findTask = (taskId: string) => allTasks.find((t) => t.id === taskId);
 
 /**
- * delet task by id
- * @param  {string} taskId
+ * delete task by id
+ * @param  taskId - task id type string
  * all tasks except the one found by id got from param
  */
 const deleteTask = (taskId: string) => {
@@ -36,8 +36,8 @@ const deleteTask = (taskId: string) => {
 
 /**
  * update task details with data incoming in param by id
- * @param  {string} taskId
- * @param  {ITask} updatedData of a task
+ * @param  taskId - task id type string
+ * @param updatedData -task details object type ITask
  * @returns all tasks, where task with id from param got now updated data
  */
 const updateTask = (taskId: string, updatedData: ITask) => {
@@ -49,7 +49,7 @@ const updateTask = (taskId: string, updatedData: ITask) => {
 /**
  * assign null as userId in all tasks
  * that deleted user was assigned initally
- * @param  {string} userId
+ * @param  userId - user id type string
  * @returns in all tasks initila or updated task 
  *  with  userId  === null if user id same as in param
  */
@@ -70,7 +70,7 @@ const unassignUserTasks = (userId: string) => {
 
 /**
  * delete tasks from board
- * @param  {string} boardId that has been deleted
+ * @param boardId - board id type string to be deleted
  * @returns all tasks except those with board id from param
  */
 const deleteBoardTasks = (boardId: string) => {

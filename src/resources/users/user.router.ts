@@ -92,9 +92,9 @@ const updateUserOpts = {
 /**
  * users Routes use Fastify factory function for the standard fastify routes creation
  * with optional FastifyServerOptions and call back
- * @param  {FastifyInstance} fastify
- * @param  {FastifyServerOptions} _options
- * @param  {()=>void} done
+ * @param fastify - FastifyInstance
+ * @param _options - FastifyServerOptions
+ * @param  done - callback function
  * @returns 5 users routes methods: get (all and one user), post and delete one user by id
  */
 export const usersRoutes = (
@@ -106,40 +106,40 @@ export const usersRoutes = (
   /**
    * Fastify factory method that is used here to get all users
    * by using path, specific Schema and handler
-   * @param  {'/users'} '/users' path
-   * @param  {} getUsersOpts route options with get users Schema and handler
+   * '/users' -  users path
+   * getUsersOpts - route options with get users Schema and handler
    */
   fastify.get('/users', getUsersOpts);
 
   /**
    * Fastify factory method that is used to get a single user
    * by using path, specific Schema and handler
-   * @param  {'/users/:userId'} '/users/:userId' path
-   * @param  {} getUserOpts route options with get User Schema and handler
+   * '/users/:userId' - userId path
+   * getUserOpts - route options with get User Schema and handler
    */
   fastify.get('/users/:userId', getUserOpts);
 
   /**
    * Fastify factory method that is used to add user
    * by path, specific Schema and handler
-   * @param  {'/users'} '/users' path 
-   * @param  {} postUserOpts route options with UserPostSchema and handler
+   * '/users' -  users path 
+   * postUserOpts - route options with UserPostSchema and handler
    */
   fastify.post('/users', postUserOpts);
 
   /**
    * Fastify factory method that is used to delete user
    * by path, specific Schema and handler
-   * @param  {'/users/:userId'} '/users/:userId' path
-   * @param  {} deleteUserOpts route options with delete User Schema and handler
+   * '/users/:userId' - userId path
+   * deleteUserOpts - route options with delete User Schema and handler
    */
   fastify.delete('/users/:userId', deleteUserOpts);
 
   /**
    * Fastify factory method used to update user
    * by path, specific Schema and handler
-   * @param  {/users/:userId'} '/users/:userId' path
-   * @param  {} updateUserOpts route options with update User Schema and handler
+   * '/users/:userId' -  user path by id
+   * updateUserOpts - route options with update User Schema and handler
    */
   fastify.put('/users/:userId', updateUserOpts);
 

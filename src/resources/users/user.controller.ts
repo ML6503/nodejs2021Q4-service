@@ -14,8 +14,8 @@ const {
 
 /**
  * Promislike function calls users and send users in Fastify server reply
- * @param  {FastifyRequest} _req unused factory fastify request
- * @param  {FastifyReply} reply
+ * @param  _req - unused optional factory FastifyRequest
+ * @param reply - FastifyReply
  */
 export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
   users();
@@ -27,8 +27,8 @@ export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
  * calls findUser func with it
  * if user is found it sends user by reply
  * otherwise sends error message and code 404
- * @param  {FastifyRequest<{Params:IGetUserParam}>} req
- * @param  {FastifyReply} reply
+ * @param req - FastifyRequest with Params:IGetUserParam
+ * @param  reply - FastifyReply
  */
 export const getUser = async (
   req: FastifyRequest<{ Params: IGetUserParam }>,
@@ -44,11 +44,11 @@ export const getUser = async (
 
 /**
  * Promislike function that get user object from param and
- * create new user with @class User 
+ * create new user with class User 
  * add this user by addNewUser function
  * and send new user in reply and the code 201
- * @param  {FastifyRequest<{Body:IUser}>} req
- * @param  {FastifyReply} reply
+ * @param req - FastifyRequest with Body type IUser
+ * @param reply - FastifyReply
  */
 export const addUser = async (
   req: FastifyRequest<{ Body: IUser }>,
@@ -67,8 +67,8 @@ export const addUser = async (
  * if user is found it calls function to unassign tasks of this user
  * and delete user
  * then send message that user with id has been removed
- * @param  {FastifyRequest<{Params:IGetUserParam}>} req
- * @param  {FastifyReply} reply
+ * @param req - FastifyRequest with Params type IGetUserParam
+ * @param reply - FastifyReply
  */
 export const deleteUser = async (
   req: FastifyRequest<{ Params: IGetUserParam }>,
@@ -92,8 +92,8 @@ export const deleteUser = async (
  * calls function to update user with these details
  * then find updated user by id
  * and send reply with user updated details
- * @param  {FastifyRequest<{Params:IGetUserParam;Body:IUser}>} req
- * @param  {FastifyReply} reply
+ * @param req - FastifyRequest with Params type IGetUserParam and request Body type IUser
+ * @param reply - FastifyReply
  */
 export const updateUser = async (
   req: FastifyRequest<{ Params: IGetUserParam; Body: IUser }>,
