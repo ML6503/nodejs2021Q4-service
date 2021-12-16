@@ -89,9 +89,8 @@ const updateUserOpts = {
   handler: updateUser,
 };
 
-// user(-s) routes
 /**
- * usersRoutes uses Fastify factory function for the standard fastify routes creation
+ * users Routes use Fastify factory function for the standard fastify routes creation
  * with optional FastifyServerOptions and call back
  * @param  {FastifyInstance} fastify
  * @param  {FastifyServerOptions} _options
@@ -107,7 +106,7 @@ export const usersRoutes = (
   /**
    * Fastify factory method that is used here to get all users
    * by using path, specific Schema and handler
-   * @param  {} '/users' path
+   * @param  {'/users'} '/users' path
    * @param  {} getUsersOpts route options with get users Schema and handler
    */
   fastify.get('/users', getUsersOpts);
@@ -115,7 +114,7 @@ export const usersRoutes = (
   /**
    * Fastify factory method that is used to get a single user
    * by using path, specific Schema and handler
-   * @param  {userId'} '/users/:userId' path
+   * @param  {'/users/:userId'} '/users/:userId' path
    * @param  {} getUserOpts route options with get User Schema and handler
    */
   fastify.get('/users/:userId', getUserOpts);

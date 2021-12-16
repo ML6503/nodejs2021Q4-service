@@ -5,9 +5,9 @@ let allUsers: Array<IUser> = [...users];
 
 /**
  * function to return all users taken from Data Base
- * @returns all users 
+ * @returns all users or empty array if none
  */
-const getAllUsers = () => allUsers;
+const getAllUsers = (): IUser[] | [] => allUsers;
 
 /**
  * function to add new user to all users 
@@ -26,7 +26,7 @@ const addNewUser = (user: IUser) => {
 const findUser = (userId: string) => allUsers.find((u) => u.id === userId);
 
 /**
- * function that delete user from all users data by id
+ * delete user from all users data by id
  * @param  {string} userId
  * @returns all users except the one found by id in param
  */
@@ -35,7 +35,7 @@ const deleteUser = (userId: string) => {
 };
 
 /**
- * function that update user details with data incoming in param by id
+ * update user details with data incoming in param by id
  * @param  {string} userId
  * @param  {IUser} updatedData - new updated data for specific user
  * @returns all users, where user with id from param got now updated data

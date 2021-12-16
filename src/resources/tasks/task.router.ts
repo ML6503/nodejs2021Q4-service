@@ -7,6 +7,7 @@ import {
   updateTask,
 } from './task.controller';
 
+// tasks properties for task Schema
 const TaskProps = {
   id: { type: 'string' },
   title: { type: 'string' },
@@ -17,11 +18,13 @@ const TaskProps = {
   columnId: { type: 'string', nullable: true },
 };
 
+// Task Schema for the route
 const TaskSchema = {
   type: 'object',
   properties: TaskProps,
 };
 
+// task options for specific routes
 const getTasksOpts = {
   schema: {
     response: {
@@ -87,24 +90,60 @@ const updateTaskOpts = {
 };
 
 // task(-s) routes
+/**
+ * tasks Routes use Fastify factory function
+ * for the standard fastify routes creation
+ * with optional FastifyServerOptions and call back
+ * @param  {FastifyInstance} fastify
+ * @param  {FastifyServerOptions} _options
+ * @param  {()=>void} done
+  * @returns 5 tasks routes methods: get (all and one task),
+  * post and delete single task by id
+ */
 export const tasksRoutes = (
   fastify: FastifyInstance,
   _options: FastifyServerOptions,
   done: () => void
 ) => {
-  // get all tasks
+
+  /**
+   * Fastify factory method to get all tasks on board
+   * by using path, specific Schema and handler
+   * @param  {boardId/tasks'} '/boards/:boardId/tasks' path
+   * @param  {} getTasksOptsroute route options with get tasks Schema and handler
+   */
   fastify.get('/boards/:boardId/tasks', getTasksOpts);
 
-  // get single board
+  /**
+   * Fastify factory method to get single task on board
+   * by using path, specific Schema and handler
+   * @param  {'/boards/:boardId/tasks/:taskId'} '../:taskId' path to task by id
+   * @param  {} getTasksOptsroute route options with get tasks Schema and handler
+   */
   fastify.get('/boards/:boardId/tasks/:taskId', getTaskOpts);
 
-  // add board
+  /**
+   * Fastify factory to add task to board
+   * by path, specific Schema and handler
+   * @param  {'/boards/:boardId/tasks'} '/boards/:boardId/tasks' path
+   * @param  {} postTaskOpts route options with get tasks Schema and handler
+   */
   fastify.post('/boards/:boardId/tasks', postTaskOpts);
 
-  // delete user
+  /**
+   * * Fastify factory method that is used to delete task
+   * by path, specific Schema and handler
+   * @param  {'/boards/:boardId/tasks/:taskId'} '/boards/ path to task by id
+   * @param  {} deleteTaskOpts
+   */
   fastify.delete('/boards/:boardId/tasks/:taskId', deleteTaskOpts);
-
-  // update board
+  
+  /**
+   * Fastify factory method used to update task
+   * by path, specific Schema and handler
+   * @param  {'/boards/:boardId/tasks/:taskId'} '/boards/ path to task by id
+   * @param  {} updateTaskOpts route options with update User Schema and handler
+   */
   fastify.put('/boards/:boardId/tasks/:taskId', updateTaskOpts);
 
   done();
