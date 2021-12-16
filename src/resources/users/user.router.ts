@@ -119,29 +119,26 @@ export const usersRoutes = (
    */
   fastify.get('/users/:userId', getUserOpts);
 
-  // add user
   /**
-   * Fastify factory method that is used to post user
+   * Fastify factory method that is used to add user
    * by path, specific Schema and handler
-   * @param  {} '/users' path 
+   * @param  {'/users'} '/users' path 
    * @param  {} postUserOpts route options with UserPostSchema and handler
    */
   fastify.post('/users', postUserOpts);
 
-  // delete user
   /**
    * Fastify factory method that is used to delete user
    * by path, specific Schema and handler
-   * @param  {userId'} '/users/:userId' path
+   * @param  {'/users/:userId'} '/users/:userId' path
    * @param  {} deleteUserOpts route options with delete User Schema and handler
    */
   fastify.delete('/users/:userId', deleteUserOpts);
 
-  // update user
   /**
-   *Fastify factory method that is used to update user
+   * Fastify factory method used to update user
    * by path, specific Schema and handler
-   * @param  {userId'} '/users/:userId' path
+   * @param  {/users/:userId'} '/users/:userId' path
    * @param  {} updateUserOpts route options with update User Schema and handler
    */
   fastify.put('/users/:userId', updateUserOpts);

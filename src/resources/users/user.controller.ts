@@ -25,8 +25,8 @@ export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
 /**
  * Promislike function that get user id from param and
  * calls findUser func with it
- * if user is found it send user by reply
- * otherwise send error message and code 404
+ * if user is found it sends user by reply
+ * otherwise sends error message and code 404
  * @param  {FastifyRequest<{Params:IGetUserParam}>} req
  * @param  {FastifyReply} reply
  */
@@ -44,7 +44,7 @@ export const getUser = async (
 
 /**
  * Promislike function that get user object from param and
- * create new user with User class
+ * create new user with @class User 
  * add this user by addNewUser function
  * and send new user in reply and the code 201
  * @param  {FastifyRequest<{Body:IUser}>} req
@@ -62,8 +62,8 @@ export const addUser = async (
 
 /**
  * Promislike function that gets user id from request param
- * find a user by its id
- * if no user then replyes with code 404 and send error message
+ * find user by its id
+ * if no user then replies with code 404 and send error message
  * if user is found it calls function to unassign tasks of this user
  * and delete user
  * then send message that user with id has been removed

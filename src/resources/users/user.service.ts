@@ -15,8 +15,9 @@ const addNewUser: (param: IUser) => void = (user: IUser) => usersRepo.addNewUser
  * function that calls uers repo to find user
  * @param  {id}  id of the user with the @type string
  * @returns usersRepo.findUser function with id in param
+ * that @returns whether user @type IUser or undefined
  */
-const findUser: (param: string) => void = (id: string) => usersRepo.findUser(id);
+const findUser: (param: string) => IUser | undefined = (id: string) => usersRepo.findUser(id);
 
 /**
  * function that calls users repo to delete user by id

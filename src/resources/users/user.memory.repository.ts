@@ -21,7 +21,7 @@ const addNewUser = (user: IUser) => {
 /**
  * function to find user by it's id
  * @param  {string} userId
- * @returns an user by id from all users
+ * @returns an user by id found from all users
  */
 const findUser = (userId: string) => allUsers.find((u) => u.id === userId);
 

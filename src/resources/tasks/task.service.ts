@@ -15,12 +15,13 @@ const addNewTask: (param: ITask) => void = (task: ITask) => tasksRepo.addNewTask
  * @param  {id} id of the task with @type string
  * @returns tasksRepo.findTask function with task id in param
  */
-const findTask : (param: string) => void= (id: string) => tasksRepo.findTask(id);
+const findTask : (param: string) =>  ITask | undefined= (id: string) => tasksRepo.findTask(id);
 
 /**
  * calls tasks repo to delete task by id
  * @param  {id} id of the task @type string
  * @returns tasksRepo.deleteTask function with task id in param
+ * that @returns whether task @type ITask or undefined 
  */
 const deleteTaskById: (param: string) => void = (id: string) => tasksRepo.deleteTask(id);
 
