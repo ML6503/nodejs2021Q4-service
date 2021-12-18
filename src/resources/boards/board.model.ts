@@ -1,6 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 import { IColumn, INewBoard } from '../../common/interfaces';
 
+/**
+ * constructs Board from params details and adding generated uuid
+ * @param title - naming the board
+ * @param columns - of this board 
+*/
 export default class Board {
   title: string;
 
