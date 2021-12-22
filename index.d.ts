@@ -4,11 +4,13 @@ declare namespace NodeJS {
   }
 }
 
-declare global {
-  namespace NodeJS {
-    interface Process {
-      env: { [key: string]: string };
-    }
-  }
-}
-export {};
+// declare global {
+//   namespace NodeJS {
+//     interface Process {
+//       env: { [key: string]: string };
+//     }
+//   }
+// }
+
+declare module 'uuid';
+// export {};

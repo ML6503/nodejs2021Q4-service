@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 // import * as path from 'path';
-import global from '../../index';
 
 /* dotenv.config({
   path: path.join(__dirname, '../../.env'),

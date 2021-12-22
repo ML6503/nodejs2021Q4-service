@@ -1,4 +1,6 @@
 import path from 'path';
+import querystring from 'querystring';
+import { v4 as uuidv4 } from 'uuid';
 // const fastify = require('fastify')({ logger: true });
 import fastify, { FastifyInstance } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
@@ -14,17 +16,22 @@ import { usersRoutes } from './resources/users/user.router';
  * @returns — Fastify server instance
  */
 const server: FastifyInstance = fastify({
+  genReqId: () => uuidv4(),
   logger: {
     prettyPrint: {
       translateTime: true,
       ignore: 'pid, hostname,reqid,responseTime,req, res',
+      // messageFormat: `{msg} [id={reqId} {req.method} {req.url}]`,
       messageFormat: `{msg} [id={reqId} {req.method} {req.url}]`,
     },
     level: 'info',
     file: './src/logs/infoLogs.json',
   },
+  querystringParser: (str) => querystring.parse(str.toLowerCase()),
 });
 
+// TODO get query from url
+// https://www.tabnine.com/code/javascript/functions/fastify/query
 /**
  * library logger hook to add body to request log
  */
@@ -78,6 +85,7 @@ const start = async () => {
         }
       }
       server.log.info(`Server listening at ${address}`);
+      console.log(`Server listening at ${address}`);
     });
   } catch (error: Error | unknown) {
     if (error instanceof Error) {

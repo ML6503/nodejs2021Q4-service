@@ -102,7 +102,7 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
+    "entryPoints": ["src/server.ts"],
     "out": "docs"
   },
   // "files": ["src/server.ts", "./node.d.ts"],
