@@ -1,4 +1,5 @@
 import path from 'path';
+import pino from 'pino';
 // const fastify = require('fastify')({ logger: true });
 import fastify, { FastifyInstance } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
@@ -7,14 +8,24 @@ import { config } from './common/config';
 import { boardsRoutes } from './resources/boards/board.router';
 import { tasksRoutes } from './resources/tasks/task.router';
 import { usersRoutes } from './resources/users/user.router';
+import { customLogger } from './logger';
 
 /**
  * const server get assigned with a Fastify factory function for the standard fastify http, https, or http2 server instance.
  * The default function utilizes http
  * @returns — Fastify server instance
  */
-const server: FastifyInstance<Server, IncomingMessage, ServerResponse> =
-  fastify();
+const server: FastifyInstance<Server, IncomingMessage, ServerResponse, pino.Logger> =
+  fastify({
+    // logger: {
+    //   prettyPrint: {
+    //     translateTime: true,
+    //     ignore: 'pid, hostname,reqid,responseTime,req, res',
+    //     messageFormat: `{msg} [id={reqId} {req.method} {req.url}]`
+    //   }
+    // },
+    customLogger
+  });
 
 /**
  * register async function get server register with Fastify plugins
@@ -55,11 +66,11 @@ const start = async () => {
     server.listen(config.PORT, (err: Error | unknown, address: string) => {
       if (err) {
         if (err instanceof Error) {
-          console.error(err);
+          server.log.error(err);
           process.exit(1);
         }
       }
-      console.log(`Server listening at ${address}`);
+      server.log.info(`Server listening at ${address}`);
     });
   } catch (error: Error | unknown) {
     if (error instanceof Error) {
@@ -75,5 +86,4 @@ process.on(
   (error: Error | unknown) => error instanceof Error && console.error(error)
 );
 
-void start()
-
+void start();
