@@ -1,5 +1,4 @@
 import path from 'path';
-
 // const fastify = require('fastify')({ logger: true });
 import fastify, { FastifyInstance } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
