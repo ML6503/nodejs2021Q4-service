@@ -1,3 +1,5 @@
+import { FastifyLoggerOptions } from 'fastify/types/logger';
+
 export interface IColumn {
   id?: string;
   title: string;
@@ -46,4 +48,11 @@ export interface ITask {
 
 export interface IGetTaskParam {
   taskId: string;
+}
+
+export interface LoggerI {
+  debug(arg: FastifyLoggerOptions): void;
+  info(arg: FastifyLoggerOptions): void;
+  warn(arg: FastifyLoggerOptions): void;
+  error(arg: FastifyLoggerOptions): void;
 }

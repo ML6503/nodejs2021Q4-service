@@ -1,32 +1,40 @@
 import path from 'path';
-import pino from 'pino';
+
 // const fastify = require('fastify')({ logger: true });
 import fastify, { FastifyInstance } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
-import { Server, IncomingMessage, ServerResponse } from 'http';
+// import { Server, IncomingMessage, ServerResponse } from 'http';
 import { config } from './common/config';
 import { boardsRoutes } from './resources/boards/board.router';
 import { tasksRoutes } from './resources/tasks/task.router';
 import { usersRoutes } from './resources/users/user.router';
-import { customLogger } from './logger';
 
 /**
  * const server get assigned with a Fastify factory function for the standard fastify http, https, or http2 server instance.
  * The default function utilizes http
  * @returns — Fastify server instance
  */
-const server: FastifyInstance<Server, IncomingMessage, ServerResponse, pino.Logger> =
-  fastify({
-    // logger: {
-    //   prettyPrint: {
-    //     translateTime: true,
-    //     ignore: 'pid, hostname,reqid,responseTime,req, res',
-    //     messageFormat: `{msg} [id={reqId} {req.method} {req.url}]`
-    //   }
-    // },
-    customLogger
-  });
+const server: FastifyInstance = fastify({
+  logger: {
+    prettyPrint: {
+      translateTime: true,
+      ignore: 'pid, hostname,reqid,responseTime,req, res',
+      messageFormat: `{msg} [id={reqId} {req.method} {req.url}]`,
+    },
+    level: 'info',
+    file: './src/logs/infoLogs.json',
+  },
+});
 
+/**
+ * library logger hook to add body to request log
+ */
+server.addHook('preHandler', function (req, _reply, next) {
+  if (req.body) {
+    req.log.info({ body: req.body }, 'parsed body');
+  }
+  next();
+});
 /**
  * register async function get server register with Fastify plugins
  * @remarks
