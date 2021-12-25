@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { usersService } from './user.service';
 import User from './user.model';
 import { IGetUserParam, IUser } from '../../common/interfaces';
+import { customLogger } from '../../customLogger';
 
 const users = usersService.getAllUsers;
 const {
@@ -35,10 +36,14 @@ export const getUser = async (
   reply: FastifyReply
 ) : Promise<void> => {
   const { userId } = req.params;
+  customLogger.info({ userId }, 'Fetching user from DB');
   const user = findUser(userId);
+  
   if (!user) {
+    customLogger.warn({ userId }, 'User not found');
     await reply.code(404).send({ message: `User with id ${userId} not found` });
   }
+  customLogger.debug({ user }, 'User found, sending to client');
   await reply.send(user);
 };
 

@@ -1,14 +1,13 @@
 import path from 'path';
-import querystring from 'querystring';
 import { v4 as uuidv4 } from 'uuid';
 // const fastify = require('fastify')({ logger: true });
 import fastify, { FastifyInstance } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
-// import { Server, IncomingMessage, ServerResponse } from 'http';
-import { config } from './common/config';
 import { boardsRoutes } from './resources/boards/board.router';
 import { tasksRoutes } from './resources/tasks/task.router';
 import { usersRoutes } from './resources/users/user.router';
+import { customLogger } from './customLogger';
+import { config } from './common/config';
 
 /**
  * const server get assigned with a Fastify factory function for the standard fastify http, https, or http2 server instance.
@@ -17,21 +16,48 @@ import { usersRoutes } from './resources/users/user.router';
  */
 const server: FastifyInstance = fastify({
   genReqId: () => uuidv4(),
-  logger: {
-    prettyPrint: {
-      translateTime: true,
-      ignore: 'pid, hostname,reqid,responseTime,req, res',
-      // messageFormat: `{msg} [id={reqId} {req.method} {req.url}]`,
-      messageFormat: `{msg} [id={reqId} {req.method} {req.url}]`,
-    },
-    level: 'info',
-    file: './src/logs/infoLogs.json',
-  },
-  querystringParser: (str) => querystring.parse(str.toLowerCase()),
+
+  logger:
+    // {
+    //   prettyPrint: {
+    //     translateTime: true,
+    //     ignore: 'pid, hostname,reqid,responseTime,req, res',
+    //     // messageFormat: `{msg} [id={reqId} {req.method} {req.url}]`,
+    //     messageFormat: `{msg} [id={reqId} {req.method} {req.url} {req.query}]`,
+    //   },
+    //  level: 'info',
+    //   file: './src/logs/infoLogs.json',
+    //}
+    customLogger,
+  disableRequestLogging: true,
 });
 
-// TODO get query from url
-// https://www.tabnine.com/code/javascript/functions/fastify/query
+server.addHook('onRequest', (req, _reply, done) => {
+  // req.id =  uuidv4(),
+  req.log.info(
+    {
+      method: req.method,
+      url: req.raw.url,
+      parameters: req.params,
+      id: req.id,
+    },
+    'received request'
+  );
+  
+  done();
+});
+
+server.addHook('onResponse', (req, reply, done) => {
+  req.log.info(
+    {
+      url: req.raw.url, // add url to response as well for simple correlating
+      statusCode: reply.raw.statusCode,
+    },
+    'request completed'
+  );
+  done();
+});
+
 /**
  * library logger hook to add body to request log
  */
@@ -95,10 +121,10 @@ const start = async () => {
   }
 };
 
-process.on('uncaughtException', (error: Error) => console.error(error));
+process.on('uncaughtException', (error: Error) => server.log.error(error));
 process.on(
   'unhandledRejection',
-  (error: Error | unknown) => error instanceof Error && console.error(error)
+  (error: Error | unknown) => error instanceof Error && server.log.error(error)
 );
 
 void start();
