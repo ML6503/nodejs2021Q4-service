@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 const path = require('path');
 
 dotenv.config({
-  path: path.join(__dirname, '../../../.env')
+  path: path.join(__dirname, '../../../.env'),
 });
 
 const routes = require('./routes');
@@ -20,5 +20,5 @@ const request = supertest(host);
 
 module.exports = {
   request,
-  routes
+  routes,
 };
