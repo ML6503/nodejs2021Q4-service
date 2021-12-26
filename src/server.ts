@@ -64,32 +64,32 @@ server.addHook(
   }
 );
 
-// /**
-//  * fastify library logger hook to add url and status code  to request log
-//  */
-// server.addHook(
-//   'onResponse',
-//   (
-//     req,
-//     reply: FastifyReply<
-//       RawServerBase,
-//       IncomingMessage,
-//       ServerResponse | Http2ServerResponse,
-//       RouteGenericInterface,
-//       unknown
-//     >,
-//     done
-//   ) => {
-//     req.log.info(
-//       {
-//         url: req.raw.url, // add url to response as well for simple correlating
-//         statusCode: reply.raw.statusCode,
-//       },
-//       'request completed'
-//     );
-//     done();
-//   }
-// );
+/**
+ * fastify library logger hook to add url and status code  to request log
+ */
+server.addHook(
+  'onResponse',
+  (
+    req,
+    reply: FastifyReply<
+      RawServerBase,
+      IncomingMessage,
+      ServerResponse | Http2ServerResponse,
+      RouteGenericInterface,
+      unknown
+    >,
+    done
+  ) => {
+    req.log.info(
+      {
+        url: req.raw.url, // add url to response as well for simple correlating
+        statusCode: reply.raw.statusCode,
+      },
+      'request completed'
+    );
+    done();
+  }
+);
 
 /**
  * fastify library logger hook to add body to request log
