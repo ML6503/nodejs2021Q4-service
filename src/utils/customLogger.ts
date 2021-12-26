@@ -12,10 +12,11 @@ const customLogger = pino(<LoggerOptions>{
         // target: 'pino/file',
         target: 'pino-pretty',
         options: {
-          destination: './src/logs/errorLogs.json',
-          mkdir: true,
           colorize: true,
           ignore: 'hostname, pid',
+          translateTime: 'yyyy-dd-mm, h:MM:ss TT',
+          destination: './src/logs/errorLogs.json',
+          mkdir: true,
         },
       },
       {
