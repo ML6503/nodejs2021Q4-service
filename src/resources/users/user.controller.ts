@@ -36,15 +36,20 @@ export const getUser = async (
   reply: FastifyReply
 ) : Promise<void> => {
   const { userId } = req.params;
-  customLogger.info({ userId }, 'Fetching user from DB');
-  const user = findUser(userId);
+  req.log.info({ userId }, 'Fetching user from DB');
+  try{
+    const user = findUser(userId);
   
   if (!user) {
-    customLogger.warn({ userId }, 'User not found');
+    req.log.warn({ userId }, 'User not found');
     await reply.code(404).send({ message: `User with id ${userId} not found` });
   }
-  customLogger.debug({ user }, 'User found, sending to client');
+  req.log.debug({ user }, 'User found, sending to client');
   await reply.send(user);
+} catch(error) {
+    req.log.error(error, 'Failed to fetch user from DB');
+    return reply.status(500).send('An error occurred while fetching user');
+  }
 };
 
 /**

@@ -16,7 +16,6 @@ import { config } from './common/config';
  */
 const server: FastifyInstance = fastify({
   genReqId: () => uuidv4(),
-
   logger:
     // {
     //   prettyPrint: {

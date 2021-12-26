@@ -18,10 +18,11 @@ const transport: LoggerOptions = pino.transport(<TransportMultiOptions>{
       level: config.LOG_LEVEL || INFO,
       target: 'pino/file',
       options: {
-        destination: './src/logs/infoLogs.json',
-        mkdir: true,
         colorize: true,
         ignore: 'hostname, pid',
+        translateTime: 'yyyy-dd-mm, h:MM:ss TT',
+        destination: './src/logs/infoLogs.json',
+        mkdir: true,
       },
     },
     { target: 'pino-pretty', colorize: true, ignore: 'hostname, pid' },
