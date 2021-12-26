@@ -1,4 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
+import customLogger from '../../utils/customLogger';
 import { IBoard, IGetBoardParam, INewBoard } from '../../common/interfaces';
 import { boardsService } from './board.service';
 import Board from './board.model';
@@ -18,8 +19,9 @@ const {
  * @param  reply - FastifyReply
  */
 export const getBoards = async (_req: FastifyRequest, reply: FastifyReply) => {
-  boards();
-  await reply.send(boards());
+  customLogger.info('getting single board');
+  const allBoards = boards();
+  await reply.send(allBoards);
 };
 
 /**
@@ -34,13 +36,16 @@ export const getBoard = async (
   req: FastifyRequest<{ Params: IGetBoardParam }>,
   reply: FastifyReply
 ) => {
+  customLogger.info('getting single board');
   const { boardId } = req.params;
   const board = findBoard(boardId);
   if (!board) {
+    customLogger.error('not found');
     await reply
       .code(404)
       .send({ message: `Board with id ${boardId} not found` });
   }
+  customLogger.debug(`Board with id ${boardId} found, sending to client`);
   await reply.send(board);
 };
 
@@ -56,10 +61,12 @@ export const addBoard = async (
   req: FastifyRequest<{ Body: INewBoard }>,
   reply: FastifyReply
 ) => {
+  customLogger.info('adding single board');
   const newBoardData = req.body;
   const newBoard = new Board(newBoardData);
 
   addNewBoard({ ...newBoard });
+  customLogger.debug(`New Board added, sending to client`);
   await reply.code(201).send({ ...newBoard });
 };
 
@@ -76,10 +83,12 @@ export const deleteBoard = async (
   req: FastifyRequest<{ Params: IGetBoardParam }>,
   reply: FastifyReply
 ) => {
+  customLogger.info('Deleting single board');
   const { boardId } = req.params;
   const board = findBoard(boardId);
 
   if (!board) {
+    customLogger.warn('No such board');
     await reply
       .code(404)
       .send({ message: `Board with id ${boardId} not found` });
@@ -87,12 +96,13 @@ export const deleteBoard = async (
   deleteBoardTasks(boardId);
 
   deleteBoardById(boardId);
+  customLogger.debug(`Board with id ${boardId} deleted, sending to client`);
   await reply.send({ message: `The board ${boardId} has been deleted` });
 };
 
 /**
  * Promiselike function that accepts board id and updated board details
- * in request params 
+ * in request params
  * calls function to update board with these details
  * then find updated board by id
  * and send reply with board updated details
@@ -103,11 +113,13 @@ export const updateBoard = async (
   req: FastifyRequest<{ Params: IGetBoardParam; Body: IBoard }>,
   reply: FastifyReply
 ) => {
+  customLogger.info('Updating single board');
   const { boardId } = req.params;
   const updatedBoardData = req.body;
 
   updateBoardById(boardId, updatedBoardData);
 
   const board = findBoard(boardId);
+  customLogger.debug('Single board updated, sending to client');
   await reply.send(board);
 };
