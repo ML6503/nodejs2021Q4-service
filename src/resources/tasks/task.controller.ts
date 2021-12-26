@@ -97,14 +97,24 @@ export const deleteTask = async (
   req: FastifyRequest<{ Params: IGetTaskParam }>,
   reply: FastifyReply
 ) => {
+  customLogger.info('Deleting task from DB');
   const { taskId } = req.params;
-  const task: ITask | undefined = findTask(taskId);
+  try {
+    const task: ITask | undefined = findTask(taskId);
 
-  if (!task) {
-    await reply.code(404).send({ message: `Task with id ${taskId} not found` });
+    if (!task) {
+      customLogger.warn('No task found');
+      await reply
+        .code(404)
+        .send({ message: `Task with id ${taskId} not found` });
+    }
+    deleteTaskById(taskId);
+    customLogger.debug('Task deleted, sending confirmatiion to client');
+    await reply.send({ message: `The task ${taskId} has been deleted` });
+  } catch (e) {
+    customLogger.error(e, 'Failed to delete task from the board at DB');
+    throw new DBError(500, 'An error occurred while deleting task');
   }
-  deleteTaskById(taskId);
-  await reply.send({ message: `The task ${taskId} has been deleted` });
 };
 
 /**
@@ -120,11 +130,17 @@ export const updateTask = async (
   req: FastifyRequest<{ Params: IGetTaskParam; Body: ITask }>,
   reply: FastifyReply
 ) => {
+  customLogger.info('Updating task at board at DB');
   const { taskId } = req.params;
   const updatedTaskData = req.body;
+  try {
+    updateTaskById(taskId, updatedTaskData);
 
-  updateTaskById(taskId, updatedTaskData);
-
-  const task: ITask | undefined = findTask(taskId);
-  await reply.send(task);
+    const task: ITask | undefined = findTask(taskId);
+    customLogger.debug('Sending updated task to client');
+    await reply.send(task);
+  } catch (e) {
+    customLogger.error(e, 'Failed to delete task from the board at DB');
+    throw new DBError(500, 'An error occurred while deleting task');
+  }
 };
