@@ -175,10 +175,13 @@ const start = async () => {
 
 process.on('uncaughtException', (error: Error) => {
   server.log.error(error);
+
   process.exit(1);
 });
+
 process.on('unhandledRejection', (error: Error | unknown) => {
   if (error instanceof Error) server.log.error(error);
+
   process.exit(1);
 });
 
