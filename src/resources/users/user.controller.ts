@@ -2,7 +2,8 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { usersService } from './user.service';
 import User from './user.model';
 import { IGetUserParam, IUser } from '../../common/interfaces';
-import { customLogger } from '../../customLogger';
+import customLogger from '../../utils/customLogger';
+import { DBError } from '../../utils/DBError';
 
 const users = usersService.getAllUsers;
 const {
@@ -19,8 +20,15 @@ const {
  * @param reply - FastifyReply
  */
 export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
-  users();
-  await reply.send(users());
+  customLogger.info('Fetching all users from DB');
+  try {
+    const allUsers = users();
+    customLogger.debug('Sending all users to client');
+    await reply.send(allUsers);
+  } catch (e) {
+    customLogger.error(e, 'Failed to fetch all users from DB');
+    throw new DBError(500, 'An error occurred while fetching users');
+  }
 };
 
 /**
@@ -34,27 +42,33 @@ export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
 export const getUser = async (
   req: FastifyRequest<{ Params: IGetUserParam }>,
   reply: FastifyReply
-) : Promise<void> => {
+): Promise<void> => {
   const { userId } = req.params;
-  req.log.info({ userId }, 'Fetching user from DB');
-  try{
+  // req.log.info({ userId }, 'Fetching user from DB');
+  customLogger.info({ userId }, 'Fetching user from DB');
+  try {
     const user = findUser(userId);
-  
-  if (!user) {
-    req.log.warn({ userId }, 'User not found');
-    await reply.code(404).send({ message: `User with id ${userId} not found` });
-  }
-  req.log.debug({ user }, 'User found, sending to client');
-  await reply.send(user);
-} catch(error) {
-    req.log.error(error, 'Failed to fetch user from DB');
-    return reply.status(500).send('An error occurred while fetching user');
+
+    if (!user) {
+      // req.log.warn({ userId }, 'User not found');
+      customLogger.warn({ userId }, 'User not found');
+      await reply
+        .code(404)
+        .send({ message: `User with id ${userId} not found` });
+    }
+    customLogger.debug({ user }, 'User found, sending to client');
+    await reply.send(user);
+  } catch (e) {
+    // req.log.error(error, 'Failed to fetch user from DB');
+    customLogger.error(e, 'Failed to fetch user from DB');
+    // reply.status(500).send('An error occurred while fetching user');
+    throw new DBError(500, 'An error occurred while fetching user');
   }
 };
 
 /**
  * Promislike function that get user object from param and
- * create new user with class User 
+ * create new user with class User
  * add this user by addNewUser function
  * and send new user in reply and the code 201
  * @param req - FastifyRequest with Body type IUser
@@ -65,9 +79,15 @@ export const addUser = async (
   reply: FastifyReply
 ) => {
   const newUserData = req.body;
-  const newUser = new User(newUserData);
-  addNewUser({ ...newUser });
-  await reply.code(201).send({ ...newUser });
+  try {
+    const newUser = new User(newUserData);
+    addNewUser({ ...newUser });
+    req.log.debug({ ...newUser }, 'New user is added, sending to client');
+    await reply.code(201).send({ ...newUser });
+  } catch (e) {
+    customLogger.error(e, 'Failed to add user to DB');
+    throw new DBError(500, 'An error occurred while adding user');
+  }
 };
 
 /**
@@ -85,20 +105,27 @@ export const deleteUser = async (
   reply: FastifyReply
 ) => {
   const { userId } = req.params;
+  try {
+    const user = findUser(userId);
 
-  const user = findUser(userId);
-
-  if (!user) {
-    await reply.code(404).send({ message: `User with id ${userId} not found` });
+    if (!user) {
+      customLogger.warn({ userId }, 'User not found');
+      await reply
+        .code(404)
+        .send({ message: `User with id ${userId} not found` });
+    }
+    unassignUserTasks(userId);
+    req.log.debug(`User ${userId}'s tasks has been deleted, deleting user now`);
+    deleteUserById(userId);
+    await reply.code(204).send({ message: `User ${userId} has been deleted` });
+  } catch (e) {
+    customLogger.error(e, 'Failed to delete user from DB');
+    throw new DBError(500, 'An error occurred while deleting user');
   }
-  unassignUserTasks(userId);
-
-  deleteUserById(userId);
-  await reply.send({ message: `User ${userId} has been removed` });
 };
 /**
  * Promislike function that accepts user id and updated user object
- * in request params 
+ * in request params
  * calls function to update user with these details
  * then find updated user by id
  * and send reply with user updated details
@@ -111,9 +138,13 @@ export const updateUser = async (
 ) => {
   const { userId } = req.params;
   const updatedUserData = req.body;
-
-  updateUserById(userId, updatedUserData);
-
-  const user = findUser(userId);
-  await reply.send(user);
+  try {
+    updateUserById(userId, updatedUserData);
+    req.log.debug(`User ${userId} has been updated, sending to client`);
+    const user = findUser(userId);
+    await reply.send(user);
+  } catch (e) {
+    customLogger.error(e, 'Failed to update user at DB');
+    throw new DBError(500, 'An error occurred while updating user');
+  }
 };

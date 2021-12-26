@@ -60,7 +60,7 @@ const postUserOpts = {
 const deleteUserOpts = {
   schema: {
     response: {
-      200: {
+      204: {
         type: 'object',
         properties: {
           message: { type: 'string' },
@@ -102,7 +102,6 @@ export const usersRoutes = (
   _options: FastifyServerOptions,
   done: () => void
 ) => {
-  
   /**
    * Fastify factory method that is used here to get all users
    * by using path, specific Schema and handler
@@ -122,7 +121,7 @@ export const usersRoutes = (
   /**
    * Fastify factory method that is used to add user
    * by path, specific Schema and handler
-   * '/users' -  users path 
+   * '/users' -  users path
    * postUserOpts - route options with UserPostSchema and handler
    */
   fastify.post('/users', postUserOpts);
