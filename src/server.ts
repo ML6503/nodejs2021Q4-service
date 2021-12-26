@@ -2,14 +2,15 @@ import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import fastify, {
   FastifyInstance,
+  FastifyReply,
   FastifyRequest,
   RawServerBase,
 } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
 
 import { RouteGenericInterface } from 'fastify/types/route';
-import { IncomingMessage } from 'http';
-import { Http2ServerRequest } from 'http2';
+import { IncomingMessage, ServerResponse } from 'http';
+import { Http2ServerRequest, Http2ServerResponse } from 'http2';
 import { boardsRoutes } from './resources/boards/board.router';
 import { tasksRoutes } from './resources/tasks/task.router';
 import { usersRoutes } from './resources/users/user.router';
