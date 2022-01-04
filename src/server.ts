@@ -102,7 +102,7 @@ const register = async () => {
 const start = async () => {
   await register();
   try {
-    server.listen(config.PORT, (err: Error | unknown, address: string) => {
+    server.listen(config.PORT, '0.0.0.0',(err: Error | unknown, address: string) => {
       if (err) {
         if (err instanceof Error) {
           server.log.error(err);

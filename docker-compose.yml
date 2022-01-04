@@ -1,0 +1,30 @@
+version: "3.0"
+services:
+  api:
+      # container_name: api
+      # image: node:16-alpine
+      # working_dir: /app
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - '4000:4000'
+      command: npm run start:fast
+      init: true
+      # restart: always
+      volumes:
+        - .:/app
+      depends_on:
+        - postgres
+      
+  postgres:
+      image: postgres:13
+      restart: always
+      ports:
+        - "5432:5432"
+      volumes:
+        - ./pgdata:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_USER=dbuser
+        - POSTGRES_PASSWORD=admin2021
+        - POSTGRES_DB=trello-clone

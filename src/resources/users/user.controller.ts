@@ -2,7 +2,6 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { usersService } from './user.service';
 import User from './user.model';
 import { IGetUserParam, IUser } from '../../common/interfaces';
-import { customLogger } from '../../customLogger';
 
 const users = usersService.getAllUsers;
 const {
