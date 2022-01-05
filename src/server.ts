@@ -77,6 +77,7 @@ server.addHook('preHandler', function (req, _reply, next) {
  *
  */
 const register = async () => {
+  
   await server.register(fastifySwagger, {
     exposeRoute: true,
     routePrefix: '/doc',
@@ -101,6 +102,7 @@ const register = async () => {
  */
 const start = async () => {
   await register();
+
   try {
     server.listen(config.PORT, '0.0.0.0',(err: Error | unknown, address: string) => {
       if (err) {

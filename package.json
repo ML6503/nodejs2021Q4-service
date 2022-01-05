@@ -8,7 +8,7 @@
   "description": "REST service starter for RS School - trello clone",
   "main": "server.js",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "nodemon dist/server.js",
     "build": "tsc",
     "start:fast": "npm run build && npm run start",
     "lint": "eslint --ext .js,.ts --fix src/",
