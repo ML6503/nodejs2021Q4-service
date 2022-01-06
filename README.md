@@ -11,9 +11,9 @@
 git clone https://github.com/ML6503/nodejs2021Q4-service.git
 ```
 
-## Choose trelloClone project branch
+## Choose docker project branch
 
-git checkout trelloClone
+git checkout docker
 
 ```
 ## Installing NPM modules
@@ -22,8 +22,26 @@ git checkout trelloClone
 
 npm install
 
-```
+or
 
+npm ci
+
+```
+## DOCKER commands
+
+## Deploy with docker-compose:
+docker-compose up
+
+## Check containers are running:
+docker ps
+
+## Stop the containers with:
+docker-compose down
+
+# To delete all data run:
+docker-compose down -v
+
+```
 ## Running application
 
 ```

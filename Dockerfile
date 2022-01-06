@@ -1,5 +1,4 @@
-FROM node:16.13.1-alpine3.14
-# FROM node:12.20.0-alpine3.9
+FROM node:16-alpine
 
 WORKDIR /app
 
@@ -16,4 +15,6 @@ ENV request_domain=$request_domain
 
 EXPOSE 4000
 
-CMD [ "npm", "run", "start:fast" ]
+# CMD [ "npm", "run", "start:fast" ]
+
+CMD [ "npm", "run", "build", "&& nodemon", "dist/server.js" ]
