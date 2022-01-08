@@ -18,8 +18,8 @@ const {
  * @param reply - FastifyReply
  */
 export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
-  users();
-  await reply.send(users());
+  const allUsers = users();
+  await reply.send(allUsers);
 };
 
 /**

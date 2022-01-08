@@ -77,7 +77,7 @@ server.addHook('preHandler', function (req, _reply, next) {
  *
  */
 const register = async () => {
-  
+
   await server.register(fastifySwagger, {
     exposeRoute: true,
     routePrefix: '/doc',
@@ -111,8 +111,8 @@ const start = async () => {
           process.exit(1);
         }
       }
-      server.log.info(`Server listening at ${address}`);
-      console.log(`Server listening at ${address}`);
+      server.log.info(`Server listening at port ${config.PORT} at ${address}`);
+      // console.log(`Server listening at ${address}`);
     });
   } catch (error: Error | unknown) {
     if (error instanceof Error) {

@@ -1,5 +1,5 @@
 import { ITask } from '../../common/interfaces';
-import { tasks } from '../../dataBase/tasks.db';
+import { tasks } from '../../../dataBase/tasks.db';
 
 let allTasks: Array<ITask> | [] = [...tasks];
 

@@ -5,47 +5,55 @@ services:
   api:
       # container_name: api
       image: api-trello
-      # working_dir: /app
+      env_file: .env
       build:
         context: .
         dockerfile: Dockerfile
       ports:
-        - '4000:4000'
+        # - '4000:4000'
+        - ${PORT}:${PORT}
       # command: npm run build && nodemon dist/server.js
-      init: true
+      # init: true
       restart: always
+      logging:
+        driver: json-file
       volumes:
-        - .:/app
-         - app-logs:/var/log/app
+        - ./src:/usr/app/src
+        - ./logs:/usr/app/logs
+        - ./nodemon.json:/usr/app/nodemon.json
+        # - ./logs:/var/lib/docker/containers/
       depends_on:
         - postgres
       # links: 
       #       - "postgres:database"
       networks:
-      - trello-clone
+      - trello_clone_network
       
   postgres:
-      image: postgres:alpine
+      image: postgres-trello
+      build: ./dataBase/docker
       restart: always
       ports:
-        - "5432:5432"
+        # - "5432:5432"
+        - ${POSTGRES_PORT}:${POSTGRES_PORT}
       volumes:
-        - ./pgdata:/var/lib/postgresql/data
+        - ./dataBase/pgdata:/var/lib/postgresql/data
       environment:
-        - POSTGRES_USER=dbuser
-        - POSTGRES_PASSWORD=admin2021
-        - POSTGRES_DB=trello-clone
+        - POSTGRES_USER=${POSTGRES_USER}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        - POSTGRES_DB=${POSTGRES_DB}
       networks:
-        trello-clone:
-          aliases:
-            - database
+      - trello_clone_network
+        # trello_clone_network:
+        #   aliases:
+        #     - postgres
       
 
 networks:
-  trello-clone:
+  trello_clone_network:
     driver: bridge
 
 volumes:
   pgdata:
-  app-logs:
-    external: true
+  logs:
+    # external: true

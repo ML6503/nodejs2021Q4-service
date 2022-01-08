@@ -1,5 +1,5 @@
 import { IBoard, INewBoard } from '../../common/interfaces';
-import { boards } from '../../dataBase/boards.db';
+import { boards } from '../../../dataBase/boards.db';
 
 let allBoards: Array<IBoard> | [] = [...boards];
 

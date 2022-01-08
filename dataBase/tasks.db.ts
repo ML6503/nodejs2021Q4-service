@@ -1,4 +1,4 @@
-import { ITask } from '../common/interfaces';
+import { ITask } from '../src/common/interfaces';
 
 export const tasks: Array<ITask> = [
   {

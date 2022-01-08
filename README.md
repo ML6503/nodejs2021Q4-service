@@ -30,7 +30,7 @@ npm ci
 ## DOCKER commands
 
 ## Deploy with docker-compose:
-docker-compose up
+docker-compose up --build
 
 ## Check containers are running:
 docker ps
