@@ -3,22 +3,19 @@ version: "3.3"
 services:
   
   api:
-      # container_name: api
-      # image: api-trello
-      
+      # container_name: trello_clone
+      image: api-trello
       env_file: .env
       build:
         context: .
         dockerfile: Dockerfile
         target: base
-      image: arethel/api-trello
       expose:
       - ${PORT}
       ports:
-        # - '4000:4000'
+       
         - ${PORT}:${PORT}
       # command: npm run build && nodemon dist/server.js
-      # init: true
       restart: always
       logging:
         driver: json-file
@@ -38,9 +35,8 @@ services:
       command: npm run dev
       
   postgres:
-      # image: postgres-trello
+      image: postgres-trello
       build: ./dataBase/docker
-      image: arethel/postgres-trello
       restart: always
       command: postgres -c stats_temp_directory=/tmp
       ports:
@@ -54,10 +50,6 @@ services:
         - POSTGRES_DB=${POSTGRES_DB}
       networks:
       - trello_clone_network
-        # trello_clone_network:
-        #   aliases:
-        #     - postgres
-      
 
 networks:
   trello_clone_network:

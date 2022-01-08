@@ -16,9 +16,9 @@ git clone https://github.com/ML6503/nodejs2021Q4-service.git
 git checkout docker
 
 ```
+```
 ## Installing NPM modules
 
-```
 
 npm install
 
@@ -27,20 +27,71 @@ or
 npm ci
 
 ```
+```
+## DOCKER usage
+
+## Prerequisites
+
+1. Install [Docker](https://docs.docker.com/engine/install/)
+2. Create `Docker Hub` account [Docker Hub](https://hub.docker.com/)
+
 ## DOCKER commands
 
-## Deploy with docker-compose:
+# Deploy with docker-compose:
 docker-compose up --build
 
-## Check containers are running:
+server is now running
+
+## Other Docker commands
+
+# Check containers are running:
 docker ps
 
-## Stop the containers with:
+# Check all containers:
+docker ps -a
+
+# Delete single container:
+docker container rm [container id]
+
+# Stop the containers running:
 docker-compose down
 
-# To delete all data run:
+# To stop running containers and remove all volumes declaired and attached:
 docker-compose down -v
 
+# To remove all stopped contaners, all unused networks, all images & build cache
+docker system prune -a
+
+# Get into internal terminal of a single container:
+docker exec -i -t [container tag] bash
+
+# Check all images:
+docker images
+
+# Scan single image for vulnerabilities:
+docker scan [OPTIONS] IMAGE
+
+# Delete single image:
+docker rmi [OPTIONS] IMAGE [IMAGE...]
+
+# Push an image or a repository to a registry:
+# 1. to create tag to link image to user repo
+docker tag <id> <user>/<image>:<optional tag>
+# 2. push command
+docker push [OPTIONS] NAME[:TAG]
+
+# Pull an image or a repository from a registry
+docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+
+# Pull server image for present project
+docker pull arethel/trello-clone:server
+
+# Pull postgress db image for present project
+docker pull arethel/trello-clone:postgressDB
+
+https://hub.docker.com/r/arethel/trello-clone/tags
+
+```
 ```
 ## Running application
 
@@ -54,7 +105,7 @@ After starting the app on port (4000 as default) you can open
 in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
 For more information about OpenAPI/Swagger please visit https://swagger.io/.
 ```
-
+```
 ## Testing
 
 After application running open new terminal and enter:
@@ -90,7 +141,7 @@ choose or create new requests and send them from the file
 (VSCode REST Client extension or similar is required)
 
 ```
-
+```
 
 ## Development
 
