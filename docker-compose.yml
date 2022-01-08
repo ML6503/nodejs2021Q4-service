@@ -4,11 +4,16 @@ services:
   
   api:
       # container_name: api
-      image: api-trello
+      # image: api-trello
+      
       env_file: .env
       build:
         context: .
         dockerfile: Dockerfile
+        target: base
+      image: arethel/api-trello
+      expose:
+      - ${PORT}
       ports:
         # - '4000:4000'
         - ${PORT}:${PORT}
@@ -21,20 +26,25 @@ services:
         - ./src:/usr/app/src
         - ./logs:/usr/app/logs
         - ./nodemon.json:/usr/app/nodemon.json
-        # - ./logs:/var/lib/docker/containers/
+       
       depends_on:
         - postgres
-      # links: 
-      #       - "postgres:database"
+      environment:
+          - PORT=${PORT}
+      
       networks:
       - trello_clone_network
+
+      command: npm run dev
       
   postgres:
-      image: postgres-trello
+      # image: postgres-trello
       build: ./dataBase/docker
+      image: arethel/postgres-trello
       restart: always
+      command: postgres -c stats_temp_directory=/tmp
       ports:
-        # - "5432:5432"
+       
         - ${POSTGRES_PORT}:${POSTGRES_PORT}
       volumes:
         - ./dataBase/pgdata:/var/lib/postgresql/data
