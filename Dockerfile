@@ -14,7 +14,14 @@ FROM base as production
 
 ENV NODE_PATH=./build
 
-RUN npm run build
+USER node
+
+RUN apk add --no-cache tini
+# Tini is now available at /sbin/tini
+ENTRYPOINT ["/sbin/tini", "--"]
+
+# RUN npm run build
+CMD [ "npm", "run", "build"]
 # FROM node:16-alpine3.14
 
 # COPY --from=build /usr/app/build /build

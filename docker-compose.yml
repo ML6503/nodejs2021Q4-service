@@ -28,10 +28,8 @@ services:
         - postgres
       environment:
           - PORT=${PORT}
-      
       networks:
       - trello_clone_network
-
       command: npm run dev
       
   postgres:
@@ -43,7 +41,7 @@ services:
        
         - ${POSTGRES_PORT}:${POSTGRES_PORT}
       volumes:
-        - ./dataBase/pgdata:/var/lib/postgresql/data
+        - pgdata:/var/lib/postgresql/data
       environment:
         - POSTGRES_USER=${POSTGRES_USER}
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
