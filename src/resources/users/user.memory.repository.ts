@@ -1,5 +1,5 @@
 import { IUser } from '../../common/interfaces';
-import { users } from '../../../dataBase/users.db';
+import { users } from '../../dataBase/users.db';
 
 let allUsers: Array<IUser> = [...users];
 
@@ -10,7 +10,7 @@ let allUsers: Array<IUser> = [...users];
 const getAllUsers = (): IUser[] | [] => allUsers;
 
 /**
- * function to add new user to all users 
+ * function to add new user to all users
  * @param user - new user details object type IUser
  * reassign all users with new user data
  */

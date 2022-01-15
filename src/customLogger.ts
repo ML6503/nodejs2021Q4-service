@@ -27,6 +27,6 @@ const transport: LoggerOptions = pino.transport(<TransportMultiOptions>{
     },
     { target: 'pino-pretty', colorize: true, ignore: 'hostname, pid' },
   ],
-});
+}) as LoggerOptions;
 
 export const customLogger: Logger = pino(transport);

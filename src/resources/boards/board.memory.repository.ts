@@ -1,5 +1,5 @@
 import { IBoard, INewBoard } from '../../common/interfaces';
-import { boards } from '../../../dataBase/boards.db';
+import { boards } from '../../dataBase/boards.db';
 
 let allBoards: Array<IBoard> | [] = [...boards];
 
@@ -21,12 +21,11 @@ const addNewBoard = (board: IBoard) => {
 /**
  * finds user by its id
  * @param  boardId - board id type string
- * @returns user found from all users array by it id 
+ * @returns user found from all users array by it id
  */
 const findBoard = (boardId: string) =>
   allBoards.find((u: IBoard) => u.id === boardId);
 
-  
 /**
  * delete board by id
  * @param  boardId - board if type string

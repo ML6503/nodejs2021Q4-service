@@ -1,11 +1,34 @@
-import { FastifyInstance, FastifyServerOptions } from 'fastify';
 import {
-  getUsers,
+  FastifyInstance,
+  FastifyReply,
+  FastifyRequest,
+  FastifyServerOptions,
+} from 'fastify';
+import { Repository } from 'typeorm';
+import Board from '../../entity/Board';
+import Task from '../../entity/Task';
+import User from '../../entity/User';
+
+import {
+  // getUsers,
   getUser,
   addUser,
   deleteUser,
   updateUser,
 } from './user.controller';
+
+export interface Db {
+  users: Repository<User>;
+  boards: Repository<Board>;
+  tasks: Repository<Task>;
+}
+// Declaration merging
+declare module 'fastify' {
+  // eslint-disable-next-line no-shadow
+  export interface FastifyInstance {
+    db: Db;
+  }
+}
 
 // User schema to exclude secret fields like "password"
 const UserSchema = {
@@ -27,7 +50,7 @@ const getUsersOpts = {
       },
     },
   },
-  handler: getUsers,
+  // handler: getUsers,
 };
 
 const getUserOpts = {
@@ -102,14 +125,25 @@ export const usersRoutes = (
   _options: FastifyServerOptions,
   done: () => void
 ) => {
-  
   /**
    * Fastify factory method that is used here to get all users
    * by using path, specific Schema and handler
    * '/users' -  users path
    * getUsersOpts - route options with get users Schema and handler
    */
-  fastify.get('/users', getUsersOpts);
+  // fastify.get('/users', getUsersOpts);
+
+  fastify.get(
+    '/users',
+    getUsersOpts,
+    async (_req: FastifyRequest, reply: FastifyReply) => {
+      const allUsers = fastify.db.users.find({
+        relations: ['user'],
+      });
+
+      await reply.send(allUsers);
+    }
+  );
 
   /**
    * Fastify factory method that is used to get a single user
@@ -122,7 +156,7 @@ export const usersRoutes = (
   /**
    * Fastify factory method that is used to add user
    * by path, specific Schema and handler
-   * '/users' -  users path 
+   * '/users' -  users path
    * postUserOpts - route options with UserPostSchema and handler
    */
   fastify.post('/users', postUserOpts);

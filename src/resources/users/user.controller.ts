@@ -19,6 +19,10 @@ const {
  */
 export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
   const allUsers = users();
+  // const allUsers: IUser[] | [] = await fastify.db.inventory.find({
+  //   relations: ['user'],
+  // });
+
   await reply.send(allUsers);
 };
 
@@ -33,19 +37,21 @@ export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
 export const getUser = async (
   req: FastifyRequest<{ Params: IGetUserParam }>,
   reply: FastifyReply
-) : Promise<void> => {
+): Promise<void> => {
   const { userId } = req.params;
   req.log.info({ userId }, 'Fetching user from DB');
-  try{
+  try {
     const user = findUser(userId);
-  
-  if (!user) {
-    req.log.warn({ userId }, 'User not found');
-    await reply.code(404).send({ message: `User with id ${userId} not found` });
-  }
-  req.log.debug({ user }, 'User found, sending to client');
-  await reply.send(user);
-} catch(error) {
+
+    if (!user) {
+      req.log.warn({ userId }, 'User not found');
+      await reply
+        .code(404)
+        .send({ message: `User with id ${userId} not found` });
+    }
+    req.log.debug({ user }, 'User found, sending to client');
+    await reply.send(user);
+  } catch (error) {
     req.log.error(error, 'Failed to fetch user from DB');
     return reply.status(500).send('An error occurred while fetching user');
   }
@@ -53,7 +59,7 @@ export const getUser = async (
 
 /**
  * Promislike function that get user object from param and
- * create new user with class User 
+ * create new user with class User
  * add this user by addNewUser function
  * and send new user in reply and the code 201
  * @param req - FastifyRequest with Body type IUser
@@ -97,7 +103,7 @@ export const deleteUser = async (
 };
 /**
  * Promislike function that accepts user id and updated user object
- * in request params 
+ * in request params
  * calls function to update user with these details
  * then find updated user by id
  * and send reply with user updated details

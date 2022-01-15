@@ -1,4 +1,4 @@
-import { IUser } from '../src/common/interfaces';
+import { IUser } from '../common/interfaces';
 
 export const users: Array<IUser> = [
   { id: '1', name: 'User one', login: 'user', password: '' },

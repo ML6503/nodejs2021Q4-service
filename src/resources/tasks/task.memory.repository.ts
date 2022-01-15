@@ -1,5 +1,5 @@
 import { ITask } from '../../common/interfaces';
-import { tasks } from '../../../dataBase/tasks.db';
+import { tasks } from '../../dataBase/tasks.db';
 
 let allTasks: Array<ITask> | [] = [...tasks];
 
@@ -21,7 +21,7 @@ const addNewTask = (task: ITask) => {
 /**
  * find task by id
  * @param  taskId - task id type string
- * @returns task with provided id from all tasks 
+ * @returns task with provided id from all tasks
  */
 const findTask = (taskId: string) => allTasks.find((t) => t.id === taskId);
 
@@ -50,7 +50,7 @@ const updateTask = (taskId: string, updatedData: ITask) => {
  * assign null as userId in all tasks
  * that deleted user was assigned initally
  * @param  userId - user id type string
- * @returns in all tasks initila or updated task 
+ * @returns in all tasks initila or updated task
  *  with  userId  === null if user id same as in param
  */
 const unassignUserTasks = (userId: string) => {

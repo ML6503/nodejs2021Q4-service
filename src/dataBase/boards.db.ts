@@ -1,4 +1,4 @@
-import { IBoard } from '../src/common/interfaces';
+import { IBoard } from '../common/interfaces';
 
 export const boards: Array<IBoard> = [
   {
