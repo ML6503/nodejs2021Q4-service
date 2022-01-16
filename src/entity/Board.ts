@@ -1,6 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
-import { INewBoard } from '../common/interfaces';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  ManyToOne,
+} from 'typeorm';
+import Task from './Task';
 
 /**
  * constructs Board Entity for typeorm
@@ -11,24 +17,22 @@ import { INewBoard } from '../common/interfaces';
 
 @Entity()
 export default class Board extends BaseEntity {
-  constructor(board: INewBoard) {
+  constructor() {
     super();
-    const { title, columnsId, tasksId } = board;
     this.id = uuidv4();
-    this.title = title;
-    this.columnsId = columnsId && columnsId.length !== 0 ? columnsId : [];
-    this.tasksId = tasksId && tasksId.length !== 0 ? tasksId : [];
+    this.title = '';
+    this.columnsId = [];
   }
 
-  @Column()
+  @Column('varchar', { length: 100 })
   title: string | undefined;
 
   @PrimaryGeneratedColumn('uuid')
   id: string | undefined;
 
-  @Column()
+  @Column('varchar', { length: 100 })
   columnsId: Array<string> | [];
 
-  @Column()
-  tasksId: Array<string> | [];
+  @ManyToOne(() => Task, (task) => task.board, { onDelete: 'CASCADE' })
+  tasks: Task[] | undefined;
 }

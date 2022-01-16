@@ -12,6 +12,12 @@ export interface ITask {
   userId: string | null;
   boardId: string;
   columnId: string | null;
+  board?: {
+    id: string;
+    title: string;
+    columnsId: Array<string> | [];
+    tasks: Array<ITask> | [];
+  };
 }
 
 export interface IGetTaskParam {
@@ -26,7 +32,7 @@ export interface IBoard {
   id: string;
   title: string;
   columnsId: Array<string> | [];
-  tasksId: Array<string> | [];
+  tasks?: Array<ITask> | [];
 }
 
 // export interface INewBoard {

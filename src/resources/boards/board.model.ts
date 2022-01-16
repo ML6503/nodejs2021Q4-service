@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { INewBoard } from '../../common/interfaces';
+import { INewBoard, ITask } from '../../common/interfaces';
 
 /**
  * constructs Board from params details and adding generated uuid
@@ -13,13 +13,13 @@ export default class Board {
 
   columnsId: Array<string> | [];
 
-  tasksId: Array<string> | [];
+  tasks: Array<ITask> | [] | undefined;
 
   constructor(board: INewBoard) {
-    const { title, columnsId, tasksId } = board;
+    const { title, columnsId, tasks } = board;
     this.id = uuidv4();
     this.title = title;
     this.columnsId = columnsId && columnsId.length !== 0 ? columnsId : [];
-    this.tasksId = tasksId && tasksId.length !== 0 ? tasksId : [];
+    this.tasks = tasks && tasks.length !== 0 ? tasks : [];
   }
 }

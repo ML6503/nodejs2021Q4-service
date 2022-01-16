@@ -53,6 +53,9 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'error',
     'tsdoc/syntax': 'error',
     '@typescript-eslint/object-curly-spacing': 'off',
-    'no-void': ["error", { "allowAsStatement": true }]
+    'no-void': ['error', { allowAsStatement: true }],
+    'arrow-body-style': 'off',
+    'no-console': 'off',
+    'class-methods-use-this': 'off',
   },
 };

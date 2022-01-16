@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
-import { IUser } from '../common/interfaces';
 
 /**
  * constructs User from params details and adding generated uuid
@@ -10,24 +9,23 @@ import { IUser } from '../common/interfaces';
  */
 @Entity()
 export default class User extends BaseEntity {
-  constructor(user: IUser) {
+  constructor() {
     super();
-    const { name, login, password } = user;
+    this.name = '';
     this.id = uuidv4();
-    this.name = name;
-    this.login = login;
-    this.password = password;
+    this.login = '';
+    this.password = '';
   }
 
-  @Column()
+  @Column('varchar', { length: 100 })
   name: string;
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column('varchar', { length: 100 })
   login: string;
 
-  @Column()
+  @Column('varchar', { length: 100 })
   password: string;
 }

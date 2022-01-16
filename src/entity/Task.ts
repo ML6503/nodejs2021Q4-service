@@ -5,9 +5,9 @@ import {
   PrimaryGeneratedColumn,
   BaseEntity,
   ManyToOne,
+  OneToOne,
 } from 'typeorm';
 import User from './User';
-import { ITask } from '../common/interfaces';
 import Board from './Board';
 
 /**
@@ -22,26 +22,18 @@ import Board from './Board';
 
 @Entity()
 export default class Task extends BaseEntity {
-  constructor(task: ITask) {
+  constructor() {
     super();
-    const {
-      title = 'New title',
-      description = '',
-      order = 0,
-      columnId = null,
-      boardId,
-      userId = null,
-    } = task;
     this.id = uuidv4();
-    this.order = order;
-    this.columnId = columnId;
-    this.title = title;
-    this.boardId = boardId;
-    this.description = description;
-    this.userId = userId;
+    this.order = 0;
+    this.columnId = '';
+    this.title = '';
+    this.boardId = '';
+    this.description = '';
+    this.userId = null;
   }
 
-  @Column()
+  @Column('varchar', { length: 100 })
   title: string;
 
   @Column('text')
@@ -53,7 +45,6 @@ export default class Task extends BaseEntity {
   @Column('varchar', { length: 100 })
   columnId: string | null;
 
-  @ManyToOne(() => Board, (board) => board.tasksId, { onDelete: 'CASCADE' })
   @Column('varchar', { length: 100 })
   boardId: string;
 
@@ -63,4 +54,7 @@ export default class Task extends BaseEntity {
 
   @Column('uuid')
   id: string;
+
+  @OneToOne(() => Board, (board) => board.tasks)
+  board: Board | undefined;
 }
