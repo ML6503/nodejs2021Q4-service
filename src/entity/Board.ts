@@ -1,15 +1,25 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-import { IColumn, INewBoard } from '../common/interfaces';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { INewBoard } from '../common/interfaces';
 
 /**
  * constructs Board Entity for typeorm
- * @param title - naming the board
- * @param columns - of this board
+ * @param title - title the board
+ * @param columnsId - ids of columns in this board
+ * * @param tasksId - ids of tasks in this board
  */
 
 @Entity()
-export default class BoardEntity {
+export default class Board extends BaseEntity {
+  constructor(board: INewBoard) {
+    super();
+    const { title, columnsId, tasksId } = board;
+    this.id = uuidv4();
+    this.title = title;
+    this.columnsId = columnsId && columnsId.length !== 0 ? columnsId : [];
+    this.tasksId = tasksId && tasksId.length !== 0 ? tasksId : [];
+  }
+
   @Column()
   title: string | undefined;
 
@@ -17,12 +27,8 @@ export default class BoardEntity {
   id: string | undefined;
 
   @Column()
-  columns: Array<IColumn> | [] | undefined;
+  columnsId: Array<string> | [];
 
-  constructor(board: INewBoard) {
-    const { title, columns } = board;
-    this.id = uuidv4();
-    this.title = title;
-    this.columns = columns && columns.length !== 0 ? columns : [];
-  }
+  @Column()
+  tasksId: Array<string> | [];
 }

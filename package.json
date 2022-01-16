@@ -16,10 +16,11 @@
     "test": "cross-env DEBUG=rs:* jest --testMatch \"<rootDir>/test/e2e/test/*.test.js\" --noStackTrace --runInBand",
     "test:auth": "cross-env DEBUG=rs:* TEST_MODE=auth jest --noStackTrace",
     "server": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "docker:up": "docker-compose up",
     "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
-    "migration:run": "npm run typeorm -- migration:run",
-    "typeorm:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
-    "migration:build": "npm run typeorm:cli -- migration:generate -n createTable"
+    "migration:run": "npm run typeorm -c postgres -- migration:run",
+    "typeorm:cli": "ts-node --transpile-only ./node_modules/typeorm/cli.js -f ./ormconfig.ts",
+    "migration:create": "npm run typeorm:cli -- migration:create -n"
   },
   "keywords": [
     "rs",

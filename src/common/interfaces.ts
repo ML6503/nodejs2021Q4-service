@@ -4,17 +4,38 @@ export interface IColumn {
   order: number;
 }
 
+export interface ITask {
+  id?: string;
+  title: string;
+  order: number;
+  description: string;
+  userId: string | null;
+  boardId: string;
+  columnId: string | null;
+}
+
+export interface IGetTaskParam {
+  taskId: string;
+}
+
+export interface IGetColumnParam {
+  taskId: string;
+}
+
 export interface IBoard {
   id: string;
   title: string;
-  columns: Array<IColumn> | [];
+  columnsId: Array<string> | [];
+  tasksId: Array<string> | [];
 }
 
-export interface INewBoard {
-  title: string;
-  columns: Array<IColumn> | [];
-}
+// export interface INewBoard {
+//   title: string;
+//   columns: Array<IColumn> | [];
+//   tasks?: Array<ITask> | [];
+// }
 
+export type INewBoard = Omit<IBoard, 'id'>;
 export interface IGetBoardParam {
   boardId: string;
 }
@@ -33,18 +54,3 @@ export interface IUser {
 export interface IGetUserParam {
   userId: string;
 }
-
-export interface ITask {
-  id?: string;
-  title: string;
-  order: number;
-  description: string;
-  userId: string | null;
-  boardId: string;
-  columnId: string | null;
-}
-
-export interface IGetTaskParam {
-  taskId: string;
-}
-

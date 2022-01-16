@@ -12,7 +12,8 @@ export default {
   database: process.env.POSTGRES_DB || 'trello-clone',
   synchronize: false,
   logging: false,
-  entities: [`src/entity/**/*.${isCompiled ? 'js' : 'ts'}`],
+  // entities: [`src/entity/**/*.${isCompiled ? 'js' : 'ts'}`],
+  entities: [`${__dirname}/../**/*.entity{.ts,.js}`],
   migrations: [`src/migration/**/*.${isCompiled ? 'js' : 'ts'}`],
   // "subscribers": ["src/subscriber/**/*.ts"],
   cli: {

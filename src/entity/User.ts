@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 import { IUser } from '../common/interfaces';
 
 /**
@@ -9,7 +9,16 @@ import { IUser } from '../common/interfaces';
  * @param password - user's password
  */
 @Entity()
-export default class User {
+export default class User extends BaseEntity {
+  constructor(user: IUser) {
+    super();
+    const { name, login, password } = user;
+    this.id = uuidv4();
+    this.name = name;
+    this.login = login;
+    this.password = password;
+  }
+
   @Column()
   name: string;
 
@@ -21,12 +30,4 @@ export default class User {
 
   @Column()
   password: string;
-
-  constructor(user: IUser) {
-    const { name, login, password } = user;
-    this.id = uuidv4();
-    this.name = name;
-    this.login = login;
-    this.password = password;
-  }
 }

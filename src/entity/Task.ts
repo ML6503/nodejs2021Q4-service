@@ -1,6 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  ManyToOne,
+} from 'typeorm';
+import User from './User';
 import { ITask } from '../common/interfaces';
+import Board from './Board';
 
 /**
  * constructs Board Task entity from params details and adding generated uuid
@@ -13,29 +21,9 @@ import { ITask } from '../common/interfaces';
  */
 
 @Entity()
-export default class Task {
-  @Column()
-  title: string;
-
-  @Column('text')
-  description: string;
-
-  @Column()
-  order: number;
-
-  @Column()
-  columnId: string | null;
-
-  @Column()
-  boardId: string;
-
-  @Column()
-  userId: string | null;
-
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
+export default class Task extends BaseEntity {
   constructor(task: ITask) {
+    super();
     const {
       title = 'New title',
       description = '',
@@ -52,4 +40,27 @@ export default class Task {
     this.description = description;
     this.userId = userId;
   }
+
+  @Column()
+  title: string;
+
+  @Column('text')
+  description: string;
+
+  @PrimaryGeneratedColumn()
+  order: number;
+
+  @Column('varchar', { length: 100 })
+  columnId: string | null;
+
+  @ManyToOne(() => Board, (board) => board.tasksId, { onDelete: 'CASCADE' })
+  @Column('varchar', { length: 100 })
+  boardId: string;
+
+  @ManyToOne(() => User, (user) => user.id)
+  @Column('varchar', { length: 100, nullable: true })
+  userId: string | null;
+
+  @Column('uuid')
+  id: string;
 }

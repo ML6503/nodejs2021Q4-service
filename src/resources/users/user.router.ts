@@ -5,13 +5,14 @@ import {
   FastifyServerOptions,
 } from 'fastify';
 import { Repository } from 'typeorm';
+import { IGetUserParam } from '../../common/interfaces';
 import Board from '../../entity/Board';
 import Task from '../../entity/Task';
 import User from '../../entity/User';
 
 import {
   // getUsers,
-  getUser,
+  // getUser,
   addUser,
   deleteUser,
   updateUser,
@@ -59,7 +60,7 @@ const getUserOpts = {
       200: UserSchema,
     },
   },
-  handler: getUser,
+  // handler: getUser,
 };
 
 const postUserOpts = {
@@ -137,9 +138,7 @@ export const usersRoutes = (
     '/users',
     getUsersOpts,
     async (_req: FastifyRequest, reply: FastifyReply) => {
-      const allUsers = fastify.db.users.find({
-        relations: ['user'],
-      });
+      const allUsers = await fastify.db.users.find(User);
 
       await reply.send(allUsers);
     }
@@ -151,7 +150,22 @@ export const usersRoutes = (
    * '/users/:userId' - userId path
    * getUserOpts - route options with get User Schema and handler
    */
-  fastify.get('/users/:userId', getUserOpts);
+  // fastify.get('/users/:userId', getUserOpts);
+
+  fastify.get(
+    '/users/:userId',
+    getUserOpts,
+    async (
+      req: FastifyRequest<{
+        Params: IGetUserParam;
+      }>,
+      reply: FastifyReply
+    ) => {
+      const user = await fastify.db.users.findOne(req.params.userId);
+
+      return reply.send(user);
+    }
+  );
 
   /**
    * Fastify factory method that is used to add user
