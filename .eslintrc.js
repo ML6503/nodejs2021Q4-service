@@ -57,5 +57,7 @@ module.exports = {
     'arrow-body-style': 'off',
     'no-console': 'off',
     'class-methods-use-this': 'off',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
   },
 };

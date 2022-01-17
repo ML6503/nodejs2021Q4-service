@@ -7,7 +7,7 @@ import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
  * @param login - user's login
  * @param password - user's password
  */
-@Entity()
+@Entity({ name: 'users' })
 export default class User extends BaseEntity {
   constructor() {
     super();

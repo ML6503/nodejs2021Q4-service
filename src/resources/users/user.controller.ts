@@ -1,6 +1,8 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
+// import { getRepository } from 'typeorm';
 import { usersService } from './user.service';
 import User from './user.model';
+// import User from '../../entity/User';
 import { IGetUserParam, IUser } from '../../common/interfaces';
 
 const users = usersService.getAllUsers;
@@ -12,6 +14,9 @@ const {
   unassignUserTasks,
 } = usersService;
 
+// console.log('userRepo', getRepository(User));
+// const userRepository = getRepository(User);
+
 /**
  * Promislike function calls users and send users in Fastify server reply
  * @param  _req - unused optional factory FastifyRequest
@@ -19,6 +24,7 @@ const {
  */
 export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
   const allUsers = users();
+  // const allUsers = await userRepository.find();
   // const allUsers: IUser[] | [] = await fastify.db.inventory.find({
   //   relations: ['user'],
   // });
@@ -72,7 +78,8 @@ export const addUser = async (
   const newUserData = req.body;
   const newUser = new User(newUserData);
   addNewUser({ ...newUser });
-  await reply.code(201).send({ ...newUser });
+  // await userRepository.save(newUserData);
+  await reply.code(201).send(newUserData);
 };
 
 /**
@@ -92,6 +99,7 @@ export const deleteUser = async (
   const { userId } = req.params;
 
   const user = findUser(userId);
+  // const user = await userRepository.findOne(userId);
 
   if (!user) {
     await reply.code(404).send({ message: `User with id ${userId} not found` });
@@ -99,7 +107,10 @@ export const deleteUser = async (
   unassignUserTasks(userId);
 
   deleteUserById(userId);
+  // else {
+  // await userRepository.remove(user);
   await reply.send({ message: `User ${userId} has been removed` });
+  // }
 };
 /**
  * Promislike function that accepts user id and updated user object

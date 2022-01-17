@@ -15,7 +15,7 @@ import Task from './Task';
  * * @param tasksId - ids of tasks in this board
  */
 
-@Entity()
+@Entity({ name: 'boards' })
 export default class Board extends BaseEntity {
   constructor() {
     super();
@@ -33,6 +33,6 @@ export default class Board extends BaseEntity {
   @Column('varchar', { length: 100 })
   columnsId: Array<string> | [];
 
-  @ManyToOne(() => Task, (task) => task.board, { onDelete: 'CASCADE' })
+  @ManyToOne((_type) => Task, (task) => task.board, { onDelete: 'CASCADE' })
   tasks: Task[] | undefined;
 }

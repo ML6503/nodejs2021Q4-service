@@ -20,7 +20,7 @@ import Board from './Board';
  * @param userId - id of the user created task
  */
 
-@Entity()
+@Entity({ name: 'tasks' })
 export default class Task extends BaseEntity {
   constructor() {
     super();
@@ -42,19 +42,19 @@ export default class Task extends BaseEntity {
   @PrimaryGeneratedColumn()
   order: number;
 
-  @Column('varchar', { length: 100 })
+  @Column('varchar', { length: 100, name: 'column_id' })
   columnId: string | null;
 
-  @Column('varchar', { length: 100 })
+  @Column('varchar', { length: 100, name: 'board_id' })
   boardId: string;
 
-  @ManyToOne(() => User, (user) => user.id)
-  @Column('varchar', { length: 100, nullable: true })
+  @ManyToOne((_type) => User, (user) => user.id, { onDelete: 'SET NULL' })
+  @Column('varchar', { length: 100, nullable: true, name: 'user_id' })
   userId: string | null;
 
   @Column('uuid')
   id: string;
 
-  @OneToOne(() => Board, (board) => board.tasks)
+  @OneToOne((_type) => Board, (board) => board.tasks)
   board: Board | undefined;
 }

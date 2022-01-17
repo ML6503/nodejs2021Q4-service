@@ -1,35 +1,25 @@
-import {
-  FastifyInstance,
-  FastifyReply,
-  FastifyRequest,
-  FastifyServerOptions,
-} from 'fastify';
-import { Repository } from 'typeorm';
-import { IGetUserParam } from '../../common/interfaces';
-import Board from '../../entity/Board';
-import Task from '../../entity/Task';
-import User from '../../entity/User';
+import { FastifyInstance, FastifyServerOptions } from 'fastify';
 
 import {
-  // getUsers,
-  // getUser,
+  getUsers,
+  getUser,
   addUser,
   deleteUser,
   updateUser,
 } from './user.controller';
 
-export interface Db {
-  users: Repository<User>;
-  boards: Repository<Board>;
-  tasks: Repository<Task>;
-}
-// Declaration merging
-declare module 'fastify' {
-  // eslint-disable-next-line no-shadow
-  export interface FastifyInstance {
-    db: Db;
-  }
-}
+// export interface Db {
+//   users: Repository<User>;
+//   boards: Repository<Board>;
+//   tasks: Repository<Task>;
+// }
+// // Declaration merging
+// declare module 'fastify' {
+//   // eslint-disable-next-line no-shadow
+//   export interface FastifyInstance {
+//     db: Db;
+//   }
+// }
 
 // User schema to exclude secret fields like "password"
 const UserSchema = {
@@ -51,7 +41,7 @@ const getUsersOpts = {
       },
     },
   },
-  // handler: getUsers,
+  handler: getUsers,
 };
 
 const getUserOpts = {
@@ -60,7 +50,7 @@ const getUserOpts = {
       200: UserSchema,
     },
   },
-  // handler: getUser,
+  handler: getUser,
 };
 
 const postUserOpts = {
@@ -132,17 +122,17 @@ export const usersRoutes = (
    * '/users' -  users path
    * getUsersOpts - route options with get users Schema and handler
    */
-  // fastify.get('/users', getUsersOpts);
+  fastify.get('/users', getUsersOpts);
 
-  fastify.get(
-    '/users',
-    getUsersOpts,
-    async (_req: FastifyRequest, reply: FastifyReply) => {
-      const allUsers = await fastify.db.users.find(User);
+  // fastify.get(
+  //   '/users',
+  //   getUsersOpts,
+  //   async (_req: FastifyRequest, reply: FastifyReply) => {
+  //     const allUsers = await fastify.db.users.find(User);
 
-      await reply.send(allUsers);
-    }
-  );
+  //     await reply.send(allUsers);
+  //   }
+  // );
 
   /**
    * Fastify factory method that is used to get a single user
@@ -150,22 +140,22 @@ export const usersRoutes = (
    * '/users/:userId' - userId path
    * getUserOpts - route options with get User Schema and handler
    */
-  // fastify.get('/users/:userId', getUserOpts);
+  fastify.get('/users/:userId', getUserOpts);
 
-  fastify.get(
-    '/users/:userId',
-    getUserOpts,
-    async (
-      req: FastifyRequest<{
-        Params: IGetUserParam;
-      }>,
-      reply: FastifyReply
-    ) => {
-      const user = await fastify.db.users.findOne(req.params.userId);
+  // fastify.get(
+  //   '/users/:userId',
+  //   getUserOpts,
+  //   async (
+  //     req: FastifyRequest<{
+  //       Params: IGetUserParam;
+  //     }>,
+  //     reply: FastifyReply
+  //   ) => {
+  //     const user = await fastify.db.users.findOne(req.params.userId);
 
-      return reply.send(user);
-    }
-  );
+  //     return reply.send(user);
+  //   }
+  // );
 
   /**
    * Fastify factory method that is used to add user
@@ -173,7 +163,21 @@ export const usersRoutes = (
    * '/users' -  users path
    * postUserOpts - route options with UserPostSchema and handler
    */
-  fastify.post('/users', postUserOpts);
+  fastify.post(
+    '/users',
+    postUserOpts
+    // async (
+    //   req: FastifyRequest<{
+    //     Body: IUser;
+    //   }>,
+    //   reply: FastifyReply
+    // ) => {
+    //   const user = fastify.db.users.create(req.body);
+    //   const results = await fastify.db.users.save(user);
+
+    //   return reply.send(results);
+    // }
+  );
 
   /**
    * Fastify factory method that is used to delete user

@@ -37,7 +37,7 @@ services:
     restart: always
     command: postgres -c stats_temp_directory=/tmp
     ports:
-      - ${POSTGRES_PORT}:5432
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
@@ -54,4 +54,3 @@ networks:
 volumes:
   pgdata:
   logs:
-    # external: true
