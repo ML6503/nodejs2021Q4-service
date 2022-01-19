@@ -1,19 +1,20 @@
-import User from '../../entity/User';
 import { getRepository } from 'typeorm';
+import User from '../../entity/User';
 import { IUser } from '../../common/interfaces';
 // import { users } from '../../dataBase/users.db';
 
 // let allUsers: Array<IUser> = [...users];
-// const userRepository =  getRepository(User);
+
 /**
  * function to return all users taken from Data Base
- * @returns all users or empty array if none 
+ * @returns all users or empty array if none
  */
+
 // const getAllUsers = (): IUser[] | [] => allUsers;
 const getAllUsers = async () => {
   // const allUsers = await userRepository.find();
-  return await getRepository(User).find();
-  // return allUsers;
+  const allUsers = await getRepository(User).find();
+  return allUsers;
 };
 
 /**
@@ -28,8 +29,8 @@ const addNewUser = async (userDetails: IUser) => {
     user.name = userDetails.name;
     user.login = userDetails.login;
     user.password = userDetails.password;
-  return  await getRepository(User).save(user);
-  // return singleUser;
+  const singleUser =  await getRepository(User).save(user);
+  return singleUser;
 };
 
 /**
@@ -55,9 +56,9 @@ const deleteUser = async (userId: string) => {
     await getRepository(User).delete({ id: userId });
     return getAllUsers();
   }
-  else {
+  
     throw new Error('User not found');
-  }
+  
 };
 
 /**
@@ -75,9 +76,9 @@ const updateUser = async (userId: string, updatedData: IUser) => {
    const updatedUser = await getRepository(User).update({ id: userId }, updatedData);
     return updatedUser;
   }
-  else {
+  
     throw new Error('User not found');
-  }
+  
 
 };
 

@@ -499,3 +499,78 @@
 {"level":30,"time":1642616439140,"pid":32,"hostname":"6233dc5c5eb6","reqId":"dfdd7296-acdd-413f-9802-8f0e21789b4b","method":"GET","url":"/boards/32abb8be-2d43-4809-81a0-5cb7ee8458eb/tasks/19451a24-8c01-4df8-9d8b-99d59edf2f84","parameters":{"boardId":"32abb8be-2d43-4809-81a0-5cb7ee8458eb","taskId":"19451a24-8c01-4df8-9d8b-99d59edf2f84"},"id":"dfdd7296-acdd-413f-9802-8f0e21789b4b","msg":"received request"}
 {"level":50,"time":1642616439142,"pid":32,"hostname":"6233dc5c5eb6","err":{"type":"QueryFailedError","message":"invalid input syntax for type integer: \"19451a24-8c01-4df8-9d8b-99d59edf2f84\"","stack":"QueryFailedError: invalid input syntax for type integer: \"19451a24-8c01-4df8-9d8b-99d59edf2f84\"\n    at QueryFailedError.TypeORMError [as constructor] (/usr/app/src/error/TypeORMError.ts:7:9)\n    at new QueryFailedError (/usr/app/src/error/QueryFailedError.ts:9:9)\n    at PostgresQueryRunner.<anonymous> (/usr/app/src/driver/postgres/PostgresQueryRunner.ts:247:19)\n    at step (/usr/app/node_modules/tslib/tslib.js:143:27)\n    at Object.throw (/usr/app/node_modules/tslib/tslib.js:124:57)\n    at rejected (/usr/app/node_modules/tslib/tslib.js:115:69)\n    at runMicrotasks (<anonymous>)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)","query":"SELECT \"Task\".\"title\" AS \"Task_title\", \"Task\".\"description\" AS \"Task_description\", \"Task\".\"order\" AS \"Task_order\", \"Task\".\"column_id\" AS \"Task_column_id\", \"Task\".\"board_id\" AS \"Task_board_id\", \"Task\".\"user_id\" AS \"Task_user_id\", \"Task\".\"id\" AS \"Task_id\", \"Task\".\"userIdId\" AS \"Task_userIdId\" FROM \"tasks\" \"Task\" WHERE \"Task\".\"order\" IN ($1)","parameters":["19451a24-8c01-4df8-9d8b-99d59edf2f84"],"driverError":{"type":"DatabaseError","message":"invalid input syntax for type integer: \"19451a24-8c01-4df8-9d8b-99d59edf2f84\"","stack":"error: invalid input syntax for type integer: \"19451a24-8c01-4df8-9d8b-99d59edf2f84\"\n    at Parser.parseErrorMessage (/usr/app/node_modules/pg-protocol/src/parser.ts:369:69)\n    at Parser.handlePacket (/usr/app/node_modules/pg-protocol/src/parser.ts:188:21)\n    at Parser.parse (/usr/app/node_modules/pg-protocol/src/parser.ts:103:30)\n    at Socket.<anonymous> (/usr/app/node_modules/pg-protocol/src/index.ts:7:48)\n    at Socket.emit (node:events:390:28)\n    at Socket.emit (node:domain:475:12)\n    at addChunk (node:internal/streams/readable:315:12)\n    at readableAddChunk (node:internal/streams/readable:289:9)\n    at Socket.Readable.push (node:internal/streams/readable:228:10)\n    at TCP.onStreamRead (node:internal/stream_base_commons:199:23)","length":137,"name":"error","severity":"ERROR","code":"22P02","file":"numutils.c","line":"320","routine":"pg_strtoint32"},"length":137,"severity":"ERROR","code":"22P02","file":"numutils.c","line":"320","routine":"pg_strtoint32"},"msg":"invalid input syntax for type integer: \"19451a24-8c01-4df8-9d8b-99d59edf2f84\""}
 {"level":30,"time":1642616439143,"pid":32,"hostname":"6233dc5c5eb6","reqId":"dfdd7296-acdd-413f-9802-8f0e21789b4b","url":"/boards/32abb8be-2d43-4809-81a0-5cb7ee8458eb/tasks/19451a24-8c01-4df8-9d8b-99d59edf2f84","statusCode":500,"msg":"request completed"}
+{"level":30,"time":1642617253716,"pid":51,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642617253790,"pid":51,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642617253790,"pid":51,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642617664206,"pid":67,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642617664237,"pid":67,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642617664237,"pid":67,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642617743067,"pid":83,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642617743099,"pid":83,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642617743099,"pid":83,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642617823916,"pid":99,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642617823950,"pid":99,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642617823950,"pid":99,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642617884725,"pid":115,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642617884758,"pid":115,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642617884758,"pid":115,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642617906819,"pid":131,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642617906851,"pid":131,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642617906851,"pid":131,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642617939371,"pid":147,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642617939401,"pid":147,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642617939401,"pid":147,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642617991509,"pid":163,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642617991539,"pid":163,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642617991539,"pid":163,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618032451,"pid":179,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618032486,"pid":179,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618032486,"pid":179,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618052856,"pid":195,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618052890,"pid":195,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618052890,"pid":195,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618071508,"pid":211,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618071539,"pid":211,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618071539,"pid":211,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618122439,"pid":227,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618122473,"pid":227,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618122473,"pid":227,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618140329,"pid":243,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618140361,"pid":243,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618140361,"pid":243,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618514292,"pid":259,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618514323,"pid":259,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618514323,"pid":259,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618599228,"pid":275,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618599259,"pid":275,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618599259,"pid":275,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618618263,"pid":291,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618618296,"pid":291,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618618296,"pid":291,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618646990,"pid":307,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618647025,"pid":307,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618647025,"pid":307,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618658647,"pid":323,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618658678,"pid":323,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618658678,"pid":323,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618735342,"pid":339,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618735374,"pid":339,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618735374,"pid":339,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618828577,"pid":355,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618828609,"pid":355,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618828609,"pid":355,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618852063,"pid":371,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618852095,"pid":371,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618852095,"pid":371,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618896217,"pid":387,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618896249,"pid":387,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618896249,"pid":387,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618917811,"pid":403,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618917842,"pid":403,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618917842,"pid":403,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618977937,"pid":419,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618977968,"pid":419,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618977968,"pid":419,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}
+{"level":30,"time":1642618988616,"pid":435,"hostname":"6233dc5c5eb6","msg":"App has 0 boards"}
+{"level":30,"time":1642618988649,"pid":435,"hostname":"6233dc5c5eb6","msg":"Server listening at http://0.0.0.0:4000"}
+{"level":30,"time":1642618988649,"pid":435,"hostname":"6233dc5c5eb6","msg":"Server listening at port 4000 at http://0.0.0.0:4000"}

@@ -15,8 +15,8 @@ export const getTasks = async (
   _req: FastifyRequest,
   reply: FastifyReply
 ): Promise<void> => {
-  tasks();
-  await reply.send(tasks());
+  const allTasks = await tasks();
+  await reply.send(allTasks);
 
 };
 /**
@@ -56,7 +56,7 @@ export const addTask = async (
   const newTaskData = req.body;
   newTaskData.boardId = boardId;
   const newTask = new Task(newTaskData);
-  addNewTask({ ...newTask });
+  await addNewTask({ ...newTask });
   await reply.code(201).send({ ...newTask });
 };
 
@@ -75,12 +75,12 @@ export const deleteTask = async (
   reply: FastifyReply
 ) => {
   const { taskId } = req.params;
-  const task: Promise<Task | undefined> = findTask(taskId);
+  const task = await findTask(taskId);
 
   if (!task) {
     await reply.code(404).send({ message: `Task with id ${taskId} not found` });
   }
-  deleteTaskById(taskId);
+  await deleteTaskById(taskId);
   await reply.send({ message: `The task ${taskId} has been deleted` });
 };
 
@@ -100,7 +100,7 @@ export const updateTask = async (
   const { taskId } = req.params;
   const updatedTaskData = req.body;
 
-  updateTaskById(taskId, updatedTaskData);
+  await updateTaskById(taskId, updatedTaskData);
 
   const task: Promise<Task | undefined> = findTask(taskId);
   await reply.send(task);

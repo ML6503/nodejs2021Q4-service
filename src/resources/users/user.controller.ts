@@ -47,7 +47,7 @@ export const getUser = async (
   const { userId } = req.params;
   req.log.info({ userId }, 'Fetching user from DB');
   try {
-    const user = findUser(userId);
+    const user = await findUser(userId);
 
     if (!user) {
       req.log.warn({ userId }, 'User not found');
@@ -56,7 +56,7 @@ export const getUser = async (
         .send({ message: `User with id ${userId} not found` });
     }
     req.log.debug({ user }, 'User found, sending to client');
-    await reply.send(user);
+    return reply.send(user);
   } catch (error) {
     req.log.error(error, 'Failed to fetch user from DB');
     return reply.status(500).send('An error occurred while fetching user');
@@ -77,7 +77,7 @@ export const addUser = async (
 ) => {
   const newUserData = req.body;
   const newUser = new User(newUserData);
-  addNewUser({ ...newUser });
+  await addNewUser({ ...newUser });
   // await userRepository.save(newUserData);
   await reply.code(201).send(newUserData);
 };
@@ -98,7 +98,7 @@ export const deleteUser = async (
 ) => {
   const { userId } = req.params;
 
-  const user = findUser(userId);
+  const user = await findUser(userId);
   // const user = await userRepository.findOne(userId);
 
   if (!user) {
@@ -106,7 +106,7 @@ export const deleteUser = async (
   }
   // unassignUserTasks(userId);
 
-  deleteUserById(userId);
+  await deleteUserById(userId);
   // else {
   // await userRepository.remove(user);
   await reply.send({ message: `User ${userId} has been removed` });
@@ -128,7 +128,7 @@ export const updateUser = async (
   const { userId } = req.params;
   const updatedUserData = req.body;
 
-  updateUserById(userId, updatedUserData);
+  await updateUserById(userId, updatedUserData);
 
   const user = findUser(userId);
   await reply.send(user);

@@ -1,5 +1,5 @@
-import Task from '../../entity/Task';
 import { getRepository } from 'typeorm';
+import Task from '../../entity/Task';
 import { ITask } from '../../common/interfaces';
 // import { tasks } from '../../dataBase/tasks.db';
 
@@ -12,8 +12,8 @@ import { ITask } from '../../common/interfaces';
 // const getAllTasks: () => ITask[] | [] = () => allTasks;
 const getAllTasks = async () => {
   // const allUsers = await userRepository.find();
-  return await getRepository(Task).find();
-  // return allUsers;
+  const allUsers = await getRepository(Task).find();
+  return allUsers;
 };
 /**
  * add new task to all tasks
@@ -34,7 +34,8 @@ const addNewTask = async (taskDetails: ITask) => {
     task.columnId = taskDetails.columnId;
     task.boardId = taskDetails.boardId;
 
-  return  await getRepository(Task).save(task);
+  const addedTask = await getRepository(Task).save(task);
+  return addedTask;
   
 };
 
@@ -65,9 +66,9 @@ const deleteTask = async (taskId: string) => {
     await getRepository(Task).delete(taskId);
     return getAllTasks();
   }
-  else {
+  
     return 'Task not found';
-  }
+  
 };
 /**
  * update task details with data incoming in param by id
@@ -89,9 +90,9 @@ const updateTask =  async (taskId: string, updatedData: ITask) => {
    const updatedTask = await getRepository(Task).update(taskId, updatedData);
     return updatedTask;
   }
-  else {
+  
     throw new Error('Task not found');
-  }
+  
 
 };
 /**
