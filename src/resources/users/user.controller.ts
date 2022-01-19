@@ -11,7 +11,7 @@ const {
   findUser,
   deleteUserById,
   updateUserById,
-  unassignUserTasks,
+  // unassignUserTasks,
 } = usersService;
 
 // console.log('userRepo', getRepository(User));
@@ -104,7 +104,7 @@ export const deleteUser = async (
   if (!user) {
     await reply.code(404).send({ message: `User with id ${userId} not found` });
   }
-  unassignUserTasks(userId);
+  // unassignUserTasks(userId);
 
   deleteUserById(userId);
   // else {

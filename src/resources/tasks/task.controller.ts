@@ -32,7 +32,7 @@ export const getTask = async (
   reply: FastifyReply
 ) => {
   const { taskId } = req.params;
-  const task: ITask | undefined = findTask(taskId);
+  const task = await findTask(taskId);
   if (!task) {
     await reply.code(404).send({ message: `Task with id ${taskId} not found` });
   }
@@ -75,7 +75,7 @@ export const deleteTask = async (
   reply: FastifyReply
 ) => {
   const { taskId } = req.params;
-  const task: ITask | undefined = findTask(taskId);
+  const task: Promise<Task | undefined> = findTask(taskId);
 
   if (!task) {
     await reply.code(404).send({ message: `Task with id ${taskId} not found` });
@@ -102,6 +102,6 @@ export const updateTask = async (
 
   updateTaskById(taskId, updatedTaskData);
 
-  const task: ITask | undefined = findTask(taskId);
+  const task: Promise<Task | undefined> = findTask(taskId);
   await reply.send(task);
 };

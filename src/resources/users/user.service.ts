@@ -1,5 +1,5 @@
 import { usersRepo } from './user.memory.repository';
-import { tasksRepo } from '../tasks/task.memory.repository';
+// import { tasksRepo } from '../tasks/task.memory.repository';
 import { IUser } from '../../common/interfaces';
 
 const { getAllUsers } = usersRepo;
@@ -41,7 +41,7 @@ const updateUserById = (id: string, data: IUser) =>
  * @param  id - user id
  * @returns usersRepo.unassigneUserTasks function with its param
  */
-const unassignUserTasks = (id: string) => tasksRepo.unassignUserTasks(id);
+// const unassignUserTasks = (id: string) => tasksRepo.unassignUserTasks(id);
 
 export const usersService = {
   getAllUsers,
@@ -49,5 +49,5 @@ export const usersService = {
   findUser,
   deleteUserById,
   updateUserById,
-  unassignUserTasks,
+  // unassignUserTasks,
 };

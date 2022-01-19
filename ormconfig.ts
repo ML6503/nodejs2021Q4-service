@@ -8,7 +8,7 @@ export default {
   // host: 'trello-clone-postgres-1',
   host: 'postgres',
   // host: 'postgres-trello' || 'localhost' || 'trello-clone-postgres-1',
-  name: 'postgres',
+  // name: 'postgres',
   // port: process.env.POSTGRES_PORT ? Number(process.env.POSTGRES_PORT) : 5432,
   port: Number(process.env.POSTGRES_PORT),
   username: process.env.POSTGRES_USER || 'dbuser',

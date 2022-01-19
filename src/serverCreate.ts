@@ -66,23 +66,25 @@ server.addHook('preHandler', (req, _reply, next) => {
  *
  */
 
-void server.register(fastifySwagger, {
-  exposeRoute: true,
-  routePrefix: '/doc',
-  mode: 'static',
-  specification: {
-    path: path.join(__dirname, '../doc/api.yaml'),
-    baseDir: __dirname,
-  },
-});
 
-// await server.register(fp as FastifyPluginAsync);
+  server.register(fastifySwagger, {
+    exposeRoute: true,
+    routePrefix: '/doc',
+    mode: 'static',
+    specification: {
+      path: path.join(__dirname, '../doc/api.yaml'),
+      baseDir: __dirname,
+    },
+  });
+  
+  // await server.register(fp as FastifyPluginAsync);
+  
+  server.register(usersRoutes);
+  
+  server.register(boardsRoutes);
+  
+  server.register(tasksRoutes);
 
-void server.register(usersRoutes);
-
-void server.register(boardsRoutes);
-
-void server.register(tasksRoutes);
 
 server.setErrorHandler((error, _request, reply): void => {
   if (error.statusCode && error.statusCode >= 500) {

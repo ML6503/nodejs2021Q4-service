@@ -9,7 +9,7 @@ const {
   findBoard,
   deleteBoardById,
   updateBoardById,
-  deleteBoardTasks,
+  // deleteBoardTasks,
 } = boardsService;
 
 /**
@@ -84,7 +84,7 @@ export const deleteBoard = async (
       .code(404)
       .send({ message: `Board with id ${boardId} not found` });
   }
-  deleteBoardTasks(boardId);
+  // deleteBoardTasks(boardId);
 
   deleteBoardById(boardId);
   await reply.send({ message: `The board ${boardId} has been deleted` });

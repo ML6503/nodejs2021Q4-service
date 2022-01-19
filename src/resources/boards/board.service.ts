@@ -1,5 +1,5 @@
 import { boardsRepo } from './board.memory.repository';
-import { tasksRepo } from '../tasks/task.memory.repository';
+// import { tasksRepo } from '../tasks/task.memory.repository';
 import { IBoard, INewBoard } from '../../common/interfaces';
 
 const { getAllBoards } = boardsRepo;
@@ -39,7 +39,7 @@ const updateBoardById = (id: string, data: INewBoard) =>
    * @param id - board id type string
    * @returns call to boardsRepo.deleteBoardTasks func to delete tasks
    */
-const deleteBoardTasks = (id: string) => tasksRepo.deleteBoardTasks(id);
+// const deleteBoardTasks = (id: string) => tasksRepo.deleteBoardTasks(id);
 
 export const boardsService = {
   getAllBoards,
@@ -47,5 +47,5 @@ export const boardsService = {
   findBoard,
   deleteBoardById,
   updateBoardById,
-  deleteBoardTasks,
+  // deleteBoardTasks,
 };
