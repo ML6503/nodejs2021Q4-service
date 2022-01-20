@@ -1,6 +1,8 @@
 import { getRepository } from 'typeorm';
 import User from '../../entity/User';
 import { IUser } from '../../common/interfaces';
+import UserModel from './user.model';
+
 // import { users } from '../../dataBase/users.db';
 
 // let allUsers: Array<IUser> = [...users];
@@ -14,7 +16,8 @@ import { IUser } from '../../common/interfaces';
 const getAllUsers = async () => {
   // const allUsers = await userRepository.find();
   const allUsers = await getRepository(User).find();
-  return allUsers;
+  console.log('users DBDBDBD', allUsers)
+  return allUsers.map((user) => new UserModel(user));
 };
 
 /**
@@ -40,7 +43,7 @@ const addNewUser = async (userDetails: IUser) => {
  */
 const findUser = async (userId: string) => {
   // allUsers.find((u) => u.id === userId);
-  const singleUser = await getRepository(User).findOne({ id: userId });
+  const singleUser = await getRepository(User).findOne(userId);
   return singleUser;
 };
 
@@ -68,18 +71,18 @@ const deleteUser = async (userId: string) => {
  * @returns all users, where user with id from param got now updated data
  */
 const updateUser = async (userId: string, updatedData: IUser) => {
-  // allUsers = allUsers.map((user) =>
-  //   user.id === userId ? { id: userId, ...updatedData } : user
-  // );
-  const singleUser = await getRepository(User).findOne({ id: userId });
+
+  const userRepository = getRepository(User);
+
+  const singleUser = await userRepository.findOne(userId);
   if(singleUser) {
-   const updatedUser = await getRepository(User).update({ id: userId }, updatedData);
-    return updatedUser;
+    const updatedUser = userRepository.merge(singleUser, updatedData);
+   
+   const results = await userRepository.save(updatedUser); 
+   return results;
   }
   
-    throw new Error('User not found');
-  
-
+    else throw new Error('User not found');
 };
 
 export const usersRepo = {

@@ -1,5 +1,5 @@
 export interface IColumn {
-  id?: string;
+  id: string;
   title: string;
   order: number;
 }
@@ -31,7 +31,7 @@ export interface IGetColumnParam {
 export interface IBoard {
   id: string;
   title: string;
-  columnsId: Array<string> | [];
+  columns: Array<IColumn> | [];
   tasks?: Array<ITask> | [];
 }
 

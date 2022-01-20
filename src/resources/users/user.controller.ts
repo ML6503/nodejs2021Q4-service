@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 // import { getRepository } from 'typeorm';
 import { usersService } from './user.service';
-import User from './user.model';
+// import User from './user.model';
 // import User from '../../entity/User';
 import { IGetUserParam, IUser } from '../../common/interfaces';
 
@@ -23,7 +23,7 @@ const {
  * @param reply - FastifyReply
  */
 export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
-  const allUsers = users();
+  const allUsers = await users();
   // const allUsers = await userRepository.find();
   // const allUsers: IUser[] | [] = await fastify.db.inventory.find({
   //   relations: ['user'],
@@ -76,10 +76,11 @@ export const addUser = async (
   reply: FastifyReply
 ) => {
   const newUserData = req.body;
-  const newUser = new User(newUserData);
-  await addNewUser({ ...newUser });
+  // const newUser = new User(newUserData);
+  // await addNewUser({ ...newUser });
+  const newUser= await addNewUser(newUserData);
   // await userRepository.save(newUserData);
-  await reply.code(201).send(newUserData);
+  await reply.code(201).send(newUser);
 };
 
 /**

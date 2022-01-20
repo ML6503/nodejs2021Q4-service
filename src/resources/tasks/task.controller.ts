@@ -55,9 +55,10 @@ export const addTask = async (
   const { boardId } = req.params;
   const newTaskData = req.body;
   newTaskData.boardId = boardId;
-  const newTask = new Task(newTaskData);
-  await addNewTask({ ...newTask });
-  await reply.code(201).send({ ...newTask });
+  // const newTask = new Task(newTaskData);
+  // await addNewTask({ ...newTask });
+  await addNewTask(newTaskData);
+  await reply.code(201).send(newTaskData);
 };
 
 /**

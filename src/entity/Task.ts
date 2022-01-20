@@ -4,8 +4,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   BaseEntity,
-  ManyToOne,
-  OneToOne,
+  ManyToOne
 } from 'typeorm';
 import User from './User';
 import Board from './Board';
@@ -48,13 +47,16 @@ export default class Task extends BaseEntity {
   @Column('varchar', { length: 100, name: 'board_id' })
   boardId: string;
 
-  @ManyToOne((_type) => User, (user) => user.id, { onDelete: 'SET NULL' })
+
   @Column('varchar', { length: 100, nullable: true, name: 'user_id' })
   userId: string | null;
 
   @Column('uuid')
   id: string;
 
-  @OneToOne((_type) => Board, (board) => board.tasks)
+  @ManyToOne((_type) => Board, (board) => board.task)
   board: Board | undefined;
+
+  @ManyToOne(() => User, (user) => user.task, { onDelete: 'SET NULL' })
+  user: User | undefined | null;
 }

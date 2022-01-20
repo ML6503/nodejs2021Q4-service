@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne, OneToMany } from 'typeorm';
+import Board from './Board';
+import Task from './Task';
 
 /**
  * constructs User from params details and adding generated uuid
@@ -28,4 +30,12 @@ export default class User extends BaseEntity {
 
   @Column('varchar', { length: 100 })
   password: string;
+
+  @ManyToOne(() => Board, (board) => board.user)
+  board: Board | undefined;
+
+  @OneToMany(() => Task, (task) => task.user, { onDelete: 'SET NULL' })
+  task: Task | undefined | null;
 }
+
+

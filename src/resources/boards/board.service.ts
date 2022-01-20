@@ -1,6 +1,6 @@
 import { boardsRepo } from './board.memory.repository';
 // import { tasksRepo } from '../tasks/task.memory.repository';
-import { IBoard, INewBoard } from '../../common/interfaces';
+import { IBoard } from '../../common/interfaces';
 
 const { getAllBoards } = boardsRepo;
 
@@ -31,7 +31,7 @@ const deleteBoardById = (id: string) => boardsRepo.deleteBoard(id);
  * @param data - board new data with type INewBoard
  * @returns call to boardsRepo.updateBoard func to update board
  */
-const updateBoardById = (id: string, data: INewBoard) =>
+const updateBoardById = (id: string, data: IBoard) =>
   boardsRepo.updateBoard(id, data);
 
   /**

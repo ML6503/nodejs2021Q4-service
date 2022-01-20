@@ -4,23 +4,23 @@
 GET http://localhost:4000/users HTTP/1.1
 
 ### GET SINGLE USER
-GET http://localhost:4000/users/1 HTTP/1.1
+GET http://localhost:4000/users/d1be5e28-7e4c-43cb-b4fd-6fbb3af29c7c HTTP/1.1
 
 ### ADD NEW USER
 POST http://localhost:4000/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "TEST_USER",
+    "name": "TEST_NEWNEW_USER",
     "login": "test_user",
     "password": "T35t_P@55w0rd"  
 }
 
 ### DELETE SINGLE USER
-DELETE http://localhost:4000/users/3 HTTP/1.1
+DELETE http://localhost:4000/users/d1be5e28-7e4c-43cb-b4fd-6fbb3af29c7c HTTP/1.1
 
 ### UPDATE SINGLE USER
-PUT http://localhost:4000/users/1  HTTP/1.1
+PUT http://localhost:4000/users/34d1e35a-24ea-4848-929f-1fc1bfdd2e2b  HTTP/1.1
 Content-Type: application/json
 
 {
@@ -83,7 +83,7 @@ Content-Type: application/json
 GET http://localhost:4000/boards/1/tasks HTTP/1.1
 
 ### GET SINGLE TASK
-GET http://localhost:4000/boards/1/tasks/1 HTTP/1.1
+GET http://localhost:4000/boards/1/tasks/2e4a38db-3292-45da-9399-c320096ab98d HTTP/1.1
 
 ### ADD NEW TASK
 POST http://localhost:4000/boards/1/tasks HTTP/1.1
@@ -100,15 +100,15 @@ Content-Type: application/json
 }
 
 ### DELETE SINGLE TASK
-DELETE http://localhost:4000/boards/2/tasks/1 HTTP/1.1
+DELETE http://localhost:4000/boards/2/tasks/2e4a38db-3292-45da-9399-c320096ab98d HTTP/1.1
 
 ### UPDATE SINGLE TASK
-PUT http://localhost:4000/boards/1/tasks/1  HTTP/1.1
+PUT http://localhost:4000/boards/1/tasks/2e4a38db-3292-45da-9399-c320096ab98d  HTTP/1.1
 Content-Type: application/json
 
 {
   "title": "UPDATED TASK",  
-  "order": 0,
+  "order": 7,
   "description": "UPDATED Lorem ipsum",
   "userId": "1",
   "columnId": "1",

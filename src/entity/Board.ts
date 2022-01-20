@@ -4,15 +4,17 @@ import {
   Column,
   PrimaryGeneratedColumn,
   BaseEntity,
-  ManyToOne,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import Task from './Task';
+import User from './User';
 
 /**
  * constructs Board Entity for typeorm
  * @param title - title the board
- * @param columnsId - ids of columns in this board
- * * @param tasksId - ids of tasks in this board
+ * @param columns- array of columns of this board
+ * * @param tasksId - ids of tasks of this board
  */
 
 @Entity({ name: 'boards' })
@@ -21,7 +23,7 @@ export default class Board extends BaseEntity {
     super();
     this.id = uuidv4();
     this.title = '';
-    this.columnsId = [];
+    this.columns = [];
   }
 
   @Column('varchar', { length: 100 })
@@ -30,9 +32,17 @@ export default class Board extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string | undefined;
 
-  @Column('varchar', { length: 100 })
-  columnsId: Array<string> | [];
+  @Column( { 
+    type: 'jsonb',
+    nullable: false,
+    array: false,
+    default: () => "'[]'", })
+  columns: Array<{ id: string; order: number; title: string }>;
 
-  @ManyToOne((_type) => Task, (task) => task.board, { onDelete: 'CASCADE' })
-  tasks: Task[] | undefined;
+  @OneToMany(() => Task, (task) => task.board, { onDelete: 'CASCADE' })
+  task: Task | undefined;
+
+  @OneToMany(() => User, (user) => user.board)
+  @JoinColumn()
+  user: User | undefined;
 }

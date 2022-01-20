@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { IBoard, IGetBoardParam, INewBoard } from '../../common/interfaces';
+import { IBoard, IGetBoardParam } from '../../common/interfaces';
 import { boardsService } from './board.service';
-import Board from './board.model';
+// import Board from './board.model';
 
 const boards = boardsService.getAllBoards;
 const {
@@ -53,14 +53,15 @@ export const getBoard = async (
  * @param  reply - FastifyReply
  */
 export const addBoard = async (
-  req: FastifyRequest<{ Body: INewBoard }>,
+  req: FastifyRequest<{ Body: IBoard }>,
   reply: FastifyReply
 ) => {
   const newBoardData = req.body;
-  const newBoard = new Board(newBoardData);
+  // const newBoard = new Board(newBoardData);
 
-  addNewBoard({ ...newBoard });
-  await reply.code(201).send({ ...newBoard });
+  // addNewBoard({ ...newBoard });
+  addNewBoard(newBoardData);
+  await reply.code(201).send(newBoardData);
 };
 
 /**

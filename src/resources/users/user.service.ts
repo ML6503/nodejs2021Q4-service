@@ -9,7 +9,7 @@ const { getAllUsers } = usersRepo;
  * @param  user - user  as IUser of the board 
  * @returns usersRepo.addNewUser function with its param 
  */
-const addNewUser = (user: IUser) => usersRepo.addNewUser(user);
+const addNewUser = async (user: IUser) => await usersRepo.addNewUser(user);
 
 /**
  * function that calls uers repo to find user
@@ -17,14 +17,14 @@ const addNewUser = (user: IUser) => usersRepo.addNewUser(user);
  * @returns usersRepo.findUser function with id in param
  * that @returns whether user: IUser or undefined
  */
-const findUser = (id: string) => usersRepo.findUser(id);
+const findUser = async (id: string) => await usersRepo.findUser(id);
 
 /**
  * function that calls users repo to delete user by id
  * @param  id - user id type string
  * @returns usersRepo.deleteUser function with its param
  */
-const deleteUserById = (id: string) => usersRepo.deleteUser(id);
+const deleteUserById = async (id: string) => await usersRepo.deleteUser(id);
 
 /**
  * function that calls users repo in order to update users data from params
@@ -32,8 +32,8 @@ const deleteUserById = (id: string) => usersRepo.deleteUser(id);
  * @param  data -  user updated details type IUser
  * @returns usersRepo.updateUser function with its params
  */
-const updateUserById = (id: string, data: IUser) =>
-  usersRepo.updateUser(id, data);
+const updateUserById = async (id: string, data: IUser) =>
+  await usersRepo.updateUser(id, data);
 
 
 /**

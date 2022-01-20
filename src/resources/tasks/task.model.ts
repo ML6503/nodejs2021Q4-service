@@ -33,8 +33,9 @@ export default class Task {
       columnId = null,
       boardId,
       userId = null,
+      id = ''
     } = task;
-    this.id = uuidv4();
+    this.id = id;
     this.order = order;
     this.columnId = columnId;
     this.title = title;

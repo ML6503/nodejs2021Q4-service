@@ -12,8 +12,8 @@ import { ITask } from '../../common/interfaces';
 // const getAllTasks: () => ITask[] | [] = () => allTasks;
 const getAllTasks = async () => {
   // const allUsers = await userRepository.find();
-  const allUsers = await getRepository(Task).find();
-  return allUsers;
+  const allTasks = await getRepository(Task).find();
+  return allTasks;
 };
 /**
  * add new task to all tasks

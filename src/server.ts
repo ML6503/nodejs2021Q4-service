@@ -1,7 +1,7 @@
-import { createConnection, getConnection } from 'typeorm';
+import { createConnection } from 'typeorm';
 import { config } from './common/config';
 import server from './serverCreate';
-import Board from './entity/Board';
+// import Board from './entity/Board';
 // import { boardsRoutes } from './resources/boards/board.router';
 // import { tasksRoutes } from './resources/tasks/task.router';
 // import { usersRoutes } from './resources/users/user.router';
@@ -11,11 +11,11 @@ createConnection()
     server.log.error('Error in connection with Data Base: ', err)
   )
   .then(() => {
-    return getConnection().manager.find(Board);
+    // return getConnection().manager.find(Board);
   })
-  .then((boards) => {
-    server.log.info(`App has ${boards.length} boards`);
-  })
+  // .then((boards) => {
+  //   // server.log.info(`App has ${boards.length} boards`);
+  // })
   .then(
 
   

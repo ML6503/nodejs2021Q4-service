@@ -1,4 +1,4 @@
-import { ConnectionOptions } from 'typeorm';
+
 import path from 'path';
 
 const isCompiled = path.extname(__filename).includes('js');
@@ -7,16 +7,19 @@ export default {
   type: 'postgres',
   // host: 'trello-clone-postgres-1',
   host: 'postgres',
+  // host: "localhost",
   // host: 'postgres-trello' || 'localhost' || 'trello-clone-postgres-1',
   // name: 'postgres',
-  // port: process.env.POSTGRES_PORT ? Number(process.env.POSTGRES_PORT) : 5432,
+  // port: 5432,
   port: Number(process.env.POSTGRES_PORT),
   username: process.env.POSTGRES_USER || 'dbuser',
-  password: process.env.POSTGRES_PASSWORD || 'admin2021',
-  database: process.env.POSTGRES_DB || 'trello-clone',
+  // password: process.env.POSTGRES_PASSWORD || 'admin2021',
+  password: null,
+  // database: process.env.POSTGRES_DB || 'trello_clone',
+  database: 'trello_clone',
   synchronize: false,
   logging: true,
-  migrationsRun: true,
+  // migrationsRun: true,
   entities: [`src/entity/**/*.${isCompiled ? 'js' : 'ts'}`],
   migrations: [`src/migration/**/*.${isCompiled ? 'js' : 'ts'}`],
   subscribers: ['src/subscriber/**/*.ts'],
@@ -25,4 +28,4 @@ export default {
     migrationsDir: 'src/migration',
     subscribersDir: 'src/subscriber',
   },
-} as ConnectionOptions;
+};
