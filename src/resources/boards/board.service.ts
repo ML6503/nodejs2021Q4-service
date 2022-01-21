@@ -9,21 +9,21 @@ const { getAllBoards } = boardsRepo;
  * @param  board - board object type IBoard
  * @returns call to boardsRepo.addNewBoard func with board details
  */
-const addNewBoard = (board: IBoard) => boardsRepo.addNewBoard(board);
+const addNewBoard = async (board: IBoard) => await boardsRepo.addNewBoard(board);
 
 /**
  * calls boards repo to find board by id
  * @param id - board id type string
  * @returns call to boardsRepo.findBoard func to get board by id 
  */
-const findBoard = (id: string) => boardsRepo.findBoard(id);
+const findBoard = async (id: string) => await boardsRepo.findBoard(id);
 
 /**
  * call boards repo to delete board by id
  * @param id - board id type string
  * @returns call to boardsRepo.deleteBoard func to delete board by id
  */
-const deleteBoardById = (id: string) => boardsRepo.deleteBoard(id);
+const deleteBoardById = async (id: string) => await boardsRepo.deleteBoard(id);
 
 /**
  * updates board by id got with received new details
@@ -31,8 +31,8 @@ const deleteBoardById = (id: string) => boardsRepo.deleteBoard(id);
  * @param data - board new data with type INewBoard
  * @returns call to boardsRepo.updateBoard func to update board
  */
-const updateBoardById = (id: string, data: IBoard) =>
-  boardsRepo.updateBoard(id, data);
+const updateBoardById = async (id: string, data: IBoard) =>
+  await boardsRepo.updateBoard(id, data);
 
   /**
    * delete board tasks by board id

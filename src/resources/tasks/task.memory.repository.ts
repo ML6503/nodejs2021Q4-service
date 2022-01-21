@@ -47,7 +47,7 @@ const addNewTask = async (taskDetails: ITask) => {
 // const findTask = (taskId: string) => allTasks.find((t) => t.id === taskId);
 const findTask = async (taskId: string) => {
   // allUsers.find((u) => u.id === userId);
-  const singleTask = await getRepository(Task).findOne(taskId);
+  const singleTask = await getRepository(Task).findOne( {id: taskId} );
   return singleTask;
 };
 
@@ -61,13 +61,13 @@ const findTask = async (taskId: string) => {
 // };
 const deleteTask = async (taskId: string) => {
   // allUsers = allUsers.filter((u) => u.id !== userId);
-  const singleTask = await getRepository(Task).findOne(taskId);
+  const singleTask = await getRepository(Task).findOne({ id: taskId });
   if(singleTask) {
-    await getRepository(Task).delete(taskId);
-    return getAllTasks();
+    await getRepository(Task).delete({ id: taskId });
+    const allRemainingTasks = await getAllTasks(); 
+   return allRemainingTasks;
   }
-  
-    return 'Task not found';
+    throw new Error('Task not found');
   
 };
 /**
@@ -85,10 +85,12 @@ const updateTask =  async (taskId: string, updatedData: ITask) => {
   // allUsers = allUsers.map((user) =>
   //   user.id === userId ? { id: userId, ...updatedData } : user
   // );
-  const singleTask = await getRepository(Task).findOne(taskId);
+  const taskRepository = getRepository(Task);
+  const singleTask = await taskRepository.findOne({ id: taskId});
   if(singleTask) {
-   const updatedTask = await getRepository(Task).update(taskId, updatedData);
-    return updatedTask;
+   await taskRepository.update({ id: taskId }, updatedData);
+   const allTasksWzUpdated = await getAllTasks(); 
+   return allTasksWzUpdated;
   }
   
     throw new Error('Task not found');

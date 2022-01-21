@@ -18,8 +18,8 @@ const {
  * @param  reply - FastifyReply
  */
 export const getBoards = async (_req: FastifyRequest, reply: FastifyReply) => {
-  boards();
-  await reply.send(boards());
+  const allBoards = await boards();
+  await reply.send(allBoards);
 };
 
 /**
@@ -35,13 +35,21 @@ export const getBoard = async (
   reply: FastifyReply
 ) => {
   const { boardId } = req.params;
-  const board = findBoard(boardId);
-  if (!board) {
-    await reply
-      .code(404)
-      .send({ message: `Board with id ${boardId} not found` });
+  req.log.info({ boardId }, 'Fetching Board from DB');
+  try{
+    const board = await findBoard(boardId);
+    if (!board) {
+      req.log.warn({ boardId }, 'Board not found');
+      await reply
+        .code(404)
+        .send({ message: `Board with id ${boardId} not found` });
+    }
+    req.log.debug({ board }, 'Board found, sending to client');
+   return reply.send(board);
+  }catch(error){
+    req.log.error(error, 'Failed to fetch board from DB');
+    return reply.status(500).send('An error occurred while fetching board');
   }
-  await reply.send(board);
 };
 
 /**
@@ -60,8 +68,8 @@ export const addBoard = async (
   // const newBoard = new Board(newBoardData);
 
   // addNewBoard({ ...newBoard });
-  addNewBoard(newBoardData);
-  await reply.code(201).send(newBoardData);
+  const newBoard = await addNewBoard(newBoardData);
+  await reply.code(201).send(newBoard);
 };
 
 /**
@@ -78,7 +86,7 @@ export const deleteBoard = async (
   reply: FastifyReply
 ) => {
   const { boardId } = req.params;
-  const board = findBoard(boardId);
+  const board = await findBoard(boardId);
 
   if (!board) {
     await reply
@@ -87,7 +95,7 @@ export const deleteBoard = async (
   }
   // deleteBoardTasks(boardId);
 
-  deleteBoardById(boardId);
+  await deleteBoardById(boardId);
   await reply.send({ message: `The board ${boardId} has been deleted` });
 };
 
@@ -109,6 +117,6 @@ export const updateBoard = async (
 
   updateBoardById(boardId, updatedBoardData);
 
-  const board = findBoard(boardId);
+  const board = await findBoard(boardId);
   await reply.send(board);
 };

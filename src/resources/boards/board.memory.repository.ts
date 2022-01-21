@@ -2,6 +2,7 @@ import { getRepository } from 'typeorm';
 import { IBoard } from '../../common/interfaces';
 // import { boards } from '../../dataBase/boards.db';
 import Board from '../../entity/Board';
+import BoardModel from './board.model';
 
 // let allBoards: Array<IBoard> | [] = [...boards];
 
@@ -13,7 +14,7 @@ import Board from '../../entity/Board';
 const getAllBoards = async () => {
  
   const allBoards = await getRepository(Board).find();
-  return allBoards;
+  return allBoards.map((board) => new BoardModel(board));
 };
 /**
  * func to add new board to all board
@@ -27,7 +28,7 @@ const addNewBoard = async (boardDetails: IBoard) => {
   // allUsers = [...allUsers, user];
   const board= new Board();
   board.title = boardDetails.title;
-  board.id = boardDetails.id;
+  // board.id = boardDetails.id;
   board.columns = boardDetails.columns;
   
   const addedBoard = await getRepository(Board).save(board);
@@ -80,13 +81,13 @@ const deleteBoard = async (id: string) => {
 
 const updateBoard =  async (id: string, updatedData: IBoard) => {
 
-  const userRepository = getRepository(Board);
+  const boardRepository = getRepository(Board);
 
-  const singleBoard = await userRepository.findOne(id);
+  const singleBoard = await boardRepository.findOne(id);
   if(singleBoard) {
-    const updatedBoard = userRepository.merge(singleBoard, updatedData);
+    const updatedBoard = boardRepository.merge(singleBoard, updatedData);
    
-   const results = await userRepository.save(updatedBoard); 
+   const results = await boardRepository.save(updatedBoard); 
    return results;
   }
   

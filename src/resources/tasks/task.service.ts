@@ -8,14 +8,14 @@ const { getAllTasks } = tasksRepo;
  * @param  task - task object with the type ITask
  * @returns tasksRepo.addNewTask function with task id in param
  */
-const addNewTask = (task: ITask) => tasksRepo.addNewTask(task);
+const addNewTask = async (task: ITask) => await tasksRepo.addNewTask(task);
 
 /**
  * calls tasks repo to find task
  * @param id - task id with type string
  * @returns tasksRepo.findTask function with task id in param
  */
-const findTask = (id: string) => tasksRepo.findTask(id);
+const findTask = async (id: string) => await tasksRepo.findTask(id);
 
 /**
  * calls tasks repo to delete task by id
@@ -23,7 +23,7 @@ const findTask = (id: string) => tasksRepo.findTask(id);
  * @returns tasksRepo.deleteTask function with task id in param
  * that @returns whether task type ITask or undefined 
  */
-const deleteTaskById = (id: string) => tasksRepo.deleteTask(id);
+const deleteTaskById = async (id: string) => await tasksRepo.deleteTask(id);
 
 /**
  * calls tasks repo to update task by id
@@ -32,8 +32,8 @@ const deleteTaskById = (id: string) => tasksRepo.deleteTask(id);
  * @param task - updated task details object with type ITask
  * @returns tasksRepo.updateTask function with id and task details
  */
-const updateTaskById = (id: string, data: ITask) =>
-  tasksRepo.updateTask(id, data);
+const updateTaskById = async(id: string, data: ITask) =>
+  await tasksRepo.updateTask(id, data);
 
 export const tasksService = {
   getAllTasks,

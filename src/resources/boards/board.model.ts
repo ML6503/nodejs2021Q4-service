@@ -6,9 +6,9 @@ import { IBoard, IColumn, ITask } from '../../common/interfaces';
  * @param columns - of this board
  */
 export default class Board {
-  title: string;
+  title: string | undefined;
 
-  id: string;
+  id: string | undefined;
 
   columns: Array<IColumn> | [];
 

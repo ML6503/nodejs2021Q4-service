@@ -29,8 +29,8 @@ export interface IGetColumnParam {
 }
 
 export interface IBoard {
-  id: string;
-  title: string;
+  id: string | undefined;
+  title: string | undefined;
   columns: Array<IColumn> | [];
   tasks?: Array<ITask> | [];
 }

@@ -1,6 +1,19 @@
 # RS School REST service
 
-## Prerequisites
+
+## ВНИМАНИЕ! ОГРОМНАЯ ПРОСЬБА
+
+Дорогой друг,
+
+сердечная просьба,
+проверить мой адцкий код попозже.
+
+Гравицапа еще не прикручена
+Спасибо тебе заранее
+
+P.S. Три раза "КУ"!
+
+## 
 
 - Git - [Download & Install Git](https://git-scm.com/downloads).
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
@@ -11,9 +24,9 @@
 git clone https://github.com/ML6503/nodejs2021Q4-service.git
 ```
 
-## Choose docker project branch
+## Choose postgresql project branch
 
-git checkout docker
+git checkout postgresql
 
 ```
 

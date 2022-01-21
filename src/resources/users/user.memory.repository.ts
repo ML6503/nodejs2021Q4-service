@@ -2,6 +2,7 @@ import { getRepository } from 'typeorm';
 import User from '../../entity/User';
 import { IUser } from '../../common/interfaces';
 import UserModel from './user.model';
+import Task from '../../entity/Task';
 
 // import { users } from '../../dataBase/users.db';
 
@@ -16,7 +17,7 @@ import UserModel from './user.model';
 const getAllUsers = async () => {
   // const allUsers = await userRepository.find();
   const allUsers = await getRepository(User).find();
-  console.log('users DBDBDBD', allUsers)
+  
   return allUsers.map((user) => new UserModel(user));
 };
 
@@ -54,9 +55,13 @@ const findUser = async (userId: string) => {
  */
 const deleteUser = async (userId: string) => {
   // allUsers = allUsers.filter((u) => u.id !== userId);
-  const singleUser = await getRepository(User).findOne({ id: userId });
+  const userRepository = getRepository(User);
+  const taskRepository = getRepository(Task);
+  const singleUser = await userRepository.findOne({ id: userId });
   if(singleUser) {
-    await getRepository(User).delete({ id: userId });
+    // executes UPDATE task SET userId = null WHERE userId  = userId from param
+    await taskRepository.update({ userId: userId }, { userId: null })
+    await userRepository.delete({ id: userId });
     return getAllUsers();
   }
   

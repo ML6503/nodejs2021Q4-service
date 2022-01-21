@@ -1,6 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { tasksService } from './task.service';
-import Task from './task.model';
 import { IGetBoardParam, IGetTaskParam, ITask } from '../../common/interfaces';
 
 const tasks = tasksService.getAllTasks;
@@ -32,6 +31,7 @@ export const getTask = async (
   reply: FastifyReply
 ) => {
   const { taskId } = req.params;
+  
   const task = await findTask(taskId);
   if (!task) {
     await reply.code(404).send({ message: `Task with id ${taskId} not found` });
@@ -103,6 +103,6 @@ export const updateTask = async (
 
   await updateTaskById(taskId, updatedTaskData);
 
-  const task: Promise<Task | undefined> = findTask(taskId);
+  const task = await findTask(taskId);
   await reply.send(task);
 };

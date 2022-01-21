@@ -131,6 +131,6 @@ export const updateUser = async (
 
   await updateUserById(userId, updatedUserData);
 
-  const user = findUser(userId);
+  const user = await findUser(userId);
   await reply.send(user);
 };
