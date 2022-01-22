@@ -9,7 +9,10 @@ const { getAllUsers } = usersRepo;
  * @param  user - user  as IUser of the board 
  * @returns usersRepo.addNewUser function with its param 
  */
-const addNewUser = async (user: IUser) => await usersRepo.addNewUser(user);
+const addNewUser = async (user: IUser) => {
+  const newUser = await usersRepo.addNewUser(user);
+  return newUser;
+};
 
 /**
  * function that calls uers repo to find user
@@ -17,14 +20,20 @@ const addNewUser = async (user: IUser) => await usersRepo.addNewUser(user);
  * @returns usersRepo.findUser function with id in param
  * that @returns whether user: IUser or undefined
  */
-const findUser = async (id: string) => await usersRepo.findUser(id);
+const findUser = async (id: string) => {
+  const user = await usersRepo.findUser(id);
+  return user;
+};
 
 /**
  * function that calls users repo to delete user by id
  * @param  id - user id type string
  * @returns usersRepo.deleteUser function with its param
  */
-const deleteUserById = async (id: string) => await usersRepo.deleteUser(id);
+const deleteUserById = async (id: string) => {
+  const toDeleteUser = await usersRepo.deleteUser(id);
+  return toDeleteUser;
+};
 
 /**
  * function that calls users repo in order to update users data from params
@@ -32,16 +41,10 @@ const deleteUserById = async (id: string) => await usersRepo.deleteUser(id);
  * @param  data -  user updated details type IUser
  * @returns usersRepo.updateUser function with its params
  */
-const updateUserById = async (id: string, data: IUser) =>
-  await usersRepo.updateUser(id, data);
-
-
-/**
- * function that calls users repo to unassign users task by id = 0
- * @param  id - user id
- * @returns usersRepo.unassigneUserTasks function with its param
- */
-// const unassignUserTasks = (id: string) => tasksRepo.unassignUserTasks(id);
+const updateUserById = async (id: string, data: IUser) => {
+  const updatedUser = await usersRepo.updateUser(id, data);
+  return updatedUser;
+};
 
 export const usersService = {
   getAllUsers,

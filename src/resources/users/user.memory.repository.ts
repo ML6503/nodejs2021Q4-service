@@ -60,7 +60,7 @@ const deleteUser = async (userId: string) => {
   const singleUser = await userRepository.findOne({ id: userId });
   if(singleUser) {
     // executes UPDATE task SET userId = null WHERE userId  = userId from param
-    await taskRepository.update({ userId: userId }, { userId: null })
+    await taskRepository.update({ userId }, { userId: null })
     await userRepository.delete({ id: userId });
     return getAllUsers();
   }
@@ -87,7 +87,7 @@ const updateUser = async (userId: string, updatedData: IUser) => {
    return results;
   }
   
-    else throw new Error('User not found');
+    throw new Error('User not found');
 };
 
 export const usersRepo = {

@@ -1,35 +1,29 @@
-import Task from '../../entity/Task';
 import { getRepository } from 'typeorm';
+import Task from '../../entity/Task';
 import { IBoard } from '../../common/interfaces';
-// import { boards } from '../../dataBase/boards.db';
 import Board from '../../entity/Board';
 import BoardModel from './board.model';
 
-// let allBoards: Array<IBoard> | [] = [...boards];
 
 /**
  * function to obtain all boards
  * @returns all boards type IBoard or empty array
  */
-// const getAllBoards: () => IBoard[] = () => allBoards;
 const getAllBoards = async () => {
  
   const allBoards = await getRepository(Board).find();
   return allBoards.map((board) => new BoardModel(board));
 };
+
 /**
  * func to add new board to all board
  * @param board - board type IBoard
  * reassign all boards with new board data
  */
-// const addNewBoard = (board: IBoard) => {
-//   allBoards = [...allBoards, board];
-// };
 const addNewBoard = async (boardDetails: IBoard) => {
-  // allUsers = [...allUsers, user];
+
   const board= new Board();
   board.title = boardDetails.title;
-  // board.id = boardDetails.id;
   board.columns = boardDetails.columns;
   
   const addedBoard = await getRepository(Board).save(board);
@@ -41,10 +35,9 @@ const addNewBoard = async (boardDetails: IBoard) => {
  * @param  boardId - board id type string
  * @returns user found from all users array by it id
  */
-// const findBoard = (boardId: string) =>
-//   allBoards.find((u: IBoard) => u.id === boardId);
+
 const findBoard = async (id: string) => {
-  // allUsers.find((u) => u.id === userId);
+
   const singleBoard = await getRepository(Board).findOne(id);
   return singleBoard;
 };
@@ -54,9 +47,6 @@ const findBoard = async (id: string) => {
  * @param  boardId - board if type string
  * @returns all boards reassigned with boards except the one found by id in param
  */
-// const deleteBoard = (boardId: string) => {
-//   allBoards = allBoards.filter((u: IBoard) => u.id !== boardId);
-// };
 const deleteBoard = async (id: string) => {
   const singleBoard = await getRepository(Board).findOne(id);
   if(singleBoard) {
@@ -68,18 +58,13 @@ const deleteBoard = async (id: string) => {
     throw new Error('Board not found');
   
 };
+
 /**
  * update board details with data incoming in param by received id
  * @param  boardId  - board if type string
  * @param  updatedBoardData -  board if type INewBoard
  * reassigns allBoards with the boards where updated board has new details
  */
-// const updateBoard = (boardId: string, updatedBoardData: INewBoard) => {
-//   const newBoard = { id: boardId, ...updatedBoardData };
-//   allBoards = allBoards.map((board: IBoard) =>
-//     board.id === boardId ? newBoard : board
-//   );
-// };
 
 const updateBoard =  async (id: string, updatedData: IBoard) => {
 
@@ -87,13 +72,13 @@ const updateBoard =  async (id: string, updatedData: IBoard) => {
 
   const singleBoard = await boardRepository.findOne(id);
   if(singleBoard) {
-    const updatedBoard = boardRepository.merge(singleBoard, updatedData);
-   
-   const results = await boardRepository.save(updatedBoard); 
-   return results;
+
+  await boardRepository.update({ id }, updatedData);
+   const allBoardsWzUpdated = await getAllBoards(); 
+   return allBoardsWzUpdated;
   }
   
-    else throw new Error('Board not found');
+    throw new Error('Board not found');
 };
 
 export const boardsRepo = {

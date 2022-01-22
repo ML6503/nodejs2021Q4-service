@@ -115,7 +115,7 @@ export const updateBoard = async (
   const { boardId } = req.params;
   const updatedBoardData = req.body;
 
-  updateBoardById(boardId, updatedBoardData);
+  await updateBoardById(boardId, updatedBoardData);
 
   const board = await findBoard(boardId);
   await reply.send(board);

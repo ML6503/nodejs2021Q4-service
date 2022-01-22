@@ -54,7 +54,7 @@ Content-Type: application/json
 }
 
 ### DELETE SINGLE BOARD
-DELETE http://localhost:4000/boards/2 HTTP/1.1
+DELETE http://localhost:4000/boards/bd99b620-cc9d-40dc-9222-7d506abf138a HTTP/1.1
 
 ### UPDATE SINGLE BOARD
 PUT http://localhost:4000/boards/1  HTTP/1.1
@@ -86,17 +86,17 @@ GET http://localhost:4000/boards/1/tasks HTTP/1.1
 GET http://localhost:4000/boards/1/tasks/2e4a38db-3292-45da-9399-c320096ab98d HTTP/1.1
 
 ### ADD NEW TASK
-POST http://localhost:4000/boards/1/tasks HTTP/1.1
+POST http://localhost:4000/boards/fa0e8b0a-7cdb-4336-ad7e-eb29f1961a49/tasks HTTP/1.1
 Content-Type: application/json
 
 {
-  "title": "NEW TASK",  
+  
    "title": "TITLE for NEW TASK",
    "order": 2,
    "description": "Lorem ipsum",
-   "userId": "1",
-   "columnId": "1",
-   "boardId": "1" 
+   "userId": "c453d3e6-b0b1-4b44-bd43-a9d1190fd2g2",
+   "columnId": "74ecd2b9-de8a-4ae6-998b-976781a0d97e",
+   "boardId": null 
 }
 
 ### DELETE SINGLE TASK
