@@ -10,12 +10,9 @@ const {
   addNewUser,
   findUser,
   deleteUserById,
-  updateUserById,
-  // unassignUserTasks,
+  updateUserById
 } = usersService;
 
-// console.log('userRepo', getRepository(User));
-// const userRepository = getRepository(User);
 
 /**
  * Promislike function calls users and send users in Fastify server reply
@@ -24,11 +21,6 @@ const {
  */
 export const getUsers = async (_req: FastifyRequest, reply: FastifyReply) => {
   const allUsers = await users();
-  // const allUsers = await userRepository.find();
-  // const allUsers: IUser[] | [] = await fastify.db.inventory.find({
-  //   relations: ['user'],
-  // });
-
   await reply.send(allUsers);
 };
 
@@ -76,10 +68,7 @@ export const addUser = async (
   reply: FastifyReply
 ) => {
   const newUserData = req.body;
-  // const newUser = new User(newUserData);
-  // await addNewUser({ ...newUser });
   const newUser = await addNewUser(newUserData);
-  // await userRepository.save(newUserData);
   await reply.code(201).send(newUser);
 };
 
@@ -98,21 +87,15 @@ export const deleteUser = async (
   reply: FastifyReply
 ) => {
   const { userId } = req.params;
-
   const user = await findUser(userId);
-  // const user = await userRepository.findOne(userId);
-
+  
   if (!user) {
     await reply.code(404).send({ message: `User with id ${userId} not found` });
   }
-  // unassignUserTasks(userId);
-
   await deleteUserById(userId);
-  // else {
-  // await userRepository.remove(user);
   await reply.send({ message: `User ${userId} has been removed` });
-  // }
 };
+
 /**
  * Promislike function that accepts user id and updated user object
  * in request params

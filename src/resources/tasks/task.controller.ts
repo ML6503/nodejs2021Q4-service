@@ -108,7 +108,6 @@ export const updateTask = async (
 ) => {
   const { taskId } = req.params;
   const updatedTaskData = req.body;
-  console.log('params', req.params);
   await updateTaskById(taskId, updatedTaskData);
 
   const task = await findTask(taskId);
