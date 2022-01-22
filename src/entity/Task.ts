@@ -38,20 +38,26 @@ export default class Task extends BaseEntity {
   @Column('text')
   description: string;
 
-  @PrimaryGeneratedColumn()
+  @Column('integer')
   order: number;
 
-  @Column('varchar', { length: 100, name: 'column_id' })
+  @Column({
+    type: 'uuid',
+    nullable: true,
+  })
   columnId: string | null;
 
-  @Column('varchar', { length: 100, name: 'board_id' })
+  @Column({
+    type: 'uuid',
+    nullable: true,
+  })
   boardId: string;
 
 
   @Column('varchar', { length: 100, nullable: true, name: 'user_id' })
   userId: string | null;
 
-  @Column('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @ManyToOne((_type) => Board, (board) => board.task)

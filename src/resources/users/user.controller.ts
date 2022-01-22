@@ -78,7 +78,7 @@ export const addUser = async (
   const newUserData = req.body;
   // const newUser = new User(newUserData);
   // await addNewUser({ ...newUser });
-  const newUser= await addNewUser(newUserData);
+  const newUser = await addNewUser(newUserData);
   // await userRepository.save(newUserData);
   await reply.code(201).send(newUser);
 };

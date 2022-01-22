@@ -31,12 +31,20 @@ export const getTask = async (
   reply: FastifyReply
 ) => {
   const { taskId } = req.params;
+  req.log.info({ taskId }, 'Fetching task from DB');
   
-  const task = await findTask(taskId);
+  try {
+    const task = await findTask(taskId);
   if (!task) {
+    req.log.warn({ taskId }, 'Task not found');
     await reply.code(404).send({ message: `Task with id ${taskId} not found` });
   }
-  await reply.send(task);
+  return reply.send(task);
+
+  } catch(error) {
+    req.log.error(error, 'Failed to fetch task from DB');
+    return reply.status(500).send('An error occurred while fetching task');
+  } 
 };
 
 /**
@@ -57,8 +65,8 @@ export const addTask = async (
   newTaskData.boardId = boardId;
   // const newTask = new Task(newTaskData);
   // await addNewTask({ ...newTask });
-  await addNewTask(newTaskData);
-  await reply.code(201).send(newTaskData);
+  const newTask = await addNewTask(newTaskData);
+  await reply.code(201).send(newTask);
 };
 
 /**
@@ -100,7 +108,7 @@ export const updateTask = async (
 ) => {
   const { taskId } = req.params;
   const updatedTaskData = req.body;
-
+  console.log('params', req.params);
   await updateTaskById(taskId, updatedTaskData);
 
   const task = await findTask(taskId);

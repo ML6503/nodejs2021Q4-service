@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm';
 import Task from '../../entity/Task';
 import { ITask } from '../../common/interfaces';
+import TaskModel from './task.model';
 // import { tasks } from '../../dataBase/tasks.db';
 
 // let allTasks: Array<ITask> | [] = [...tasks];
@@ -13,7 +14,7 @@ import { ITask } from '../../common/interfaces';
 const getAllTasks = async () => {
   // const allUsers = await userRepository.find();
   const allTasks = await getRepository(Task).find();
-  return allTasks;
+  return allTasks.map(task => new TaskModel(task));
 };
 /**
  * add new task to all tasks
@@ -86,6 +87,7 @@ const updateTask =  async (taskId: string, updatedData: ITask) => {
   //   user.id === userId ? { id: userId, ...updatedData } : user
   // );
   const taskRepository = getRepository(Task);
+
   const singleTask = await taskRepository.findOne({ id: taskId});
   if(singleTask) {
    await taskRepository.update({ id: taskId }, updatedData);
@@ -131,7 +133,6 @@ const updateTask =  async (taskId: string, updatedData: ITask) => {
 // const deleteBoardTasks = (boardId: string) => {
 //   allTasks = allTasks.filter((t) => t.boardId !== boardId);
 // };
-
 
 export const tasksRepo = {
   getAllTasks,

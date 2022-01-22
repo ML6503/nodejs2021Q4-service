@@ -100,7 +100,7 @@ Content-Type: application/json
 }
 
 ### DELETE SINGLE TASK
-DELETE http://localhost:4000/boards/2/tasks/2e4a38db-3292-45da-9399-c320096ab98d HTTP/1.1
+DELETE http://localhost:4000/boards/2/tasks/e705791b-99c7-41e4-8f4e-5872f5e1e6f3 HTTP/1.1
 
 ### UPDATE SINGLE TASK
 PUT http://localhost:4000/boards/1/tasks/2e4a38db-3292-45da-9399-c320096ab98d  HTTP/1.1

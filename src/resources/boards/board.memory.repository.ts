@@ -1,3 +1,4 @@
+import Task from '../../entity/Task';
 import { getRepository } from 'typeorm';
 import { IBoard } from '../../common/interfaces';
 // import { boards } from '../../dataBase/boards.db';
@@ -59,6 +60,7 @@ const findBoard = async (id: string) => {
 const deleteBoard = async (id: string) => {
   const singleBoard = await getRepository(Board).findOne(id);
   if(singleBoard) {
+    await getRepository(Task).delete({ boardId: id });
     await getRepository(Board).delete(id);
     return getAllBoards();
   }
