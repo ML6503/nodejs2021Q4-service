@@ -1,4 +1,3 @@
-
 import path from 'path';
 
 const isCompiled = path.extname(__filename).includes('js');
@@ -13,8 +12,8 @@ export default {
   // port: 5432,
   port: Number(process.env.POSTGRES_PORT),
   username: process.env.POSTGRES_USER || 'dbuser',
-  // password: process.env.POSTGRES_PASSWORD || 'admin2021',
-  password: null,
+  password: process.env.POSTGRES_PASSWORD || 'dbuser',
+  // password: null,
   // database: process.env.POSTGRES_DB || 'trello_clone',
   database: 'trello_clone',
   synchronize: false,
