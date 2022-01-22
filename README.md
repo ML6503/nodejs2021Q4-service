@@ -1,6 +1,6 @@
 # RS School REST service
 
-## 
+##
 
 - Git - [Download & Install Git](https://git-scm.com/downloads).
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
@@ -44,7 +44,27 @@ npm ci
 
 docker-compose up --build
 
+or
+
+npm run docker:up
+
 server is now running
+
+# Migrations run for Database
+
+Should be run automatically on start up
+if not happended please run following command:
+
+docker exec -it trello-clone-api-1 npm run migration:run
+
+Thank you!
+
+# Migrations generate
+
+Required migration are already generated and available.
+Generating migrations can be executed by running:
+
+docker exec -it trello-clone-api-1 npm run migration:generate
 
 ## Other Docker commands
 
