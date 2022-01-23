@@ -3,12 +3,15 @@ import { v4 as uuidv4 } from 'uuid';
 import 'reflect-metadata';
 import fastify, { FastifyInstance } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
+// import fastifyJwt from 'fastify-jwt';
+import fpJWT from './auth/fpJWT';
 import { boardsRoutes } from './resources/boards/board.router';
 import { tasksRoutes } from './resources/tasks/task.router';
 import { usersRoutes } from './resources/users/user.router';
 import { customLogger } from './customLogger';
+import { loginRoute } from './resources/login/login.router';
 
-// import fp from './plugin/db';
+// const SECRET_KEY = 'supersecret';
 
 /**
  * const server get assigned with a Fastify factory function for the standard fastify http, https, or http2 server instance.
@@ -66,8 +69,7 @@ server.addHook('preHandler', (req, _reply, next) => {
  *
  */
 
-
- void (async () => {
+void (async () => {
   await server.register(fastifySwagger, {
     exposeRoute: true,
     routePrefix: '/doc',
@@ -77,17 +79,29 @@ server.addHook('preHandler', (req, _reply, next) => {
       baseDir: __dirname,
     },
   });
-  
-  // await server.register(fp as FastifyPluginAsync);
-  
+
+  // await server.register(fastifyJwt, {
+  //   secret: SECRET_KEY,
+  // });
+
+  await server.register(fpJWT);
+
+  await server.register(loginRoute);
+
   await server.register(usersRoutes);
-  
+
   await server.register(boardsRoutes);
-  
+
   await server.register(tasksRoutes);
+})();
 
-
- })();
+server.addHook('onRequest', async (request, reply) => {
+  try {
+    await request.jwtVerify();
+  } catch (err) {
+    await reply.send(err);
+  }
+});
 
 server.setErrorHandler((error, _request, reply): void => {
   if (error.statusCode && error.statusCode >= 500) {

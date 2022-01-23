@@ -6,3 +6,5 @@ export const FATAL = 'fatal';
 export const TRACE = 'trace';
 
 export const TRUE = 'true';
+
+export const SAULT_ROUND = 10;

@@ -1,7 +1,22 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, Column, PrimaryGeneratedColumn, BaseEntity, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+  ManyToOne,
+  OneToMany,
+  ValueTransformer,
+} from 'typeorm';
+import bcrypt from 'bcryptjs';
 import Board from './Board';
 import Task from './Task';
+import { SAULT_ROUND } from '../common/constants';
+
+const toBcryptHash: ValueTransformer = {
+  from: (value: string) => value,
+  to: (value: string) => value && bcrypt.hashSync(value, SAULT_ROUND),
+};
 
 /**
  * constructs User from params details and adding generated uuid
@@ -28,7 +43,7 @@ export default class User extends BaseEntity {
   @Column('varchar', { length: 100 })
   login: string;
 
-  @Column('varchar', { length: 100 })
+  @Column({ transformer: toBcryptHash, select: false })
   password: string;
 
   @ManyToOne(() => Board, (board) => board.user)
@@ -37,5 +52,3 @@ export default class User extends BaseEntity {
   @OneToMany(() => Task, (task) => task.user, { onDelete: 'SET NULL' })
   task: Task | undefined | null;
 }
-
-

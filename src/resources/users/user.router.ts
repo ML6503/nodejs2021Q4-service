@@ -8,19 +8,6 @@ import {
   updateUser,
 } from './user.controller';
 
-// export interface Db {
-//   users: Repository<User>;
-//   boards: Repository<Board>;
-//   tasks: Repository<Task>;
-// }
-// // Declaration merging
-// declare module 'fastify' {
-//   // eslint-disable-next-line no-shadow
-//   export interface FastifyInstance {
-//     db: Db;
-//   }
-// }
-
 // User schema to exclude secret fields like "password"
 const UserSchema = {
   type: 'object',
@@ -119,20 +106,16 @@ export const usersRoutes = (
   /**
    * Fastify factory method that is used here to get all users
    * by using path, specific Schema and handler
+   * '/' entry point route
    * '/users' -  users path
    * getUsersOpts - route options with get users Schema and handler
    */
+
+  fastify.get('/', _options, async (_, reply) => {
+    await reply.code(200).send('all ok here');
+  });
+
   fastify.get('/users', getUsersOpts);
-
-  // fastify.get(
-  //   '/users',
-  //   getUsersOpts,
-  //   async (_req: FastifyRequest, reply: FastifyReply) => {
-  //     const allUsers = await fastify.db.users.find(User);
-
-  //     await reply.send(allUsers);
-  //   }
-  // );
 
   /**
    * Fastify factory method that is used to get a single user
@@ -142,42 +125,13 @@ export const usersRoutes = (
    */
   fastify.get('/users/:userId', getUserOpts);
 
-  // fastify.get(
-  //   '/users/:userId',
-  //   getUserOpts,
-  //   async (
-  //     req: FastifyRequest<{
-  //       Params: IGetUserParam;
-  //     }>,
-  //     reply: FastifyReply
-  //   ) => {
-  //     const user = await fastify.db.users.findOne(req.params.userId);
-
-  //     return reply.send(user);
-  //   }
-  // );
-
   /**
    * Fastify factory method that is used to add user
    * by path, specific Schema and handler
    * '/users' -  users path
    * postUserOpts - route options with UserPostSchema and handler
    */
-  fastify.post(
-    '/users',
-    postUserOpts
-    // async (
-    //   req: FastifyRequest<{
-    //     Body: IUser;
-    //   }>,
-    //   reply: FastifyReply
-    // ) => {
-    //   const user = fastify.db.users.create(req.body);
-    //   const results = await fastify.db.users.save(user);
-
-    //   return reply.send(results);
-    // }
-  );
+  fastify.post('/users', postUserOpts);
 
   /**
    * Fastify factory method that is used to delete user

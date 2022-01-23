@@ -17,7 +17,7 @@ import Task from '../../entity/Task';
 const getAllUsers = async () => {
   // const allUsers = await userRepository.find();
   const allUsers = await getRepository(User).find();
-  
+
   return allUsers.map((user) => new UserModel(user));
 };
 
@@ -30,10 +30,10 @@ const getAllUsers = async () => {
 const addNewUser = async (userDetails: IUser) => {
   // allUsers = [...allUsers, user];
   const user = new User();
-    user.name = userDetails.name;
-    user.login = userDetails.login;
-    user.password = userDetails.password;
-  const singleUser =  await getRepository(User).save(user);
+  user.name = userDetails.name;
+  user.login = userDetails.login;
+  user.password = userDetails.password;
+  const singleUser = await getRepository(User).save(user);
   return singleUser;
 };
 
@@ -58,15 +58,14 @@ const deleteUser = async (userId: string) => {
   const userRepository = getRepository(User);
   const taskRepository = getRepository(Task);
   const singleUser = await userRepository.findOne({ id: userId });
-  if(singleUser) {
+  if (singleUser) {
     // executes UPDATE task SET userId = null WHERE userId  = userId from param
-    await taskRepository.update({ userId }, { userId: null })
+    await taskRepository.update({ userId }, { userId: null });
     await userRepository.delete({ id: userId });
     return getAllUsers();
   }
-  
-    throw new Error('User not found');
-  
+
+  throw new Error('User not found');
 };
 
 /**
@@ -76,18 +75,17 @@ const deleteUser = async (userId: string) => {
  * @returns all users, where user with id from param got now updated data
  */
 const updateUser = async (userId: string, updatedData: IUser) => {
-
   const userRepository = getRepository(User);
 
   const singleUser = await userRepository.findOne(userId);
-  if(singleUser) {
+  if (singleUser) {
     const updatedUser = userRepository.merge(singleUser, updatedData);
-   
-   const results = await userRepository.save(updatedUser); 
-   return results;
+
+    const results = await userRepository.save(updatedUser);
+    return results;
   }
-  
-    throw new Error('User not found');
+
+  throw new Error('User not found');
 };
 
 export const usersRepo = {
