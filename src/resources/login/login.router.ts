@@ -1,7 +1,6 @@
 import { FastifyInstance, FastifyRequest, FastifyServerOptions } from 'fastify';
 import { ILogin } from '../../common/interfaces';
 import { getUserId } from './login.controller';
-import { config } from '../../common/config';
 
 // import ajv from '../../auth/ajv';
 

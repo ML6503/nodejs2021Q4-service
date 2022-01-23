@@ -4,18 +4,11 @@ import { IUser } from '../../common/interfaces';
 import UserModel from './user.model';
 import Task from '../../entity/Task';
 
-// import { users } from '../../dataBase/users.db';
-
-// let allUsers: Array<IUser> = [...users];
-
 /**
  * function to return all users taken from Data Base
  * @returns all users or empty array if none
  */
-
-// const getAllUsers = (): IUser[] | [] => allUsers;
 const getAllUsers = async () => {
-  // const allUsers = await userRepository.find();
   const allUsers = await getRepository(User).find();
 
   return allUsers.map((user) => new UserModel(user));
@@ -28,7 +21,6 @@ const getAllUsers = async () => {
  * add new user to db user repo
  */
 const addNewUser = async (userDetails: IUser) => {
-  // allUsers = [...allUsers, user];
   const user = new User();
   user.name = userDetails.name;
   user.login = userDetails.login;
@@ -43,7 +35,6 @@ const addNewUser = async (userDetails: IUser) => {
  * @returns an user by id found from all users
  */
 const findUser = async (userId: string) => {
-  // allUsers.find((u) => u.id === userId);
   const singleUser = await getRepository(User).findOne(userId);
   return singleUser;
 };

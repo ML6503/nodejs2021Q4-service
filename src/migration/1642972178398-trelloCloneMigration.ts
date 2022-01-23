@@ -1,15 +1,17 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
+import bcrypt from 'bcryptjs';
+import { SAULT_ROUND } from '../common/constants';
 
-export class trelloCloneMigration1642851618428 implements MigrationInterface {
-  name = 'trelloCloneMigration1642851618428';
+export class trelloCloneMigration1642972178398 implements MigrationInterface {
+  name = 'trelloCloneMigration1642972178398';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
             CREATE TABLE "users" (
-                "name" character varying(100) NOT NULL,
+                "name" character varying NOT NULL,
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-                "login" character varying(100) NOT NULL,
-                "password" character varying(100) NOT NULL,
+                "login" character varying NOT NULL,
+                "password" character varying NOT NULL,
                 "boardId" uuid,
                 CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id")
             )
@@ -49,10 +51,10 @@ export class trelloCloneMigration1642851618428 implements MigrationInterface {
             SET NULL ON UPDATE NO ACTION
         `);
 
-    await queryRunner.query(`
-            INSERT INTO "users" ("login", "password")
-            VALUES ("admin", "admin")
-        `);
+    const password = await bcrypt.hash('admin', SAULT_ROUND);
+    await queryRunner.query(
+      `INSERT INTO "users" ("name", "login", "password" ) VALUES ("adminname", "admin", "${password}")`
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

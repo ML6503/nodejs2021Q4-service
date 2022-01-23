@@ -80,10 +80,6 @@ void (async () => {
     },
   });
 
-  // await server.register(fastifyJwt, {
-  //   secret: SECRET_KEY,
-  // });
-
   await server.register(fpJWT);
 
   await server.register(loginRoute);
@@ -94,28 +90,6 @@ void (async () => {
 
   await server.register(tasksRoutes);
 })();
-
-server.addHook('onRequest', async (request, reply) => {
-  try {
-    await request.jwtVerify();
-  } catch (err) {
-    await reply.send(err);
-  }
-});
-
-server.setErrorHandler((error, _request, reply): void => {
-  if (error.statusCode && error.statusCode >= 500) {
-    void reply.status(error.statusCode).send(error.message);
-    server.log.error(error);
-  }
-  if (error.validation) {
-    server.log.info(error);
-    void reply.status(400).send(error);
-  } else {
-    server.log.error(error);
-    void reply.status(500).send({ ok: false });
-  }
-});
 
 process.on('uncaughtException', (error: Error) => server.log.error(error));
 

@@ -1,20 +1,20 @@
 # FROM node:16-alpine3.14
-FROM node:16-alpine3.14 AS base
+FROM node:16-alpine3.14 
 WORKDIR /usr/app
 
 COPY package*.json ./
 
-# RUN npm install && node ace build --production
-RUN npm install --no-optional --production && npm cache clean --force
+
+RUN npm install --no-optional && npm cache clean --force
 
 COPY . .
 
 
-FROM base as production
+# FROM base as production
 
-ENV NODE_PATH=./build
+# ENV NODE_PATH=./build
 
-USER node
+# USER node
 
 RUN apk add --no-cache tini
 # Tini is now available at /sbin/tini

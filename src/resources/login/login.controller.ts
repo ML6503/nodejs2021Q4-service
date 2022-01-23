@@ -1,15 +1,18 @@
 import { getRepository } from 'typeorm';
 import bcrypt from 'bcryptjs';
-import { SAULT_ROUND } from '../../common/constants';
 import User from '../../entity/User';
 
 export const getUserId = async (login: string, rawPassword: string) => {
-  const password = await bcrypt.hash(rawPassword, SAULT_ROUND);
-  const singleUser = await getRepository(User).findOne({ login, password });
-  if (singleUser) {
-    return singleUser.id;
+  const singleUser = await getRepository(User).findOne({ login });
+
+  if (!singleUser) {
+    throw new Error('no user with such login or password');
   }
-  throw new Error('no user with such login or password');
+  const match = await bcrypt.compare(rawPassword, singleUser.password);
+  if (match) {
+    throw new Error('no user with such login or password');
+  }
+  return singleUser.id;
 };
 
 // export const loginUser = async (

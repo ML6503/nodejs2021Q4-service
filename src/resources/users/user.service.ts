@@ -6,8 +6,8 @@ const { getAllUsers } = usersRepo;
 
 /**
  * function that calls users repo to add new user
- * @param  user - user  as IUser of the board 
- * @returns usersRepo.addNewUser function with its param 
+ * @param  user - user  as IUser of the board
+ * @returns usersRepo.addNewUser function with its param
  */
 const addNewUser = async (user: IUser) => {
   const newUser = await usersRepo.addNewUser(user);
@@ -52,5 +52,4 @@ export const usersService = {
   findUser,
   deleteUserById,
   updateUserById,
-  // unassignUserTasks,
 };
