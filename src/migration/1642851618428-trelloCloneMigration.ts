@@ -1,10 +1,10 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class trelloCloneMigration1642851618428 implements MigrationInterface {
-    name = 'trelloCloneMigration1642851618428'
+  name = 'trelloCloneMigration1642851618428';
 
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             CREATE TABLE "users" (
                 "name" character varying(100) NOT NULL,
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
@@ -14,7 +14,7 @@ export class trelloCloneMigration1642851618428 implements MigrationInterface {
                 CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id")
             )
         `);
-        await queryRunner.query(`
+    await queryRunner.query(`
             CREATE TABLE "tasks" (
                 "title" character varying(100) NOT NULL,
                 "description" text NOT NULL,
@@ -27,7 +27,7 @@ export class trelloCloneMigration1642851618428 implements MigrationInterface {
                 CONSTRAINT "PK_8d12ff38fcc62aaba2cab748772" PRIMARY KEY ("id")
             )
         `);
-        await queryRunner.query(`
+    await queryRunner.query(`
             CREATE TABLE "boards" (
                 "title" character varying(100) NOT NULL,
                 "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
@@ -35,40 +35,44 @@ export class trelloCloneMigration1642851618428 implements MigrationInterface {
                 CONSTRAINT "PK_606923b0b068ef262dfdcd18f44" PRIMARY KEY ("id")
             )
         `);
-        await queryRunner.query(`
+    await queryRunner.query(`
             ALTER TABLE "users"
             ADD CONSTRAINT "FK_6522d5a65fc85cc92081c8aadbc" FOREIGN KEY ("boardId") REFERENCES "boards"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
-        await queryRunner.query(`
+    await queryRunner.query(`
             ALTER TABLE "tasks"
             ADD CONSTRAINT "FK_8a75fdea98c72c539a0879cb0d1" FOREIGN KEY ("boardId") REFERENCES "boards"("id") ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
-        await queryRunner.query(`
+    await queryRunner.query(`
             ALTER TABLE "tasks"
             ADD CONSTRAINT "FK_166bd96559cb38595d392f75a35" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE
             SET NULL ON UPDATE NO ACTION
         `);
-    }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+    await queryRunner.query(`
+            INSERT INTO "users" ("login", "password")
+            VALUES ("admin", "admin")
+        `);
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             ALTER TABLE "tasks" DROP CONSTRAINT "FK_166bd96559cb38595d392f75a35"
         `);
-        await queryRunner.query(`
+    await queryRunner.query(`
             ALTER TABLE "tasks" DROP CONSTRAINT "FK_8a75fdea98c72c539a0879cb0d1"
         `);
-        await queryRunner.query(`
+    await queryRunner.query(`
             ALTER TABLE "users" DROP CONSTRAINT "FK_6522d5a65fc85cc92081c8aadbc"
         `);
-        await queryRunner.query(`
+    await queryRunner.query(`
             DROP TABLE "boards"
         `);
-        await queryRunner.query(`
+    await queryRunner.query(`
             DROP TABLE "tasks"
         `);
-        await queryRunner.query(`
+    await queryRunner.query(`
             DROP TABLE "users"
         `);
-    }
-
+  }
 }

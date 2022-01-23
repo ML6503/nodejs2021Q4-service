@@ -4,7 +4,7 @@ import { SAULT_ROUND } from '../../common/constants';
 import User from '../../entity/User';
 
 export const getUserId = async (login: string, rawPassword: string) => {
-  const password = bcrypt.hashSync(rawPassword, SAULT_ROUND);
+  const password = await bcrypt.hash(rawPassword, SAULT_ROUND);
   const singleUser = await getRepository(User).findOne({ login, password });
   if (singleUser) {
     return singleUser.id;

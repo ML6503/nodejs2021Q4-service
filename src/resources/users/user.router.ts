@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyServerOptions } from 'fastify';
+import fastify, { FastifyInstance, FastifyServerOptions } from 'fastify';
 
 import {
   getUsers,
@@ -28,6 +28,7 @@ const getUsersOpts = {
       },
     },
   },
+  preValidation: [fastify.authenticate],
   handler: getUsers,
 };
 

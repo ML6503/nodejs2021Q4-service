@@ -1,6 +1,7 @@
 import { FastifyInstance, FastifyRequest, FastifyServerOptions } from 'fastify';
 import { ILogin } from '../../common/interfaces';
 import { getUserId } from './login.controller';
+import { config } from '../../common/config';
 
 // import ajv from '../../auth/ajv';
 
@@ -70,9 +71,10 @@ export const loginRoute = (
       const userId = await getUserId(login, password);
       if (userId) {
         const token = fastify.jwt.sign({ login, userId });
-
-        await reply.send({ token });
+        // const token = fastify.jwt.sign({ login, userId } , config.JWT_SECRET_KEY, { expiresIn: '120m'});
+        await reply.code(200).type('application/json').send({ token });
       }
+      await reply.code(403).send('incorect user login or password');
     }
   );
 
