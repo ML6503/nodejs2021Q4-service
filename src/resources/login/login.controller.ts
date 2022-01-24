@@ -6,12 +6,12 @@ export const getUserId = async (login: string, rawPassword: string) => {
   const singleUser = await getRepository(User).findOne({ login });
 
   if (!singleUser) {
-    throw new Error('no user with such login');
+    throw new Error('login or password is not correct');
   }
   const match = await bcrypt.compare(rawPassword, singleUser.password);
 
   if (!match) {
-    throw new Error('wrong password');
+    throw new Error('login or password is not correct');
   }
   return singleUser.id;
 };
