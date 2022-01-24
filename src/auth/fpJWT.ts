@@ -3,7 +3,7 @@ import jwt from 'fastify-jwt';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { config } from '../common/config';
 
-const AUTH_ROUTES = ['boards', 'users', 'tasks'];
+const authrRutes = ['boards', 'users', 'tasks'];
 
 // const isAuthorised = (r: string) => AUTH_ROUTES.includes(r);
 
@@ -18,7 +18,7 @@ export default fp(async (fastify, _opts) => {
       const singleRoute = request.url.split('/');
 
       try {
-        if (AUTH_ROUTES.includes(singleRoute[1])) {
+        if (authrRutes.includes(singleRoute[1])) {
           await request.jwtVerify();
         }
       } catch (err) {

@@ -2,11 +2,6 @@
 
 ##
 
-ИЗВИНИТЕ, ВЫ НЕ МОГЛИ БЫ ПРОВЕРИТЬ НЕМНОГО ПОЗЖЕ?
-СПАСИБО ЗАРАНЕЕ!
-
-##
-
 - Git - [Download & Install Git](https://git-scm.com/downloads).
 - Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
 

@@ -11,12 +11,11 @@ import {
 import bcrypt from 'bcryptjs';
 import Board from './Board';
 import Task from './Task';
-// import { SAULT_ROUND } from '../common/constants';
 
 const { SAULT_ROUND } = process.env;
 const toBcryptHash: ValueTransformer = {
   from: (value: string) => value,
-  to: (value: string) => value && bcrypt.hashSync(value, SAULT_ROUND),
+  to: (value: string) => value && bcrypt.hashSync(value, Number(SAULT_ROUND)),
 };
 
 /**
@@ -35,7 +34,7 @@ export default class User extends BaseEntity {
     this.password = '';
   }
 
-  @Column('varchar')
+  @Column('varchar', { nullable: true })
   name: string;
 
   @PrimaryGeneratedColumn('uuid')

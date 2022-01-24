@@ -1,11 +1,11 @@
 import { getRepository } from 'typeorm';
 // import bcrypt from 'bcryptjs';
-// import { SAULT_ROUND } from '../../common/constants';
 import User from '../../entity/User';
 import { IUser } from '../../common/interfaces';
 import UserModel from './user.model';
 import Task from '../../entity/Task';
 
+// const { SAULT_ROUND } = process.env;
 /**
  * function to return all users taken from Data Base
  * @returns all users or empty array if none
@@ -17,6 +17,16 @@ const getAllUsers = async () => {
 };
 
 /**
+ * function to find user by it's id
+ * @param userId - user id type string
+ * @returns an user by id found from all users
+ */
+const findUser = async (userId: string) => {
+  const singleUser = await getRepository(User).findOne({ id: userId });
+  return singleUser;
+};
+
+/**
  * function to add new user to all users
  * @param user - new user details object type IUser
  * @returns user
@@ -24,22 +34,14 @@ const getAllUsers = async () => {
  */
 const addNewUser = async (userDetails: IUser) => {
   const user = new User();
-  // const hashedPswd = bcrypt.hashSync(userDetails.password, SAULT_ROUND);
+  // const hashedPswd = bcrypt.hashSync(userDetails.password, Number(SAULT_ROUND));
   user.name = userDetails.name;
   user.login = userDetails.login;
   // user.password = hashedPswd;
+  // pasword now is hashed in User entity directly before saving
   user.password = userDetails.password;
   const singleUser = await getRepository(User).save(user);
-  return singleUser;
-};
-
-/**
- * function to find user by it's id
- * @param userId - user id type string
- * @returns an user by id found from all users
- */
-const findUser = async (userId: string) => {
-  const singleUser = await getRepository(User).findOne(userId);
+  // const singleUser = findUser(user.id);
   return singleUser;
 };
 

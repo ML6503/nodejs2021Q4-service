@@ -3,12 +3,13 @@ import bcrypt from 'bcryptjs';
 import User from '../../entity/User';
 
 export const getUserId = async (login: string, rawPassword: string) => {
-  const singleUser = await getRepository(User).findOne({ where: { login } });
+  const singleUser = await getRepository(User).findOne({ login });
 
   if (!singleUser) {
     throw new Error('no user with such login');
   }
   const match = await bcrypt.compare(rawPassword, singleUser.password);
+
   if (!match) {
     throw new Error('wrong password');
   }
