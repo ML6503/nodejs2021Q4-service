@@ -3,15 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 import 'reflect-metadata';
 import fastify, { FastifyInstance } from 'fastify';
 import fastifySwagger from 'fastify-swagger';
-// import fastifyJwt from 'fastify-jwt';
 import fpJWT from './auth/fpJWT';
 import { boardsRoutes } from './resources/boards/board.router';
 import { tasksRoutes } from './resources/tasks/task.router';
 import { usersRoutes } from './resources/users/user.router';
 import { customLogger } from './customLogger';
 import { loginRoute } from './resources/login/login.router';
-
-// const SECRET_KEY = 'supersecret';
 
 /**
  * const server get assigned with a Fastify factory function for the standard fastify http, https, or http2 server instance.
@@ -41,7 +38,7 @@ server.addHook('onRequest', (req, _reply, done) => {
 server.addHook('onResponse', (req, reply, done) => {
   req.log.info(
     {
-      url: req.raw.url, // add url to response as well for simple correlating
+      url: req.raw.url,
       statusCode: reply.raw.statusCode,
     },
     'request completed'

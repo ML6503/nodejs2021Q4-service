@@ -1,4 +1,6 @@
 import { getRepository } from 'typeorm';
+// import bcrypt from 'bcryptjs';
+// import { SAULT_ROUND } from '../../common/constants';
 import User from '../../entity/User';
 import { IUser } from '../../common/interfaces';
 import UserModel from './user.model';
@@ -22,8 +24,10 @@ const getAllUsers = async () => {
  */
 const addNewUser = async (userDetails: IUser) => {
   const user = new User();
+  // const hashedPswd = bcrypt.hashSync(userDetails.password, SAULT_ROUND);
   user.name = userDetails.name;
   user.login = userDetails.login;
+  // user.password = hashedPswd;
   user.password = userDetails.password;
   const singleUser = await getRepository(User).save(user);
   return singleUser;

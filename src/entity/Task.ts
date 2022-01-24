@@ -4,7 +4,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   BaseEntity,
-  ManyToOne
+  ManyToOne,
 } from 'typeorm';
 import User from './User';
 import Board from './Board';
@@ -53,8 +53,7 @@ export default class Task extends BaseEntity {
   })
   boardId: string;
 
-
-  @Column('varchar', { length: 100, nullable: true, name: 'user_id' })
+  @Column('varchar', { nullable: true, name: 'user_id' })
   userId: string | null;
 
   @PrimaryGeneratedColumn('uuid')

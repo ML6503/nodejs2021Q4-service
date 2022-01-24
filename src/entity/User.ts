@@ -11,8 +11,9 @@ import {
 import bcrypt from 'bcryptjs';
 import Board from './Board';
 import Task from './Task';
-import { SAULT_ROUND } from '../common/constants';
+// import { SAULT_ROUND } from '../common/constants';
 
+const { SAULT_ROUND } = process.env;
 const toBcryptHash: ValueTransformer = {
   from: (value: string) => value,
   to: (value: string) => value && bcrypt.hashSync(value, SAULT_ROUND),
@@ -34,16 +35,17 @@ export default class User extends BaseEntity {
     this.password = '';
   }
 
-  @Column('varchar', { length: 100 })
+  @Column('varchar')
   name: string;
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('varchar', { length: 100 })
+  @Column('varchar')
   login: string;
 
-  @Column({ transformer: toBcryptHash, select: false })
+  @Column({ transformer: toBcryptHash })
+  // @Column('varchar')
   password: string;
 
   @ManyToOne(() => Board, (board) => board.user)
