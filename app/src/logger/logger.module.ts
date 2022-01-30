@@ -2,8 +2,6 @@ import { LoggerModule } from 'nestjs-pino';
 import pretty from 'pino-pretty';
 import { config } from 'src/common/config';
 import { ERROR, INFO } from 'src/common/constants';
-// import { ERROR, INFO } from '../common/constants';
-// import { config } from '../common/config';
 
 export default LoggerModule.forRoot({
   pinoHttp: [
@@ -14,7 +12,7 @@ export default LoggerModule.forRoot({
       translateTime: 'UTC:dd/mm/yyyy, h:MM:ss TT Z',
     }),
     {
-      level: process.env.NODE_ENV !== 'production' ? 'trace' : 'info',
+      level: config.NODE_ENV !== 'production' ? 'trace' : 'info',
       transport: {
         targets: [
           {
