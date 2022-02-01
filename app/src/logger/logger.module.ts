@@ -17,7 +17,7 @@ export default LoggerModule.forRoot({
         targets: [
           {
             level: ERROR,
-            target: 'pino/file',
+            target: 'pino-pretty',
             options: {
               destination: './src/logs/error.log',
               mkdir: true,
@@ -28,7 +28,7 @@ export default LoggerModule.forRoot({
           },
           {
             level: config.LOG_LEVEL || INFO,
-            target: 'pino/file',
+            target: 'pino-pretty',
             options: {
               colorize: true,
               ignore: 'hostname, pid',

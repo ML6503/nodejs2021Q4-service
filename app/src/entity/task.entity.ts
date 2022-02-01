@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import {
   Entity,
   Column,
@@ -21,16 +20,16 @@ import Board from './board.entity';
 
 @Entity({ name: 'tasks' })
 export default class Task extends BaseEntity {
-  constructor() {
-    super();
-    this.id = uuidv4();
-    this.order = 0;
-    this.columnId = '';
-    this.title = '';
-    this.boardId = '';
-    this.description = '';
-    this.userId = null;
-  }
+  // constructor() {
+  //   super();
+  //   this.id = uuidv4();
+  //   this.order = 0;
+  //   this.columnId = '';
+  //   this.title = '';
+  //   this.boardId = '';
+  //   this.description = '';
+  //   this.userId = null;
+  // }
 
   @Column('varchar', { length: 100 })
   title: string;
@@ -59,7 +58,7 @@ export default class Task extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne((_type) => Board, (board) => board.task)
+  @ManyToOne(() => Board, (board) => board.task)
   board: Board | undefined;
 
   @ManyToOne(() => User, (user) => user.task, { onDelete: 'SET NULL' })

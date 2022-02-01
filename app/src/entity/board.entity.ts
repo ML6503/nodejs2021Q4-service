@@ -19,12 +19,12 @@ import User from './user.entity';
 
 @Entity({ name: 'boards' })
 export default class Board extends BaseEntity {
-  constructor() {
-    super();
-    this.id = uuidv4();
-    this.title = '';
-    this.columns = [];
-  }
+  // constructor() {
+  //   super();
+  //   this.id = uuidv4();
+  //   this.title = '';
+  //   this.columns = [];
+  // }
 
   @Column('varchar', { length: 100 })
   title: string | undefined;

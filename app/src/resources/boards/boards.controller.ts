@@ -3,13 +3,14 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { BoardsService } from './boards.service';
-import { CreateBoardDto } from '../../dto/create-board.dto';
-import { UpdateBoardDto } from '../../dto/update-board.dto';
+import { CreateBoardDto } from '../dto/create-board.dto';
+import { UpdateBoardDto } from '../dto/update-board.dto';
 
 @Controller('boards')
 export class BoardsController {
@@ -25,18 +26,21 @@ export class BoardsController {
     return this.boardsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.boardsService.findOne(+id);
+  @Get(':boardId')
+  findOne(@Param('boardId', ParseUUIDPipe) boardId: string) {
+    return this.boardsService.findOne(boardId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBoardDto: UpdateBoardDto) {
-    return this.boardsService.update(+id, updateBoardDto);
+  @Put('boardId')
+  update(
+    @Param('boardId', ParseUUIDPipe) boardId: string,
+    @Body() updateBoardDto: UpdateBoardDto,
+  ) {
+    return this.boardsService.update(boardId, updateBoardDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.boardsService.remove(+id);
+  @Delete(':boardId')
+  remove(@Param('boardId', ParseUUIDPipe) boardId: string) {
+    return this.boardsService.remove(boardId);
   }
 }

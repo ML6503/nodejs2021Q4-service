@@ -11,4 +11,8 @@ export const config = {
   AUTH_MODE: process.env.AUTH_MODE === TRUE,
   LOG_LEVEL: process.env.LOG_LEVEL ? process.env.LOG_LEVEL : DEBUG,
   USE_FASTIFY: process.env.USE_FASTIFY,
+  POSTGRES_USER: process.env.POSTGRES_USER,
+  POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
+  POSTGRES_DB: process.env.POSTGRES_DB,
+  POSTGRES_PORT: +process.env.POSTGRES_PORT || 5432,
 };
