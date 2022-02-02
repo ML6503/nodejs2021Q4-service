@@ -7,9 +7,10 @@ import {
   Delete,
   Put,
   ParseUUIDPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateUserDto, CreatedUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 
 @Controller('users')
@@ -22,25 +23,41 @@ export class UsersController {
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  async findAll(): Promise<CreatedUserDto[]> {
+    const allUsers = await this.usersService.findAll();
+    if (!allUsers) {
+      throw NotFoundException;
+    }
+    return allUsers.map((u) => new CreatedUserDto(u));
   }
 
   @Get(':userId')
-  findOne(@Param('userId', ParseUUIDPipe) userId: string) {
-    return this.usersService.findOne(userId);
+  async findOne(@Param('userId', ParseUUIDPipe) userId: string) {
+    const singleUser = await this.usersService.findOne(userId);
+    if (!singleUser) {
+      throw NotFoundException;
+    }
+    return new CreatedUserDto(singleUser);
   }
 
   @Put(':userId')
-  update(
+  async update(
     @Param('userId', ParseUUIDPipe) userId: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
+    const singleUser = await this.usersService.findOne(userId);
+    if (!singleUser) {
+      throw NotFoundException;
+    }
     return this.usersService.update(userId, updateUserDto);
   }
 
   @Delete(':userId')
-  remove(@Param('userId', ParseUUIDPipe) id: string) {
-    return this.usersService.remove(id);
+  async remove(@Param('userId', ParseUUIDPipe) userId: string) {
+    const singleUser = await this.usersService.findOne(userId);
+    if (!singleUser) {
+      throw NotFoundException;
+    }
+    return this.usersService.remove(userId);
   }
 }

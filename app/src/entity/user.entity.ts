@@ -8,6 +8,7 @@ import {
   ValueTransformer,
 } from 'typeorm';
 import bcrypt from 'bcryptjs';
+// import { Exclude } from 'class-transformer';
 import Board from './board.entity';
 import Task from './task.entity';
 import { config } from '../common/config';
@@ -44,6 +45,7 @@ export default class User extends BaseEntity {
   login: string;
 
   @Column({ transformer: toBcryptHash })
+  // @Exclude({ toPlainOnly: true })
   // @Column('varchar')
   password: string;
 

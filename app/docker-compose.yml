@@ -19,7 +19,7 @@ services:
       driver: json-file
     volumes:
       - ./src:/usr/app/src
-      - .logs:/usr/app/logs
+      - ./logs:/usr/app/logs
       - ./nodemon.json:/usr/app/nodemon.json
 
     depends_on:
@@ -31,7 +31,7 @@ services:
     command: npm run start:dev
 
   postgres:
-    image: postgres-trello
+    image: postgres
     env_file: .env
     build: ./src/database/
     restart: always
