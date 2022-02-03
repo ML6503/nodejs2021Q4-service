@@ -18,10 +18,12 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
     const newUser = await this.usersService.create(createUserDto);
-    return new CreatedUserDto(newUser);
+    const singleUser = await this.usersService.findOne(newUser.id);
+    return new CreatedUserDto(singleUser);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
@@ -39,16 +41,23 @@ export class UsersController {
     return new CreatedUserDto(singleUser);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Put(':userId')
   async update(
     @Param('userId', ParseUUIDPipe) userId: string,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.usersService.update(userId, updateUserDto);
+    await this.usersService.update(userId, updateUserDto);
+    const singleUser = await this.usersService.findOne(userId);
+    return new CreatedUserDto(singleUser);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Delete(':userId')
   async remove(@Param('userId', ParseUUIDPipe) userId: string) {
-    return this.usersService.remove(userId);
+    await this.usersService.remove(userId);
+    const allUsers = await this.usersService.findAll();
+
+    return allUsers.map((u) => new CreatedUserDto(u));
   }
 }

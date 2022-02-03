@@ -7,7 +7,7 @@ import {
   OneToMany,
   ValueTransformer,
 } from 'typeorm';
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 // import { Exclude } from 'class-transformer';
 import Board from './board.entity';
 import Task from './task.entity';
@@ -16,7 +16,7 @@ import { config } from '../common/config';
 const SAULT_ROUND = +config.SAULT_ROUND;
 const toBcryptHash: ValueTransformer = {
   from: (value: string) => value,
-  to: (value: string) => value && bcrypt.hashSync(value, SAULT_ROUND),
+  to: (value: string) => value &&  bcrypt.hashSync(value, SAULT_ROUND),
 };
 
 /**
@@ -47,6 +47,10 @@ export default class User extends BaseEntity {
   @Column({ transformer: toBcryptHash })
   // @Exclude({ toPlainOnly: true })
   // @Column('varchar')
+  // @BeforeInsert()
+  // async hashPassword() {
+  //   this.password = await bcrypt.hash(this.password, SAULT_ROUND)
+  // }
   password: string;
 
   @ManyToOne(() => Board, (board) => board.user)
