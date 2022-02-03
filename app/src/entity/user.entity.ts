@@ -16,7 +16,7 @@ import { config } from '../common/config';
 const SAULT_ROUND = +config.SAULT_ROUND;
 const toBcryptHash: ValueTransformer = {
   from: (value: string) => value,
-  to: (value: string) => value &&  bcrypt.hashSync(value, SAULT_ROUND),
+  to: (value: string) => value && bcrypt.hashSync(value, SAULT_ROUND),
 };
 
 /**

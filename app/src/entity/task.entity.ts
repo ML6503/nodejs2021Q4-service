@@ -21,7 +21,7 @@ import Board from './board.entity';
 @Entity({ name: 'tasks' })
 export default class Task extends BaseEntity {
   @Column('varchar', { length: 100 })
-  title: string;
+  title?: string;
 
   @Column('text')
   description: string;

@@ -41,7 +41,7 @@ export class UsersService {
   async findAll(): Promise<User[]> {
     const allUsers = await this.usersRepository.find();
     if (!allUsers) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Users not found');
     }
 
     return allUsers;

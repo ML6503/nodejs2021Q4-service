@@ -9,7 +9,6 @@ export class CreateBoardDto {
 export class CreatedBoardDto extends PartialType(CreateBoardDto) {
   /**
    * Extends by partial type CreateBoardDto
-   * password is excluded
    */
   constructor(partial: Partial<CreatedBoardDto>) {
     super();
