@@ -20,7 +20,7 @@ export class UsersController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post()
-  async create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() createUserDto: CreateUserDto): Promise<CreatedUserDto> {
     const newUser = await this.usersService.create(createUserDto);
     const singleUser = await this.usersService.findOne(newUser.id);
     return new CreatedUserDto(singleUser);
@@ -49,6 +49,7 @@ export class UsersController {
   ) {
     await this.usersService.update(userId, updateUserDto);
     const singleUser = await this.usersService.findOne(userId);
+
     return new CreatedUserDto(singleUser);
   }
 

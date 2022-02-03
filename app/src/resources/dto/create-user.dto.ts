@@ -8,7 +8,13 @@ export class CreateUserDto {
   readonly password: string;
 }
 
-export class CreatedUserDto extends OmitType(CreateUserDto, ['password']) {
+export class CreatedUserDto extends OmitType(CreateUserDto, [
+  'password',
+] as const) {
+  /**
+   * Extends by partial type CreateUserDto
+   * password is excluded
+   */
   @Exclude()
   // @ApiHideProperty()
   password: string;

@@ -9,7 +9,7 @@ import User from './user.entity';
 import Board from './board.entity';
 
 /**
- * constructs Board Task entity from params details and adding generated uuid
+ * Creates Board Task entity from params details and adding generated uuid
  * @param title - naming task
  * @param description - of this task
  * @param order - that task will appear in column
@@ -20,17 +20,6 @@ import Board from './board.entity';
 
 @Entity({ name: 'tasks' })
 export default class Task extends BaseEntity {
-  // constructor() {
-  //   super();
-  //   this.id = uuidv4();
-  //   this.order = 0;
-  //   this.columnId = '';
-  //   this.title = '';
-  //   this.boardId = '';
-  //   this.description = '';
-  //   this.userId = null;
-  // }
-
   @Column('varchar', { length: 100 })
   title: string;
 

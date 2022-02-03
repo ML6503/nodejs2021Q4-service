@@ -3,7 +3,10 @@ import { Exclude } from 'class-transformer';
 import { CreateUserDto } from './create-user.dto';
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {
-    @Exclude()
-    // @ApiHideProperty()
-    password: string;
+  /**
+   * Extends by partial type CreateUserDto
+   * password is excluded
+   */
+  @Exclude()
+  password: string;
 }

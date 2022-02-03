@@ -14,7 +14,7 @@ import User from './user.entity';
  * constructs Board Entity for typeorm
  * @param title - title the board
  * @param columns- array of columns of this board
- * * @param tasksId - ids of tasks of this board
+ * @param tasksId - ids of tasks of this board
  */
 
 @Entity({ name: 'boards' })
