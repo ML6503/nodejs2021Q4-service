@@ -50,7 +50,7 @@ export class TasksController {
   @Put(':taskId')
   async update(
     @Param('boardId', ParseUUIDPipe) boardId: string,
-    @Param(':taskId', ParseUUIDPipe) taskId: string,
+    @Param('taskId', ParseUUIDPipe) taskId: string,
     @Body() updateTaskDto: UpdateTaskDto,
   ) {
     await this.tasksService.update(boardId, taskId, updateTaskDto);
@@ -63,7 +63,7 @@ export class TasksController {
   @Delete(':taskId')
   async remove(
     @Param('boardId', ParseUUIDPipe) boardId: string,
-    @Param(':taskId', ParseUUIDPipe) taskId: string,
+    @Param('taskId', ParseUUIDPipe) taskId: string,
   ) {
     await this.tasksService.remove(taskId, boardId);
     const allTasks = await this.tasksService.findAll();

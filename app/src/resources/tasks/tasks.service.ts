@@ -57,9 +57,9 @@ export class TasksService {
       if (singleTask) {
         return singleTask;
       }
-      throw new Error('Task not found');
+      throw new NotFoundException('Task not found');
     }
-    throw new Error('No board with such board ID');
+    throw new NotFoundException('No board with such board ID');
   }
 
   /**

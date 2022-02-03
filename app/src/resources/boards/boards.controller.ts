@@ -41,7 +41,7 @@ export class BoardsController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Put('boardId')
+  @Put(':boardId')
   async update(
     @Param('boardId', ParseUUIDPipe) boardId: string,
     @Body() updateBoardDto: UpdateBoardDto,
