@@ -37,6 +37,13 @@ export default LoggerModule.forRoot({
               mkdir: true,
             },
           },
+          // {
+          //   target: 'pino-pretty',
+          //   colorize: true,
+          //   ignore: 'hostname, pid',
+          //   levelFirst: true,
+          //   translateTime: 'UTC:mm/mm/yyyy, h:MM:ss TT Z',
+          // },
         ],
       },
     },

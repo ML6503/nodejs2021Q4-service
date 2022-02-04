@@ -9,6 +9,8 @@ import {
 } from 'typeorm';
 import Task from './task.entity';
 import User from './user.entity';
+import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
+import { CreatedTaskDto } from 'src/resources/dto/create-task.dto';
 
 /**
  * constructs Board Entity for typeorm
@@ -32,6 +34,10 @@ export default class Board extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string | undefined;
 
+  @ApiProperty({
+    example: [],
+    description: 'list of all tasks',
+  })
   @Column({
     type: 'jsonb',
     nullable: false,
@@ -40,9 +46,11 @@ export default class Board extends BaseEntity {
   })
   columns: Array<{ id: string; order: number; title: string }>;
 
+  @ApiHideProperty()
   @OneToMany(() => Task, (task) => task.board, { onDelete: 'CASCADE' })
   task: Task | undefined;
 
+  @ApiHideProperty()
   @OneToMany(() => User, (user) => user.board)
   @JoinColumn()
   user: User | undefined;

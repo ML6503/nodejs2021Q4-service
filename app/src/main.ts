@@ -19,13 +19,13 @@ async function bootstrap() {
   });
   app.useLogger(app.get(Logger));
   const configSwagger = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Trello Clone @ RS School NodeJS')
+    .setDescription('Trello Clone API description')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('trello-clone')
     .build();
   const document = SwaggerModule.createDocument(app, configSwagger);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api/doc', app, document);
 
   await app.listen(config.PORT, '0.0.0.0', () =>
     console.log(`Server listen on port ${config.PORT}`),

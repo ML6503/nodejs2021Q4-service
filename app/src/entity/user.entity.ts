@@ -8,7 +8,7 @@ import {
   ValueTransformer,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-// import { Exclude } from 'class-transformer';
+import { ApiHideProperty } from '@nestjs/swagger';
 import Board from './board.entity';
 import Task from './task.entity';
 import { config } from '../common/config';
@@ -44,6 +44,7 @@ export default class User extends BaseEntity {
   @Column('varchar')
   login: string;
 
+  @ApiHideProperty()
   @Column({ transformer: toBcryptHash })
   // @Exclude({ toPlainOnly: true })
   // @Column('varchar')
@@ -53,9 +54,11 @@ export default class User extends BaseEntity {
   // }
   password: string;
 
+  @ApiHideProperty()
   @ManyToOne(() => Board, (board) => board.user)
   board: Board | undefined;
 
+  @ApiHideProperty()
   @OneToMany(() => Task, (task) => task.user, { onDelete: 'SET NULL' })
   task: Task | undefined | null;
 }

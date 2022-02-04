@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import User from './user.entity';
 import Board from './board.entity';
+import { ApiHideProperty } from '@nestjs/swagger';
 
 /**
  * Creates Board Task entity from params details and adding generated uuid
@@ -47,9 +48,11 @@ export default class Task extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @ApiHideProperty()
   @ManyToOne(() => Board, (board) => board.task)
   board: Board | undefined;
 
+  @ApiHideProperty()
   @ManyToOne(() => User, (user) => user.task, { onDelete: 'SET NULL' })
   user: User | undefined | null;
 }

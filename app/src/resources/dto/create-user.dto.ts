@@ -1,5 +1,6 @@
 import { Exclude } from 'class-transformer';
 import { OmitType } from '@nestjs/mapped-types';
+import { ApiHideProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
   readonly name: string;
@@ -8,16 +9,15 @@ export class CreateUserDto {
   readonly password: string;
 }
 
-export class CreatedUserDto extends OmitType(CreateUserDto, [
-  'password',
-] as const) {
+export class CreatedUserDto extends CreateUserDto {
   /**
    * Extends by partial type CreateUserDto
    * password is excluded
    */
   @Exclude()
-  // @ApiHideProperty()
+  @ApiHideProperty()
   password: string;
+  readonly id: string;
 
   constructor(partial: Partial<CreatedUserDto>) {
     super();
