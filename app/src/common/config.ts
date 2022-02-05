@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 import { DEBUG, TRUE } from './constants';
 
-dotenv.config({ path: __dirname + '/.env' });
+dotenv.config({ path: `${__dirname}/.env` });
 
 export const config = {
   PORT: Number(process.env.PORT) || 4000,

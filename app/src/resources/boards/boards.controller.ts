@@ -11,12 +11,12 @@ import {
   ClassSerializerInterceptor,
   UseGuards,
 } from '@nestjs/common';
-import { BoardsService } from './boards.service';
-import { CreateBoardDto, CreatedBoardDto } from '../dto/create-board.dto';
-import { UpdateBoardDto } from '../dto/update-board.dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import Board from 'src/entity/board.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { BoardsService } from './boards.service';
+import { CreateBoardDto, CreatedBoardDto } from '../dto/create-board.dto';
+import { UpdateBoardDto } from '../dto/update-board.dto';
 
 @ApiTags('boards')
 @Controller('boards')
@@ -63,7 +63,7 @@ export class BoardsController {
   @ApiBody({ type: CreateBoardDto })
   async update(
     @Param('boardId', ParseUUIDPipe) boardId: string,
-    @Body() updateBoardDto: UpdateBoardDto
+    @Body() updateBoardDto: UpdateBoardDto,
   ) {
     await this.boardsService.update(boardId, updateBoardDto);
     const board = await this.boardsService.findOne(boardId);

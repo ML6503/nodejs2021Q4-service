@@ -11,12 +11,12 @@ import {
   ClassSerializerInterceptor,
   UseGuards,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto, CreatedUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import User from 'src/entity/user.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UsersService } from './users.service';
+import { CreateUserDto, CreatedUserDto } from '../dto/create-user.dto';
+import { UpdateUserDto } from '../dto/update-user.dto';
 
 @ApiTags('users')
 @Controller('users')

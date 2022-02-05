@@ -11,12 +11,12 @@ import {
   ClassSerializerInterceptor,
   UseGuards,
 } from '@nestjs/common';
-import { TasksService } from './tasks.service';
-import { CreatedTaskDto, CreateTaskDto } from '../dto/create-task.dto';
-import { UpdateTaskDto } from '../dto/update-task.dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import Task from 'src/entity/task.entity';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { TasksService } from './tasks.service';
+import { CreatedTaskDto, CreateTaskDto } from '../dto/create-task.dto';
+import { UpdateTaskDto } from '../dto/update-task.dto';
 
 @ApiTags('tasks')
 @Controller('/boards/:boardId/tasks')
@@ -30,7 +30,7 @@ export class TasksController {
   @ApiResponse({ status: 201, type: Task })
   async create(
     @Param('boardId', ParseUUIDPipe) boardId: string,
-    @Body() createTaskDto: CreateTaskDto
+    @Body() createTaskDto: CreateTaskDto,
   ): Promise<CreatedTaskDto> {
     createTaskDto.boardId = boardId;
     const task = await this.tasksService.create(createTaskDto);
@@ -57,7 +57,7 @@ export class TasksController {
   @ApiResponse({ status: 200, type: Task })
   async findOne(
     // @Param('boardId', ParseUUIDPipe) boardId: string,
-    @Param('taskId', ParseUUIDPipe) taskId: string
+    @Param('taskId', ParseUUIDPipe) taskId: string,
   ) {
     // const singleTask = await this.tasksService.findOne(boardId, taskId);
     const singleTask = await this.tasksService.findOne(taskId);
@@ -73,7 +73,7 @@ export class TasksController {
   async update(
     // @Param('boardId', ParseUUIDPipe) boardId: string,
     @Param('taskId', ParseUUIDPipe) taskId: string,
-    @Body() updateTaskDto: UpdateTaskDto
+    @Body() updateTaskDto: UpdateTaskDto,
   ) {
     // await this.tasksService.update(boardId, taskId, updateTaskDto);
     await this.tasksService.update(taskId, updateTaskDto);
@@ -91,7 +91,7 @@ export class TasksController {
   @ApiResponse({ status: 204 })
   async remove(
     @Param('boardId', ParseUUIDPipe) boardId: string,
-    @Param('taskId', ParseUUIDPipe) taskId: string
+    @Param('taskId', ParseUUIDPipe) taskId: string,
   ) {
     await this.tasksService.remove(taskId, boardId);
     const allTasks = await this.tasksService.findAll();

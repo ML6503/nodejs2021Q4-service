@@ -7,9 +7,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { plainToClass } from 'class-transformer';
 import User from 'src/entity/user.entity';
+import Task from 'src/entity/task.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
-import Task from 'src/entity/task.entity';
 
 @Injectable()
 export class UsersService {
@@ -22,7 +22,7 @@ export class UsersService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
     @InjectRepository(Task)
-    private tasksRepository: Repository<Task>
+    private tasksRepository: Repository<Task>,
   ) {}
 
   /**

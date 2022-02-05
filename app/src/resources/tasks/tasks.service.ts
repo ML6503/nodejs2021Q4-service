@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { plainToInstance } from 'class-transformer';
 import Task from 'src/entity/task.entity';
+import Board from 'src/entity/board.entity';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { UpdateTaskDto } from '../dto/update-task.dto';
-import Board from 'src/entity/board.entity';
 
 @Injectable()
 export class TasksService {
@@ -18,7 +18,7 @@ export class TasksService {
     @InjectRepository(Task)
     private tasksRepository: Repository<Task>,
     @InjectRepository(Board)
-    private boardsRepository: Repository<Board>
+    private boardsRepository: Repository<Board>,
   ) {}
 
   /**
@@ -71,6 +71,7 @@ export class TasksService {
     }
     throw new NotFoundException('Task not found');
   }
+
   /**
    * promise-like function to update some or all task details
    * @param id of the task type uiid

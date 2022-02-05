@@ -5,9 +5,9 @@ import {
   BaseEntity,
   ManyToOne,
 } from 'typeorm';
+import { ApiHideProperty } from '@nestjs/swagger';
 import User from './user.entity';
 import Board from './board.entity';
-import { ApiHideProperty } from '@nestjs/swagger';
 
 /**
  * Creates Board Task entity from params details and adding generated uuid

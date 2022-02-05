@@ -2,8 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { AppModule } from './app.module';
 import { Logger } from 'nestjs-pino';
+import { AppModule } from './app.module';
 import { config } from './common/config';
 
 async function bootstrap() {

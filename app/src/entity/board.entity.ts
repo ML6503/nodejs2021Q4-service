@@ -7,10 +7,10 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import Task from './task.entity';
-import User from './user.entity';
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import { CreatedTaskDto } from 'src/resources/dto/create-task.dto';
+import Task from './task.entity';
+import User from './user.entity';
 
 /**
  * constructs Board Entity for typeorm

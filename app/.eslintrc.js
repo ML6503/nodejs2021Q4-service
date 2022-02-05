@@ -2,33 +2,33 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: 'tsconfig.json',
-    tsconfigRootDir: __dirname,
     sourceType: 'module',
-    ecmaVersion: 2020,
-    createDefaultProgram: true,
-    ecmaFeatures: {
-      impliedStrict: true,
+  },
+  settings: {
+    noInlineConfig: true,
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts', '.d.ts'],
+        moduleDirectory: ['node_modules', 'src/'],
+        typescript: {},
+      },
+    },
+    node: {
+      allowModules: ['electron'],
+      resolvePaths: [__dirname],
+      tryExtensions: ['.js', '.ts', '.d.ts'],
     },
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
-  // extends: [
-  //   'plugin:@typescript-eslint/recommended',
-  //   'plugin:prettier/recommended',
-  // ],
   extends: [
-    'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'plugin:node/recommended',
-    'airbnb-base',
-    'prettier',
+    'plugin:prettier/recommended',
   ],
+
   root: true,
   env: {
     node: true,
     jest: true,
-    es2020: true,
-    jasmine: true,
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
@@ -44,5 +44,7 @@ module.exports = {
     'no-console': 'off',
     'class-methods-use-this': 'off',
     'arrow-body-style': 'off',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
   },
 };

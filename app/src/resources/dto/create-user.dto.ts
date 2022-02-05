@@ -4,8 +4,10 @@ import { ApiHideProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
   readonly name: string;
+
   // @IsNotEmpty({message: "Login cannot be empty."}
   readonly login: string;
+
   readonly password: string;
 }
 
@@ -17,6 +19,7 @@ export class CreatedUserDto extends CreateUserDto {
   @Exclude()
   @ApiHideProperty()
   password: string;
+
   readonly id: string;
 
   constructor(partial: Partial<CreatedUserDto>) {
