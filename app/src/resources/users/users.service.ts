@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { plainToClass } from 'class-transformer';
@@ -58,6 +62,22 @@ export class UsersService {
       throw new NotFoundException('User not found');
     }
     return singleUser;
+  }
+
+  /**
+   * promise-like function to get a user from users repository
+   * @param login of the user
+   * @returns user object with param id from repository
+   */
+  async findOneByLogin(login: string): Promise<User> {
+    const user = await this.usersRepository.findOne({
+      login,
+    });
+    console.log('USER by login found', user);
+    if (user) {
+      return user;
+    }
+    throw new ForbiddenException('Login is forbidden');
   }
 
   /**

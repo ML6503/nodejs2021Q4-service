@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { OmitType } from '@nestjs/mapped-types';
+
 import { ApiHideProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {

@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import { IBoard } from 'src/common/interfaces';
 import Board from 'src/entity/board.entity';
+import Task from 'src/entity/task.entity';
 import { Repository } from 'typeorm';
 import { CreateBoardDto } from '../dto/create-board.dto';
 import { UpdateBoardDto } from '../dto/update-board.dto';
@@ -16,6 +17,8 @@ export class BoardsService {
   constructor(
     @InjectRepository(Board)
     private boardsRepository: Repository<Board>,
+    @InjectRepository(Task)
+    private tasksRepository: Repository<Task>,
   ) {}
 
   /**
@@ -78,6 +81,7 @@ export class BoardsService {
   async remove(id: string): Promise<IBoard[]> {
     const board = await this.boardsRepository.findOne({ id });
     if (board) {
+      await this.tasksRepository.delete({ boardId: id });
       await this.boardsRepository.delete({ id });
       const results = await this.findAll();
       return results;

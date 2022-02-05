@@ -10,6 +10,7 @@ import { TasksModule } from './resources/tasks/tasks.module';
 import LoggerModule from './logger/logger.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 // import { DatabaseModule } from './database/database.module';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -26,6 +27,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           keepConnectionAlive: true,
         }),
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
