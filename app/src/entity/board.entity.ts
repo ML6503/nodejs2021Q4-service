@@ -32,7 +32,7 @@ export default class Board extends BaseEntity {
   title: string | undefined;
 
   @PrimaryGeneratedColumn('uuid')
-  id: string | undefined;
+  id: string | undefined | null;
 
   @ApiProperty({
     example: [],

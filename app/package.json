@@ -1,7 +1,7 @@
 {
-  "name": "app",
+  "name": "nestjs-trello-clone-rsschool-nodejs",
   "version": "0.0.1",
-  "description": "",
+  "description": "NestJS server for RS School NodeJS- trello clone",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
@@ -29,6 +29,12 @@
     "docker:up": "docker-compose up --build",
     "clean": "docker-compose down && docker system prune --volumes -af"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./test/setup.js"
+    ]
+  },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.1.6",
@@ -41,6 +47,7 @@
     "@nestjs/typeorm": "^8.0.3",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
+    "cross-env": "^7.0.3",
     "dotenv": "^14.3.2",
     "fastify-swagger": "^4.13.1",
     "nestjs-pino": "^2.5.0",
@@ -64,10 +71,16 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
+    "chai": "^4.3.6",
+    "debug": "^4.3.3",
+    "dirty-chai": "^2.0.1",
     "eslint": "^8.0.1",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^27.2.5",
+    "husky": "^7.0.4",
+    "jest": "^27.5.0",
+    "lint-staged": "^12.3.3",
     "pino-pretty": "^7.5.1",
     "prettier": "^2.3.2",
     "source-map-support": "^0.5.20",
@@ -77,22 +90,5 @@
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
   }
 }

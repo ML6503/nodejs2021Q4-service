@@ -22,7 +22,7 @@ export class UsersService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
     @InjectRepository(Task)
-    private tasksRepository: Repository<Task>,
+    private tasksRepository: Repository<Task>
   ) {}
 
   /**
@@ -73,7 +73,6 @@ export class UsersService {
     const user = await this.usersRepository.findOne({
       login,
     });
-    console.log('USER by login found', user);
     if (user) {
       return user;
     }
@@ -104,7 +103,7 @@ export class UsersService {
     const singleUser = await this.findOne(id);
     if (singleUser) {
       // executes UPDATE task SET userId = null WHERE userId  = id from param
-      await this.tasksRepository.update({ id }, { userId: null });
+      await this.tasksRepository.update({ userId: id }, { userId: null });
       await this.usersRepository.delete(id);
       return this.findAll();
     }

@@ -18,7 +18,7 @@ export class TasksService {
     @InjectRepository(Task)
     private tasksRepository: Repository<Task>,
     @InjectRepository(Board)
-    private boardsRepository: Repository<Board>,
+    private boardsRepository: Repository<Board>
   ) {}
 
   /**
@@ -30,7 +30,9 @@ export class TasksService {
     const task = plainToInstance(Task, createTaskDto);
     this.tasksRepository.create(task);
     await this.tasksRepository.save(task);
-    return task;
+    // return task;
+    const singleTask = await this.tasksRepository.findOne({ id: task.id });
+    return singleTask;
   }
 
   /**
@@ -50,35 +52,44 @@ export class TasksService {
    * @param id of the user type uiid
    * @returns user object with param id from repository
    */
-  async findOne(taskId: string, boardId: string): Promise<Task> {
-    const board = await this.boardsRepository.findOne({ id: boardId });
-    if (board) {
-      const singleTask = await this.tasksRepository.findOne({ id: taskId });
-      if (singleTask) {
-        return singleTask;
-      }
-      throw new NotFoundException('Task not found');
+  // async findOne(boardId: string, taskId: string): Promise<Task> {
+  //   const board = await this.boardsRepository.findOne({ id: boardId });
+  //   console.log('BOARD ', board, 'boardId ', boardId);
+  //   if (board) {
+  //     const singleTask = await this.tasksRepository.findOne({ id: taskId });
+  //     if (singleTask) {
+  //       return singleTask;
+  //     }
+  //     throw new NotFoundException('Task not found');
+  //   }
+  //   throw new NotFoundException('No board with such board ID');
+  // }
+  async findOne(taskId: string): Promise<Task> {
+    const singleTask = await this.tasksRepository.findOne({ id: taskId });
+    if (singleTask) {
+      return singleTask;
     }
-    throw new NotFoundException('No board with such board ID');
+    throw new NotFoundException('Task not found');
   }
-
   /**
    * promise-like function to update some or all task details
    * @param id of the task type uiid
    * @param updateTaskDto object with updated task details
    * @returns updated task with param id
    */
-  async update(boardId: string, taskId: string, updateTaskDto: UpdateTaskDto) {
-    const board = await this.boardsRepository.findOne({ id: boardId });
-    if (board) {
-      await this.tasksRepository.update(taskId, updateTaskDto);
-      const singleTask = await this.tasksRepository.findOne({ id: taskId });
-      if (singleTask) {
-        return singleTask;
-      }
-      throw new NotFoundException('Task not found');
+  // async update(boardId: string, taskId: string, updateTaskDto: UpdateTaskDto) {
+  async update(taskId: string, updateTaskDto: UpdateTaskDto) {
+    // const board = await this.boardsRepository.findOne({ id: boardId });
+    // if (board) {
+    // updateTaskDto.boardId = boardId;
+    await this.tasksRepository.update(taskId, updateTaskDto);
+    const singleTask = await this.tasksRepository.findOne({ id: taskId });
+    if (singleTask) {
+      return singleTask;
     }
-    throw new NotFoundException('Board not found');
+    throw new NotFoundException('Task not found');
+    // }
+    // throw new NotFoundException('Board not found');
   }
 
   /**
@@ -89,7 +100,8 @@ export class TasksService {
   async remove(taskId: string, boardId: string): Promise<Task[]> {
     const board = await this.boardsRepository.findOne({ id: boardId });
     if (board) {
-      const singleTask = await this.findOne(taskId, boardId);
+      // const singleTask = await this.findOne(boardId, taskId);
+      const singleTask = await this.findOne(taskId);
       if (singleTask) {
         await this.tasksRepository.delete({ id: taskId });
         const allTasks = await this.findAll();

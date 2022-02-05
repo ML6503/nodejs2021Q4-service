@@ -9,12 +9,14 @@ import {
   ParseUUIDPipe,
   UseInterceptors,
   ClassSerializerInterceptor,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto, CreatedUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import User from 'src/entity/user.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @ApiTags('users')
 @Controller('users')
@@ -22,6 +24,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(JwtAuthGuard)
   @Post()
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 201, type: User })
@@ -32,6 +35,7 @@ export class UsersController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(JwtAuthGuard)
   @Get()
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, type: [User] })
@@ -42,6 +46,7 @@ export class UsersController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(JwtAuthGuard)
   @Get(':userId')
   @ApiOperation({ summary: 'Get single user by id' })
   @ApiResponse({ status: 200, type: User })
@@ -51,6 +56,7 @@ export class UsersController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(JwtAuthGuard)
   @Put(':userId')
   @ApiOperation({ summary: 'Change single user details' })
   @ApiResponse({ status: 200, type: User })
@@ -66,13 +72,14 @@ export class UsersController {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(JwtAuthGuard)
   @Delete(':userId')
   @ApiOperation({ summary: 'Delete single user by id' })
   @ApiResponse({ status: 204 })
   async remove(@Param('userId', ParseUUIDPipe) userId: string) {
-    return await this.usersService.remove(userId);
-    // const allUsers = await this.usersService.findAll();
+    await this.usersService.remove(userId);
+    const allUsers = await this.usersService.findAll();
 
-    // return allUsers.map((u) => new CreatedUserDto(u));
+    return allUsers.map((u) => new CreatedUserDto(u));
   }
 }

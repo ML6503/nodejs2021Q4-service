@@ -13,3 +13,5 @@ export const DB_TYPE = 'postgres';
 export const HOST = 'localhost';
 
 export const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
+
+export const BEARER = 'Bearer';
