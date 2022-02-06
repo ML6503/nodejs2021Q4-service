@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
@@ -26,6 +27,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, configSwagger);
   SwaggerModule.setup('doc', app, document);
+
+  app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(config.PORT, '0.0.0.0', () =>
     console.log(`Server listen on port ${config.PORT}`),
