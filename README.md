@@ -1,72 +1,77 @@
-# RS School REST service
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+</p>
 
-## Prerequisites
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-- Git - [Download & Install Git](https://git-scm.com/downloads).
-- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
+  <p align="center">Simple Trello Clone server-side application.</p>
 
-## Downloading
+## Description
 
-```
-git clone {repository URL}
-```
+Project for RS School Node JS course
 
-## Installing NPM modules
+## Installation
 
-```
-npm install
-```
+```bash
+$ git clone https://github.com/ML6503/nodejs2021Q4-service.git
 
-## Running application
+$ git checkout -b nestJs
 
-```
-npm start
-```
+$ npm install
 
-After starting the app on port (4000 as default) you can open
-in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
-For more information about OpenAPI/Swagger please visit https://swagger.io/.
+or
 
-## Testing
-
-After application running open new terminal and enter:
-
-To run all tests without authorization
-
-```
-npm test
+$ npm ci
 ```
 
-To run only one of all test suites (users, boards or tasks)
+## Running the app
 
-```
-npm test <suite name>
-```
+```bash
 
-To run all test with authorization
-
-```
-npm run test:auth
+# in Docker
+$ npm run docker:up
 ```
 
-To run only specific test suite with authorization (users, boards or tasks)
+## Test
+
+```bash
+
+$ npm run test:auth
 
 ```
-npm run test:auth <suite name>
-```
 
-## Development
+## Load testing reports by Artillery
 
-If you're using VSCode, you can get a better developer experience from integration with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extensions.
+## Express
 
-### Auto-fix and format
+# Summary report
 
 ```
-npm run lint
+Summary
+Test duration	200 sec
+Virtual Users created	1801
+Virtual Users completed	566
+
+Scenario counts
+CRUD operations with user	1801 (100%)
+
+more details in artillery/reports/express/artillery-users-test.json.html
 ```
 
-### Debugging in VSCode
+## Fastify
 
-Press <kbd>F5</kbd> to debug.
+# Summary report
 
-For more information, visit: https://code.visualstudio.com/docs/editor/debugging
+```
+Summary
+Test duration	200 sec
+Virtual Users created	1813
+Virtual Users completed	443
+
+Scenario counts
+CRUD operations with user	1813 (100%)
+
+more details in artillery/reports/fastify/artillery-users-test.json.html
+
+```
